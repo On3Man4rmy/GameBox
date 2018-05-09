@@ -1,4 +1,4 @@
-package GameOfLife;
+package App;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -3,7 +3,8 @@ package GameOfLife;
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
-import App.App;
+import App.*;
+import App.Menu;
 
 
 /**
