@@ -19,7 +19,7 @@ public enum Colors {
     private final int b;
     private final String rgb;
 
-    private Colors(final int r,final int g,final int b) {
+    private Colors(final int r, final int g, final int b) {
         this.r = r;
         this.g = g;
         this.b = b;
@@ -31,24 +31,24 @@ public enum Colors {
     }
 
     //You can add methods like this too
-    public int getRed(){
+    public int getRed() {
         return r;
     }
 
-    public int getGreen(){
+    public int getGreen() {
         return g;
     }
 
-    public int getBlue(){
+    public int getBlue() {
         return r;
     }
 
     //Or even these
-    public Color getColor(){
-        return new Color(r,g,b);
+    public Color getColor() {
+        return new Color(r, g, b);
     }
 
-    public int getARGB(){
+    public int getARGB() {
         return 0xFF000000 | ((r << 16) & 0x00FF0000) | ((g << 8) & 0x0000FF00) | b;
     }
 }

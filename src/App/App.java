@@ -7,6 +7,12 @@ import Sokoban.View.GameView;
 import javax.swing.*;
 import java.io.File;
 
+/**
+ * Desktop pane, Open new games from here
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 09/05/18
+ */
 public class App extends JFrame {
     public static JDesktopPane desk;
     public static  App app = new App();

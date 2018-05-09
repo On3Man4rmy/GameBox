@@ -1,5 +1,9 @@
 package Sokoban.View;
 
+import App.App;
+import App.Menu;
+
+import GameOfLife.StartGameWindow;
 import Sokoban.Model.*;
 
 import javax.swing.*;
@@ -16,12 +20,36 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
 
+/**
+ * The window, in which the game is shown
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 09/05/18
+ */
+
 public class GameView extends JInternalFrame implements Observer {
     Sokoban sokoban;
     BoardView boardView;
     MenuView menuView;
-    JMenu[] menus = {new JMenu("Options")};
-    JMenuItem[] items = {new JMenuItem("Restart"), new JMenuItem("Save"), new JMenuItem("Load")};
+    private Menu[] menus = {new Menu("Options")
+            .addItem("Restart", e -> {
+                if (sokoban.isDone()) {
+                    sokoban.rebuildBoard();
+                    sokoban.setDone(false);
+
+                } else {
+                    sokoban.rebuildBoard();
+                }
+
+            })
+            .addItem("Save", e -> {
+                saveGame();
+            })
+            .addItem("Load", e -> {
+        loadGame();
+    })
+
+    };
     Container contentPane = getContentPane();
 
 
@@ -33,7 +61,9 @@ public class GameView extends JInternalFrame implements Observer {
 
         LayoutManager overlay = new OverlayLayout(contentPane);
         contentPane.setLayout(overlay);
-        initMenuBar();
+        JMenuBar mb = new JMenuBar();
+        mb.add(menus[0]);
+        setJMenuBar(mb);
         this.sokoban = sokoban;
         this.sokoban.addObserver(this);
 
@@ -100,35 +130,6 @@ public class GameView extends JInternalFrame implements Observer {
         });
     }
 
-    public void initMenuBar() {
-        JMenuBar mb = new JMenuBar();
-
-        for (int i = 0; i < items.length; i++) {
-            menus[0].add(items[i]);
-            final int k = i;
-            items[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (k == 0) {
-                        sokoban.rebuildBoard();
-                    }
-                    if (k == 1) {
-                        saveGame();
-                    }
-                    if (k == 2) {
-                        loadGame();
-                    }
-
-                }
-            });
-        }
-
-
-        mb.add(menus[0]);
-
-        setJMenuBar(mb);
-
-    }
 
     /**
      * Saves the game
@@ -151,7 +152,6 @@ public class GameView extends JInternalFrame implements Observer {
     /**
      * Loads the game from Save
      */
-    //TODO: fix issue with loading game, where older version of palyer and crate are show, but dissapera when moved into
     public void loadGame() {
         JFileChooser c = new JFileChooser(new File("./"));
         File selectedFile = null;

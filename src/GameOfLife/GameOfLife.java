@@ -36,7 +36,7 @@ public class GameOfLife extends Observable {
      * @param muster enum, represents a figure to placed on the field
      */
 
-   public GameOfLife(int x, int y, Construction muster) {
+    public GameOfLife(int x, int y, Construction muster) {
         fields = new boolean[x][y];
         boolean[][] figur = ConstructionField.getForm(muster);
         if (figur.length < getLength() && figur[0].length < getHeight()) {

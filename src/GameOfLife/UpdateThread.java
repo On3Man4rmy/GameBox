@@ -24,7 +24,7 @@ public class UpdateThread extends Thread {
             try {
                 Thread.sleep(speed);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.pri ntStackTrace();
             }
         }
     }

@@ -3,6 +3,7 @@ package GameOfLife;
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
+
 import App.*;
 import App.Menu;
 
@@ -14,7 +15,7 @@ import App.Menu;
  * @Version: 1.0
  * @Date: 27/04/18
  */
-public class ViewGame extends JInternalFrame  {
+public class ViewGame extends JInternalFrame {
     static int nr = 0, xpos = 30, ypos = 30;
     App myView;
     private Color dead = Color.GREEN;                 //saves the colors
@@ -37,10 +38,10 @@ public class ViewGame extends JInternalFrame  {
                         isFigure = false;                        //disables setting figures
                     })
                     .addItem("Paint", e -> {
-                        game.isRun = false;
-                        game.isPaint = true;
-                        isFigure = false;
-                    }),
+                game.isRun = false;
+                game.isPaint = true;
+                isFigure = false;
+            }),
             new Menu("Speed")
                     .addItem("Fast", e -> game.setSpeed(100))
                     .addItem("Medium", e -> game.setSpeed(1000))
@@ -73,14 +74,14 @@ public class ViewGame extends JInternalFrame  {
                         boardView.setFlipY(!boardView.isFlipY());
                     })
                     .addItem("Rotate", e -> {
-                        boardView.rotate();
-                        if (boardView.rotate) {
-                            this.setSize((game.getHeight() * myView.SCALEFACTOR), (game.getLength()) * myView.SCALEFACTOR);
-                        }     //changes the window size
-                        else {
-                            this.setSize((game.getLength() * myView.SCALEFACTOR), (game.getHeight()) * myView.SCALEFACTOR);
-                        }
-                    }),
+                boardView.rotate();
+                if (boardView.rotate) {
+                    this.setSize((game.getHeight() * myView.SCALEFACTOR), (game.getLength()) * myView.SCALEFACTOR);
+                }     //changes the window size
+                else {
+                    this.setSize((game.getLength() * myView.SCALEFACTOR), (game.getHeight()) * myView.SCALEFACTOR);
+                }
+            }),
             new Menu("Figure")
                     .addItem("Glider", e -> setFigure(Construction.GLIDER))
                     .addItem("f-pentomino", e -> setFigure(Construction.F_PENTOMINO))

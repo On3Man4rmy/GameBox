@@ -18,9 +18,9 @@ public class ConstructionField {
     static private boolean[][] blinker = {{true}, {true}, {true}}; //Blinker, changes oriantation
     static private boolean[][] bipole = {{true, true, false, false}, {true, true, false, false},
             {false, false, true, true}, {false, false, true, true}};
-    static private boolean[][] tumbler= {{false,true,true,false,true,true,false},{false,true,true,false,true,true,false},
-            {false,false,true,false,true,false,false},{true,false,true,false,true,false,true},{true,false,true,false,true,false,true},
-            {true,true,false,false,false,true,true}
+    static private boolean[][] tumbler = {{false, true, true, false, true, true, false}, {false, true, true, false, true, true, false},
+            {false, false, true, false, true, false, false}, {true, false, true, false, true, false, true}, {true, false, true, false, true, false, true},
+            {true, true, false, false, false, true, true}
     };
 
     /**

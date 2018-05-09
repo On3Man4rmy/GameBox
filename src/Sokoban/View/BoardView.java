@@ -12,6 +12,14 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
 
+/**
+ *
+ * Represents the Gameboard, which is shown as GridLayout
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 09/05/18
+ */
+
 public class BoardView extends JPanel implements Observer {
     public Sokoban sokoban;
     private SquareView[][] squareViews;
@@ -19,6 +27,10 @@ public class BoardView extends JPanel implements Observer {
     int rows;
     int cols;
 
+    /**
+     * Constructor
+     * @param sokoban   the game which is shown in the view
+     */
     public BoardView(Sokoban sokoban) {
 
         this.sokoban = sokoban;
@@ -29,7 +41,6 @@ public class BoardView extends JPanel implements Observer {
 
         setVisible(true);
     }
-
 
 
     private void registerMouseEvents() {
@@ -46,11 +57,11 @@ public class BoardView extends JPanel implements Observer {
                 boolean topLeftHalf = y < (width - x) * ratio;
                 boolean bottomLeftHalf = y > x * ratio;
 
-                if(topLeftHalf && bottomLeftHalf) {
+                if (topLeftHalf && bottomLeftHalf) {
                     sokoban.moveElement(Direction.LEFT);
-                } else if(topLeftHalf) {
+                } else if (topLeftHalf) {
                     sokoban.moveElement(Direction.UP);
-                } else if(bottomLeftHalf) {
+                } else if (bottomLeftHalf) {
                     sokoban.moveElement(Direction.DOWN);
                 } else {
                     sokoban.moveElement(Direction.RIGHT);
@@ -59,6 +70,9 @@ public class BoardView extends JPanel implements Observer {
         });
     }
 
+    /**
+     * Creates board the first time
+     */
     public void loadBoard() {
         cols = sokoban.getArrayLength();
         rows = sokoban.getArrayHeight();
@@ -77,6 +91,9 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Updates the GAmeboard, sets Jpanels in Gridlayout to correct Color and name, based on sokoban
+     */
     public void updateBoard() {
         int cratesOnGoalCount = 0;
         for (int i = 0; i < rows; i++) {
@@ -130,7 +147,7 @@ public class BoardView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o == sokoban) {
+        if (o == sokoban) {
             updateBoard();
         }
     }

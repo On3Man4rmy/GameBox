@@ -8,5 +8,5 @@ package GameOfLife;
  * @Date: 27/04/18
  */
 public enum Construction {
-    GLIDER, F_PENTOMINO, BLINKER, BIPLOE,TUMBLER
+    GLIDER, F_PENTOMINO, BLINKER, BIPLOE, TUMBLER
 }

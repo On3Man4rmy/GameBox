@@ -93,7 +93,6 @@ public class BoardView extends JPanel implements Observer {
     }
 
 
-
     public void updateLayout() {
         removeAll();
         if (rotate) {
