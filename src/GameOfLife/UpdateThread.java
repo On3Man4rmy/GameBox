@@ -8,7 +8,7 @@ package GameOfLife;
  * @Date: 27/04/18
  */
 public class UpdateThread extends Thread {
-    public int speed = 500;      //wait between update in miliseconds
+    public int speed = 100;      //wait between update in miliseconds
     public GameOfLife game;     //refernce to the game it's connected to
 
     public UpdateThread(GameOfLife game) {
