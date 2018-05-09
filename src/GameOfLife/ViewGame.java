@@ -86,6 +86,7 @@ public class ViewGame extends JInternalFrame  {
                     .addItem("f-pentomino", e -> setFigure(Construction.F_PENTOMINO))
                     .addItem("Blinker", e -> setFigure(Construction.BLINKER))
                     .addItem("Biploe", e -> setFigure(Construction.BIPLOE))
+                    .addItem("Tumbler", e -> setFigure(Construction.TUMBLER))
                     .addItem("Clear", e -> game.resetFeld())
     };
 
