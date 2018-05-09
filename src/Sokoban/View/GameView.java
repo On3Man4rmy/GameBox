@@ -58,6 +58,7 @@ public class GameView extends JInternalFrame implements Observer {
         setIconifiable(true);
         setMaximizable(true);
         registerKeyEvents();
+        this.setSize((sokoban.getArrayLength()*30),sokoban.getArrayHeight()*50);
 
         LayoutManager overlay = new OverlayLayout(contentPane);
         contentPane.setLayout(overlay);

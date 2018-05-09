@@ -123,8 +123,7 @@ public class ViewGame extends JInternalFrame {
         setJMenuBar(menuBar);
 
         setVisible(true);
-        //TODO: fix resizing
-        setSize((game.getLength() * myView.SCALEFACTOR), (game.getHeight()) * myView.SCALEFACTOR);
+        this.setSize((game.getLength() * myView.SCALEFACTOR), (game.getHeight()) * myView.SCALEFACTOR);
 
     }
 
