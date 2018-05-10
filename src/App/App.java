@@ -1,8 +1,7 @@
 package App;
 
 import GameOfLife.*;
-import SmallGames.Rainbow;
-import SmallGames.TenColors;
+import SmallGames.*;
 import Sokoban.Model.Sokoban;
 import Sokoban.View.GameView;
 
@@ -42,7 +41,10 @@ public class App extends JFrame {
                 Rainbow rainbow=new Rainbow();
                 app.addChild(rainbow, 0, 0);
             })
-
+                    .addItem("Clones", e -> {
+                Clones clones=new Clones(0);
+                app.addChild(clones, 0, 0);
+            })
     };
 
 
