@@ -104,6 +104,8 @@ public class ViewGame extends JInternalFrame {
         this.boardView = new BoardView(game, this);
         this.myView = myView;
         this.game = game;
+        setIconifiable(true);
+        setMaximizable(true);
 
         for (JMenu menu : menus) { // fuer alle Menues:
             menuBar.add(menu);
@@ -135,8 +137,6 @@ public class ViewGame extends JInternalFrame {
      */
     public ViewGame(ViewGame viewGame, GameOfLife game) {
         this(viewGame.myView, game);
-        setSize((game.getLength() * myView.SCALEFACTOR), (game.getHeight()) * myView.SCALEFACTOR);
-
         setDead(viewGame.getDead());
         setAlive(viewGame.getAlive());
         isFigure = viewGame.isFigure;
