@@ -85,6 +85,7 @@ public class App extends JFrame {
 
     }
     private void loadLevelListView() {
+        //TODO: Replace FIlechooser with submenu, so there are no problems with choosing illegal files
         JFileChooser c = new JFileChooser(new File("src/Sokoban/Resources/"));
         File selectedFile = null;
         int returnValue = c.showOpenDialog(null);
