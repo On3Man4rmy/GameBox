@@ -27,7 +27,7 @@ public class App extends JFrame {
 
                     })
                     .addItem("Sokoban", e -> {
-                        Sokoban sokoban = new Sokoban(new File("src/Sokoban/Resources/minicosmos.txt"), 1);
+                        Sokoban sokoban = new Sokoban(new File("src/Sokoban/Resources/minicosmos.txt"), 40);
                         GameView gameView = new GameView(sokoban);
                         app.addChild(gameView, 0, 0);
 

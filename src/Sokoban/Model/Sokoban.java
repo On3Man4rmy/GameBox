@@ -174,8 +174,7 @@ public class Sokoban extends Observable implements Serializable {
         System.out.println(element.position);
         if (!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move = (MovableElement) gameBoard[position.xPos][position.yPos][1];
-            if (((gameBoard[position.xPos][position.yPos][0] instanceof Crate) && element instanceof Player) //Player moving a crate
-                    || gameBoard[position.xPos][position.yPos][0] instanceof Floor) { //Element moving to empty square
+            if (!((gameBoard[position.xPos][position.yPos][1] instanceof Crate) && element instanceof Crate)){ //Player moving a crate
                 if (move == null || moveElement(direction, move)) {
                     gameBoard[element.position.xPos][element.position.yPos][1] = null;
                     element.position = position;
