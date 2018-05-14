@@ -183,4 +183,5 @@ public class GameView extends JInternalFrame implements Observer {
             }
         }
     }
+
 }

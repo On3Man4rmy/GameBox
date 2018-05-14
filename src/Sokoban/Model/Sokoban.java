@@ -7,7 +7,7 @@ import java.util.Observable;
 /**
  * Main logic class
  */
-public class Sokoban extends Observable implements Serializable {
+public class Sokoban extends Observable implements Serializable, Cloneable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
@@ -18,6 +18,9 @@ public class Sokoban extends Observable implements Serializable {
     int goalCount = 0;
     private Square[][] movableObjectsBackup;
     private Position[][] positionBackup;
+    private File file;
+    private int level;
+
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -27,6 +30,9 @@ public class Sokoban extends Observable implements Serializable {
      */
     public Sokoban(File file, int level) {
         ArrayList<String> inputFromFileArray = new ArrayList<>();
+        this.file = file;
+        this.level = level;
+
         BufferedReader br;
         String line;
 
@@ -43,9 +49,12 @@ public class Sokoban extends Observable implements Serializable {
                     if (line.equals("Level " + (level + 1))) {
                         correctLevel = false;
                     }
-                    inputFromFileArray.add(line);
 
                 }
+                if(correctLevel&&!line.isEmpty()) {
+                    inputFromFileArray.add(line);
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,8 +66,6 @@ public class Sokoban extends Observable implements Serializable {
          */
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);
-        inputFromFileArray.remove(inputFromFileArray.size() - 1);
-        inputFromFileArray.remove(inputFromFileArray.size() - 1);
 
         arrayHeight = inputFromFileArray.size();
 
@@ -174,7 +181,7 @@ public class Sokoban extends Observable implements Serializable {
         System.out.println(element.position);
         if (!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move = (MovableElement) gameBoard[position.xPos][position.yPos][1];
-            if (!((gameBoard[position.xPos][position.yPos][1] instanceof Crate) && element instanceof Crate)){ //Player moving a crate
+            if (!((gameBoard[position.xPos][position.yPos][1] instanceof Crate) && element instanceof Crate)) { //Player moving a crate
                 if (move == null || moveElement(direction, move)) {
                     gameBoard[element.position.xPos][element.position.yPos][1] = null;
                     element.position = position;
@@ -242,6 +249,12 @@ public class Sokoban extends Observable implements Serializable {
 
     public int getArrayLength() {
         return arrayLength;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
+        return new Sokoban(file, level);
     }
 }
 

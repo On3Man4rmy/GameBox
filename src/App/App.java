@@ -4,6 +4,7 @@ import GameOfLife.*;
 import SmallGames.*;
 import Sokoban.Model.Sokoban;
 import Sokoban.View.GameView;
+import Sokoban.View.LevelSelect.*;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,6 +20,7 @@ public class App extends JFrame {
     public static JDesktopPane desk;
     public static App app = new App();
     public int SCALEFACTOR = 15; //Windowsize is based on Gamesize*SCALEFACTOR
+    LevelListView levelListView;
     private Menu[] menus = {
             new Menu("New Game")
                     .addItem("Game Of Life", e -> {
@@ -27,9 +29,7 @@ public class App extends JFrame {
 
                     })
                     .addItem("Sokoban", e -> {
-                        Sokoban sokoban = new Sokoban(new File("src/Sokoban/Resources/minicosmos.txt"), 40);
-                        GameView gameView = new GameView(sokoban);
-                        app.addChild(gameView, 0, 0);
+                        loadLevelListView();
 
                     })
                     .addItem("Ten Colors", e -> {
@@ -84,4 +84,27 @@ public class App extends JFrame {
     public static void main(String[] args) {
 
     }
+    private void loadLevelListView() {
+        JFileChooser c = new JFileChooser(new File("src/Sokoban/Resources/"));
+        File selectedFile = null;
+        int returnValue = c.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = c.getSelectedFile();
+        }
+        if(selectedFile != null) {
+            levelListView = new LevelListView(selectedFile);
+            addChild(levelListView,10,10);
+            levelListView.setActionLevelSelected(sokoban1 ->
+            {
+                try {
+                    addChild(new GameView((Sokoban)sokoban1.clone()), 0,0);
+                    levelListView.setVisible(false);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            });
+            levelListView.setVisible(true);
+        }
+    }
+
 }
