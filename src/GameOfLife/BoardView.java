@@ -57,8 +57,12 @@ public class BoardView extends JPanel implements Observer {
                     public void mousePressed(java.awt.event.MouseEvent evt) {       //mouse is pressed down
 
                         mousePresses=true;
-
+                        if (model.isPaint) {                           //If isPaint is true
+                            setCell(xPos, yPos, true);            //reanimate pressed on cell
                         }
+
+
+                    }
                     public void mouseReleased(java.awt.event.MouseEvent evt) {       //mouse is released
 
                         mousePresses=false;
