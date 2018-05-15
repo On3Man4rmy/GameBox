@@ -23,6 +23,7 @@ public class BoardView extends JPanel implements Observer {
     private GridLayout grid;
     private GridLayout rotGrid;
     static int count = 0;
+    boolean mousePresses=false;     //controlls if mouse is currenntly being clicked down
 
     /**
      * @param model    The gamemodel
@@ -49,10 +50,21 @@ public class BoardView extends JPanel implements Observer {
                 boardElements[x][y] = new JButton();
                 boardElements[x][y].addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseEntered(java.awt.event.MouseEvent evt) {       //Painting hy passing over buttons
-                        if (model.isPaint) {                           //If isPaint is true
-                            setCell(xPos, yPos, true);                          //reanimate passed over cell
+                        if (mousePresses&&model.isPaint) {                           //If isPaint is true and mouse is pressed
+                            setCell(xPos, yPos, true);            //reanimate passed over cell
                         }
                     }
+                    public void mousePressed(java.awt.event.MouseEvent evt) {       //mouse is pressed down
+
+                        mousePresses=true;
+
+                        }
+                    public void mouseReleased(java.awt.event.MouseEvent evt) {       //mouse is released
+
+                        mousePresses=false;
+
+                    }
+
                 });
                 boardElements[x][y].addActionListener(e -> {
                     if (model.isSet) {//setting cell to alive
