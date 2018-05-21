@@ -3,9 +3,13 @@ package Sokoban.Model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Stack;
 
 /**
  * Main logic class
+ *@Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ *@Version: 1.0
+ *@Date: 21/05/18
  */
 public class Sokoban extends Observable implements Serializable, Cloneable {
 
@@ -16,10 +20,10 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     int arrayLength = 0;
     String[] inputFromFileArray;
     int goalCount = 0;
-    private Square[][] movableObjectsBackup;
-    private Position[][] positionBackup;
+    GameStateBackup gameStateBackup=new GameStateBackup();
     private File file;
     private int level;
+    private Stack<GameStateBackup> backlog=new Stack<>();
 
 
     /**
@@ -163,16 +167,17 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     public boolean moveElement(Direction direction, MovableElement element) {
         System.out.println("Player Postion: " + player.position);
         /**
-         * Creates BacKup of the positions of Players and crates before an update, for undo option
+         * Creates Backup of the positions of Players and crates before an update, for undo option
          */
-        movableObjectsBackup = new Square[arrayLength][arrayHeight];
-        positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
+        gameStateBackup=new GameStateBackup();
+        gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
+        gameStateBackup.positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
         for (int x = 0; x < arrayLength; x++) {
             for (int y = 0; y < arrayHeight; y++) {
-                movableObjectsBackup[x][y] = gameBoard[x][y][1];
+                gameStateBackup.movableObjectsBackup[x][y] = gameBoard[x][y][1];
                 if (gameBoard[x][y][1] != null) {
                     MovableElement temp = (MovableElement) gameBoard[x][y][1];
-                    positionBackup[x][y] = new Position(temp.position);
+                    gameStateBackup.positionBackup[x][y] = new Position(temp.position);
                 }
             }
         }
@@ -200,7 +205,11 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     }
 
     public boolean moveElement(Direction direction) {
-        return moveElement(direction, player);
+        if(moveElement(direction, player)){
+            backlog.add(gameStateBackup);
+            return true;
+        }
+        return false;
     }
 
     public boolean isDone() {
@@ -213,20 +222,25 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         notifyObservers();
     }
 
+    /**
+     * loads last gamestate from backup
+     */
     public void undo() {
-        for (int x = 0; x < arrayLength; x++) {
-            for (int y = 0; y < arrayHeight; y++) {
-                gameBoard[x][y][1] = movableObjectsBackup[x][y];
-                if (movableObjectsBackup[x][y] != null) {
-                    MovableElement temp = (MovableElement) gameBoard[x][y][1];
-                    temp.position = positionBackup[x][y];
+        if(!backlog.isEmpty()) {
+            GameStateBackup backup = backlog.pop();
+            for (int x = 0; x < arrayLength; x++) {
+                for (int y = 0; y < arrayHeight; y++) {
+                    gameBoard[x][y][1] = backup.movableObjectsBackup[x][y];
+                    if (backup.movableObjectsBackup[x][y] != null) {
+                        MovableElement temp = (MovableElement) gameBoard[x][y][1];
+                        temp.position = backup.positionBackup[x][y];
+                    }
                 }
             }
+            setChanged();
+            notifyObservers();
+
         }
-        setChanged();
-        notifyObservers();
-
-
     }
 
     /**
