@@ -28,30 +28,58 @@ public class App extends JFrame {
                         StartGameWindow sgw = new StartGameWindow(App.desk);      //Creates a Stargame Window
 
                     })
-                    .addItem("Sokoban", e -> {
-                        loadLevelListView();
 
-                    })
+                    .addItem(new Menu("Sokoban")
+                            .addItem("minicosmos", e -> {
+                                loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
+
+                            })
+                            .addItem("nabokosmos", e -> {
+                                loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
+
+                            })
+                            .addItem("yoshiomurase", e -> {
+                                loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
+
+                            })
+                    )
                     .addItem("Ten Colors", e -> {
-                TenColors tenColors = new TenColors();
-            })
+                        TenColors tenColors = new TenColors();
+                    })
+
                     .addItem("Rainbow", e -> {
-                Rainbow rainbow=new Rainbow();
-                app.addChild(rainbow, 0, 0);
-            })
+                        Rainbow rainbow = new Rainbow();
+                        app.addChild(rainbow, 0, 0);
+                    })
                     .addItem("Clones", e -> {
-                Clones clones=new Clones(0);
-            })
+                        Clones clones = new Clones(0);
+                    })
                     .addItem("ToggleSafe", e -> {
-                ToggleSafe toggleSafe=new ToggleSafe(5000,new Stack<>());
+                ToggleSafe toggleSafe = new ToggleSafe(5000, new Stack<>());
             })
     };
 
+    /*private Menu sokoMenu; = {
+            new Menu("Sokoban")
+                    .addItem("minicosmos", e -> {
+                    loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
+
+            })
+                    .addItem("nabokosmos", e -> {
+                loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
+
+            })
+                    .addItem("yoshiomurase", e -> {
+                loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
+
+            })
+    };*/
 
     public App() {
         desk = new JDesktopPane();
         desk.setDesktopManager(new DefaultDesktopManager());
         setContentPane(desk);
+
         JMenuBar menuBar = new JMenuBar();
         for (JMenu menu : menus) { // fuer alle Menues:
             menuBar.add(menu);
@@ -71,7 +99,6 @@ public class App extends JFrame {
         setTitle("Game Of Life");
         setVisible(true);
 
-
     }
 
     public void addChild(JInternalFrame child, int x, int y) {
@@ -84,21 +111,16 @@ public class App extends JFrame {
     public static void main(String[] args) {
 
     }
-    private void loadLevelListView() {
+
+    private void loadLevelListView(File selectedFile) {
         //TODO: Replace FIlechooser with submenu, so there are no problems with choosing illegal files
-        JFileChooser c = new JFileChooser(new File("src/Sokoban/Resources/"));
-        File selectedFile = null;
-        int returnValue = c.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            selectedFile = c.getSelectedFile();
-        }
-        if(selectedFile != null) {
+        if (selectedFile != null) {
             levelListView = new LevelListView(selectedFile);
-            addChild(levelListView,10,10);
+            addChild(levelListView, 10, 10);
             levelListView.setActionLevelSelected(sokoban1 ->
             {
                 try {
-                    addChild(new GameView((Sokoban)sokoban1.clone()), 0,0);
+                    addChild(new GameView((Sokoban) sokoban1.clone()), 0, 0);
                     levelListView.setVisible(false);
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();

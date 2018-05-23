@@ -22,4 +22,8 @@ public class Menu extends JMenu {
         add(item);
         return this;
     }
+    public Menu addItem(Menu menu) {
+        add(menu);
+        return this;
+    }
 }
