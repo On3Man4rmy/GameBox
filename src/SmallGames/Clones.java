@@ -3,9 +3,9 @@ package SmallGames; /**
  * durch drücken des "newWind" Knopfes öffnet sch eine default Kopie des Fesnters
  *
  *
- * @author Tobias Fetzer 198318
- * @date 15/03/2018
- * @version 1.0
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 27/04/18
  **/
 
 import App.App;
@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static App.App.app;
 
 public class Clones extends JInternalFrame {
     JButton changeColor=new JButton("Change Color");
@@ -29,6 +31,9 @@ public class Clones extends JInternalFrame {
 
         setIconifiable(true);
         setMaximizable(true);
+        app.addChild(this, 0, 0);
+
+
         this.setSize(360,360);
         setLayout(new FlowLayout());
         setVisible(true);
@@ -52,7 +57,6 @@ public class Clones extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Clones demo = new Clones(position) ;
-                App.app.addChild(demo,10,10);
 
             }
         });

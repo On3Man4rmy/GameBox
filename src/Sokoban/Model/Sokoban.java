@@ -62,7 +62,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
 
         /**
-         * removes the first two and last two lines (Level, name and two empty lines)
+         * removes the first two lines (Level, name)
          */
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);

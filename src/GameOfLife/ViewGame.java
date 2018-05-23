@@ -54,7 +54,6 @@ public class ViewGame extends JInternalFrame {
                     })
                     .addItem("new Game", e -> {
                         StartGameWindow sgw = new StartGameWindow(App.desk);      //Creates a Stargame Window
-                        App.app.addChild(sgw, 10, 10); // Ein Kindfenster einfuegen
                     })
                     .addItem("new Copy", e -> {
                         GameOfLife copyGame = new GameOfLife(game);

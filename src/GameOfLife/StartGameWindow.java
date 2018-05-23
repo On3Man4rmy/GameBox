@@ -8,6 +8,8 @@ import java.beans.PropertyVetoException;
 
 import App.App;
 
+import static App.App.app;
+
 /**
  * Window that gives option to enter the size of a new game
  *
@@ -29,6 +31,12 @@ public class StartGameWindow extends JInternalFrame implements ActionListener {
      * @param desk //refernce to JDesktopPane
      */
     public StartGameWindow(JDesktopPane desk) {
+        super("Set Size", true, true);
+        setIconifiable(true);
+        setMaximizable(true);
+
+        app.addChild(this, 10, 10); // Ein Kindfenster einfuegen
+
         this.desk = desk;
         this.setLayout(new FlowLayout());
         startGame.addActionListener(this);
@@ -46,8 +54,8 @@ public class StartGameWindow extends JInternalFrame implements ActionListener {
      */
     public void start() throws PropertyVetoException {
         GameOfLife game = new GameOfLife(x, y, Construction.GLIDER);  //game created with Gleiter Figure
-        ViewGame viewGame = new ViewGame(App.app, game);
-        App.app.addChild(viewGame, 10, 10); // Ein Kindfenster einfuegen
+        ViewGame viewGame = new ViewGame(app, game);
+        app.addChild(viewGame, 10, 10); // Ein Kindfenster einfuegen
         this.setClosed(true);
     }
 

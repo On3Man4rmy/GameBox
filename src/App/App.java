@@ -8,6 +8,7 @@ import Sokoban.View.LevelSelect.*;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.Stack;
 
 /**
  * Desktop pane, Open new games from here
@@ -25,7 +26,6 @@ public class App extends JFrame {
             new Menu("New Game")
                     .addItem("Game Of Life", e -> {
                         StartGameWindow sgw = new StartGameWindow(App.desk);      //Creates a Stargame Window
-                        App.app.addChild(sgw, 10, 10); // Ein Kindfenster einfuegen
 
                     })
                     .addItem("Sokoban", e -> {
@@ -34,8 +34,6 @@ public class App extends JFrame {
                     })
                     .addItem("Ten Colors", e -> {
                 TenColors tenColors = new TenColors();
-
-                app.addChild(tenColors, 0, 0);
             })
                     .addItem("Rainbow", e -> {
                 Rainbow rainbow=new Rainbow();
@@ -43,7 +41,9 @@ public class App extends JFrame {
             })
                     .addItem("Clones", e -> {
                 Clones clones=new Clones(0);
-                app.addChild(clones, 0, 0);
+            })
+                    .addItem("ToggleSafe", e -> {
+                ToggleSafe toggleSafe=new ToggleSafe(5000,new Stack<>());
             })
     };
 

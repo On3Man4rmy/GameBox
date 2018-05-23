@@ -2,15 +2,17 @@ package SmallGames; /**
  * Durch drücken der Knöpfe lässt sich die Hintergundfarbe ändern
  *
  *
- * @author Tobias Fetzer 198318
- * @date 15/03/2018
- * @version 1.0
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 27/04/18
  **/
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static App.App.app;
 
 
 public class TenColors extends JInternalFrame {
@@ -25,6 +27,7 @@ public class TenColors extends JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         this.setSize(360,360);
+        app.addChild(this, 0, 0);
 
         setLayout(new FlowLayout());
         setVisible(true);
