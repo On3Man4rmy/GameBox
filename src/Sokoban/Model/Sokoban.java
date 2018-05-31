@@ -158,14 +158,13 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     }
 
     /**
-     * moves a Movable Element (player of square) in a given direction
+     * moves a Movable Element (player of square) in a given direction, creates a backup of the gamestate
      *
      * @param direction Direction in which the Element is to be moved
      * @param element   The Element to be moved
      * @return if the move was sucessful or not (not moving against wall or moving multiple crates/crates against wall)
      */
     public boolean moveElement(Direction direction, MovableElement element) {
-        System.out.println("Player Postion: " + player.position);
         /**
          * Creates Backup of the positions of Players and crates before an update, for undo option
          */
@@ -183,7 +182,6 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         }
         if (element == null) return false;
         Position position = Position.movePosition(direction, element.position);
-        System.out.println(element.position);
         if (!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move = (MovableElement) gameBoard[position.xPos][position.yPos][1];
             if (!((gameBoard[position.xPos][position.yPos][1] instanceof Crate) && element instanceof Crate)) { //Player moving a crate
@@ -195,15 +193,18 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                     notifyObservers();
                     return true;
                 }
-                System.out.println("not wall");
 
             }
 
         }
-        System.out.println("Wall");
         return false;
     }
 
+    /**
+     * move player
+     * @param direction direction of movement
+     * @return  true if movement was successful
+     */
     public boolean moveElement(Direction direction) {
         if(moveElement(direction, player)){
             backlog.add(gameStateBackup);
@@ -244,7 +245,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     }
 
     /**
-     * Rebuilds board, for exaple when stuck and want to start again
+     * Rebuilds board, for example when stuck and want to start again
      */
     public void rebuildBoard() {
         buildGameBoard();

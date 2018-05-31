@@ -43,38 +43,26 @@ public class App extends JFrame {
 
                             })
                     )
-                    .addItem("Ten Colors", e -> {
+                    .addItem("Ten Colors","Change the Color of the new window by  clicking a button", e -> {
                         TenColors tenColors = new TenColors();
                     })
 
-                    .addItem("Rainbow", e -> {
+                    .addItem("Rainbow","A window that circles through colors", e -> {
                         Rainbow rainbow = new Rainbow();
                         app.addChild(rainbow, 0, 0);
                     })
-                    .addItem("Clones", e -> {
+                    .addItem("Clones","Can change Color of new window and create copy of it", e -> {
                         Clones clones = new Clones(0);
                     })
-                    .addItem("ToggleSafe", e -> {
+                    .addItem("ToggleSafe","<html> Solve the rotating save,<br>but everytime you are wrong a new safe opens that rotates faster</html>", e -> {
                 ToggleSafe toggleSafe = new ToggleSafe(5000, new Stack<>());
             })
     };
 
-    /*private Menu sokoMenu; = {
-            new Menu("Sokoban")
-                    .addItem("minicosmos", e -> {
-                    loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
-
-            })
-                    .addItem("nabokosmos", e -> {
-                loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
-
-            })
-                    .addItem("yoshiomurase", e -> {
-                loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
-
-            })
-    };*/
-
+    /**
+     * Construktor
+     * Creates Desktop Pane and opens Game of Life instance
+     */
     public App() {
         desk = new JDesktopPane();
         desk.setDesktopManager(new DefaultDesktopManager());
@@ -101,6 +89,12 @@ public class App extends JFrame {
 
     }
 
+    /**
+     * Adds child to Desktop Pane
+     * @param child the child to be added
+     * @param x the x Position
+     * @param y the y Position
+     */
     public void addChild(JInternalFrame child, int x, int y) {
         child.setLocation(x, y);
         child.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -112,8 +106,11 @@ public class App extends JFrame {
 
     }
 
+    /**
+     * Opens Level List view for Sokoban
+     * @param selectedFile  the selected version of the game (the .txt file)
+     */
     private void loadLevelListView(File selectedFile) {
-        //TODO: Replace FIlechooser with submenu, so there are no problems with choosing illegal files
         if (selectedFile != null) {
             levelListView = new LevelListView(selectedFile);
             addChild(levelListView, 10, 10);

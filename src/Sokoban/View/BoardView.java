@@ -34,6 +34,7 @@ public class BoardView extends JPanel implements Observer {
             double height = getHeight();
             double ratio = height / width;
 
+            //TODO: fix mouseclick movement, or make it more easy to understand (you click not where you want to move, but up left down right)
             // Is mouseclick in top left half
             boolean topLeftHalf = y < (width - x) * ratio;
             boolean bottomLeftHalf = y > x * ratio;
@@ -49,8 +50,6 @@ public class BoardView extends JPanel implements Observer {
             }
         }
     };
-
-
     int rows;
     int cols;
 
@@ -103,7 +102,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Updates the GAmeboard, sets Jpanels in Gridlayout to correct Color and name, based on sokoban
+     * Updates the Gameboard, sets JPanels in Gridlayout to correct Color and name, based on sokoban
      */
     public void updateBoard() {
         int cratesOnGoalCount = 0;

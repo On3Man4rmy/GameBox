@@ -1,7 +1,6 @@
 package SmallGames; /**
  * Durch drücken der Knöpfe lässt sich die Hintergundfarbe ändern
  *
- *
  * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
  * @Version: 1.0
  * @Date: 27/04/18
@@ -26,7 +25,6 @@ public class TenColors extends JInternalFrame {
         super("Ten Colors", true, true,true,true);
         this.setSize(360,360);
         app.addChild(this, 0, 0);
-
         setLayout(new FlowLayout());
         setVisible(true);
 
@@ -47,11 +45,11 @@ public class TenColors extends JInternalFrame {
     }
 
 
-
-
-
-
-
+    /**
+     * returns color based of its position in the knoepfe array
+     * @param i position of the button in the knoepfe array
+     * @return the returned color
+     */
     public Color getCorrectColor(int i){
 
         switch(i){

@@ -1,6 +1,6 @@
 package SmallGames; /**
- * Durch drücken des "Change_Color" Knopfes wird die Farbe geändert,
- * durch drücken des "newWind" Knopfes öffnet sch eine default Kopie des Fesnters
+ * Durch drücken des "Change Color" Knopfes wird die Farbe geändert,
+ * durch drücken des "Open New Window" Knopfes öffnet sch eine Kopie des Fesnters
  *
  *
  * @Author Tobias Fetzer 198318, Simon Stratemeier 199067

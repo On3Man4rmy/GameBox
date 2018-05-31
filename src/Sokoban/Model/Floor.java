@@ -11,6 +11,10 @@ import java.io.Serializable;
 public class Floor extends Square implements Serializable {
     public boolean goal=false;
 
+    /**
+     * Construcor, sets goal to true if element is  a goal
+     * @param floorElement which kind of floorElement it is supposed to be
+     */
     public Floor(FloorElement floorElement){
         switch (floorElement){
             case GOAL: goal=true;
@@ -20,8 +24,4 @@ public class Floor extends Square implements Serializable {
 
     }
 
-    @Override
-    public String toString() {
-        return "Floor";
-    }
 }

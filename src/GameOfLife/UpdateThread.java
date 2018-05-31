@@ -11,10 +11,17 @@ public class UpdateThread extends Thread {
     public int speed = 100;      //wait between update in miliseconds
     public GameOfLife game;     //refernce to the game it's connected to
 
+    /**
+     * Constructor
+     * @param game the game updated by the thread
+     */
     public UpdateThread(GameOfLife game) {
         this.game = game;
     }
 
+    /**
+     * Run methode, if game isn'T done and is running, updates the game with in interval set by variable  "speed"
+     */
     @Override
     public void run() {
         while (!game.isDone()) {
