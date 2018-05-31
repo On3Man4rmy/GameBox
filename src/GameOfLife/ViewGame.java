@@ -98,13 +98,11 @@ public class ViewGame extends JInternalFrame {
      */
 
     public ViewGame(App myView, GameOfLife game) {
-        super("Game " + (++nr), true, true);
+        super("Game " + (++nr), true, true,true,true);
         JMenuBar menuBar = new JMenuBar();
         this.boardView = new BoardView(game, this);
         this.myView = myView;
         this.game = game;
-        setIconifiable(true);
-        setMaximizable(true);
 
         for (JMenu menu : menus) { // fuer alle Menues:
             menuBar.add(menu);

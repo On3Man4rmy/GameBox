@@ -1,12 +1,17 @@
 package SmallGames;
 
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Stack;
 
 import static App.App.app;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 /**
  * Programm ist Erweiterung von Drehsafe, jetzt werden neue Windows geöffnet bei Falscher eingabe
@@ -20,7 +25,7 @@ public class ToggleSafe  extends JInternalFrame implements ActionListener {
 
     JButton[] knoepfe = new JButton[10];     //Feld für Knöpfe
     int pos = 0;                             //Speichert die derzeitig Position, wo man im Passwort ist
-    static char[] password = "8".toCharArray();  //Passwort, gespeichert als Char[] Array, weil Substring nervig ist
+    static char[] password = "82".toCharArray();  //Passwort, gespeichert als Char[] Array, weil Substring nervig ist
     boolean richtung=true;   //Steuert Richtung. True ist Uhrzeigersinn, false ist Gegen Uhrzeigersinn
     int speed=0;    //Pause zwischen drehung in milisecs
     int schritte=0; //Zählt die Schritte, die man schon eingegeben hat. Nach drei eingaben ändert sich richtung
@@ -37,13 +42,48 @@ public class ToggleSafe  extends JInternalFrame implements ActionListener {
      *
      */
     public ToggleSafe(int speed,Stack<JInternalFrame> windows ){
-        super("ToggleSafe", true, false);
-        setIconifiable(true);
-        setMaximizable(true);
+        super("ToggleSafe", true, true,true,true);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setSize(500,500);
         setLayout(new FlowLayout());
         setVisible(true);
         app.addChild(this, 0, 0);
+        addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+            exit();
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+
+            }
+        });
         this.windows=windows;
 
         this.speed=speed/2;             //geswindigkeit verdoppel, durch halbieren der sleep zeit
@@ -52,41 +92,27 @@ public class ToggleSafe  extends JInternalFrame implements ActionListener {
             knoepfe[i].setFont(new Font("Courier", Font.BOLD, 34));
             knoepfe[i].addActionListener(this); // ... und registrieren
         }
-        Panel panel = new Panel();
+        JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 3));
         panel.add(knoepfe[3]);
         panel.add(knoepfe[2]);
         panel.add(knoepfe[1]);
 
 
-        Panel pane2=new Panel();
+        JPanel pane2=new JPanel();
         pane2.setLayout(new GridLayout(1, 3));
         setLayout(new GridLayout(4,1));
         pane2.add(knoepfe[4]);
-        pane2.add(new Panel());
+        pane2.add(new JPanel());
         pane2.add(knoepfe[0]);
 
-        Panel pane3=new Panel();
+        JPanel pane3=new JPanel();
         pane3.setLayout(new GridLayout(1, 3));
         pane3.add(knoepfe[5]);
-        JButton close=new JButton("X");
-        pane3.add((close));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(JInternalFrame i:windows){
-                    i.dispose();
-                }
-                windows.clear();
-
-            }
-        });
-        close.setForeground(Color.RED);
-        close.setFont(new Font("Arial", Font.BOLD, 34));
-
+        pane3.add(new JPanel());
         pane3.add(knoepfe[9]);
 
-        Panel pane4=new Panel();
+        JPanel pane4=new JPanel();
         pane4.setLayout(new GridLayout(1, 3));
         pane4.add(knoepfe[6]);
         pane4.add(knoepfe[7]);
@@ -153,6 +179,12 @@ public class ToggleSafe  extends JInternalFrame implements ActionListener {
         schritte++;             //Schritte erhöhen
     }
 
+    public void exit(){
+        for(JInternalFrame i:windows){
+            i.dispose();
+        }
+        windows.clear();
+    }
     /**
      * Methode um Window zu schliesn und WIndowcounter um eins zu verkleinern
      */

@@ -27,10 +27,8 @@ public class Clones extends JInternalFrame {
 
 
     public Clones(int colorPosition){
-        super("Rainbow", true, true);
+        super("Rainbow", true, true,true,true);
 
-        setIconifiable(true);
-        setMaximizable(true);
         app.addChild(this, 0, 0);
 
 

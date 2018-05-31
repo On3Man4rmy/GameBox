@@ -31,9 +31,7 @@ public class StartGameWindow extends JInternalFrame implements ActionListener {
      * @param desk //refernce to JDesktopPane
      */
     public StartGameWindow(JDesktopPane desk) {
-        super("Set Size", true, true);
-        setIconifiable(true);
-        setMaximizable(true);
+        super("Set Size", true, true,true,true);
 
         app.addChild(this, 10, 10); // Ein Kindfenster einfuegen
 

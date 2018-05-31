@@ -54,9 +54,7 @@ public class GameView extends JInternalFrame implements Observer {
 
 
     public GameView(Sokoban sokoban) {
-        super("Game", true, true);
-        setIconifiable(true);
-        setMaximizable(true);
+        super("Game", true, true,true,true);
         registerKeyEvents();
         this.setSize((sokoban.getArrayLength()*30),sokoban.getArrayHeight()*50);
 

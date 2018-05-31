@@ -16,10 +16,8 @@ public class Rainbow extends JInternalFrame implements ActionListener {
     JButton changeColor = new JButton("Create Rainbow Window");
 
    public Rainbow() {
-        super("Rainbow", true, true);
+        super("Rainbow", true, true,true,true);
 
-        setIconifiable(true);
-        setMaximizable(true);
         this.setSize(360,100);
         setLayout(new FlowLayout());
         setVisible(true);

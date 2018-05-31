@@ -23,9 +23,7 @@ public class TenColors extends JInternalFrame {
 
 
     public TenColors(){
-        super("Ten Colors", true, true);
-        setIconifiable(true);
-        setMaximizable(true);
+        super("Ten Colors", true, true,true,true);
         this.setSize(360,360);
         app.addChild(this, 0, 0);
 
