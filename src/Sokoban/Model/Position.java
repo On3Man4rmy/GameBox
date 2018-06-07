@@ -51,4 +51,15 @@ public class Position implements Serializable {
         }
         return returnPosition;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Position){
+            Position pos=(Position)obj;
+            if(pos.xPos==xPos&&pos.yPos==yPos)
+                return true;
+        }
+        return false;
+
+    }
 }

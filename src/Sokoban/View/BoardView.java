@@ -23,32 +23,8 @@ import java.util.function.Consumer;
 
 public class BoardView extends JPanel implements Observer {
     public Sokoban sokoban;
-    private boolean listenMouseEvents;
+    private boolean listenMouseEvents=false;
     private SquareView[][] squareViews;
-    private MouseListener mouseListener = new MouseAdapter() {
-        @Override
-        public void mousePressed(MouseEvent e) {
-            double x = e.getX();
-            double y = e.getY();
-            double width = getWidth();
-            double height = getHeight();
-            double ratio = height / width;
-
-            // Is mouseclick in top left half
-            boolean topLeftHalf = y < (width - x) * ratio;
-            boolean bottomLeftHalf = y > x * ratio;
-
-            if(topLeftHalf && bottomLeftHalf) {
-                sokoban.moveElement(Direction.LEFT);
-            } else if(topLeftHalf) {
-                sokoban.moveElement(Direction.UP);
-            } else if(bottomLeftHalf) {
-                sokoban.moveElement(Direction.DOWN);
-            } else {
-                sokoban.moveElement(Direction.RIGHT);
-            }
-        }
-    };
 
 
     int rows;
@@ -68,21 +44,21 @@ public class BoardView extends JPanel implements Observer {
 
         setVisible(true);
     }
+
     public void enableMouseListener() {
         if(!listenMouseEvents) {
-            addMouseListener(mouseListener);
             listenMouseEvents = !listenMouseEvents;
         }
     }
     public void disableMouseListener() {
         if(listenMouseEvents) {
-            removeMouseListener(mouseListener);
             listenMouseEvents = !listenMouseEvents;
         }
     }
 
+
     /**
-     * Creates board the first time
+     * Creates board the first time, creates mouselistener
      */
     public void loadBoard() {
         cols = sokoban.getArrayLength();
@@ -96,6 +72,25 @@ public class BoardView extends JPanel implements Observer {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 SquareView newSquareView = new SquareView();
+                final int x=j;
+                final int y=i;
+                MouseListener mouseListener = new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if(listenMouseEvents) {
+                            if (Position.movePosition(Direction.LEFT, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                                sokoban.moveElement(Direction.LEFT);
+                            } else if (Position.movePosition(Direction.UP, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                                sokoban.moveElement(Direction.UP);
+                            } else if (Position.movePosition(Direction.DOWN, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                                sokoban.moveElement(Direction.DOWN);
+                            } else if (Position.movePosition(Direction.RIGHT, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                                sokoban.moveElement(Direction.RIGHT);
+                            }
+                        }
+                    }
+                };
+                newSquareView.addMouseListener(mouseListener);
                 squareViews[j][i] = newSquareView;
                 add(newSquareView);
             }
