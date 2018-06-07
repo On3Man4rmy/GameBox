@@ -14,8 +14,4 @@ public class Player extends MovableElement implements Serializable {
         position=new Position(xPos,yPos);
     }
 
-    @Override
-    public String toString() {
-        return "Player";
-    }
 }

@@ -11,9 +11,9 @@ import java.util.Observer;
  * @Date: 27/04/18
  */
 public class GameOfLife extends Observable {
-    public boolean isRun = false;         // checks if game is suposed to be paused
-    public boolean isPaint = false;
-    public boolean isSet = false;
+    public boolean isRun = false;           // checks if game is suposed to be paused
+    public boolean isPaint = false;         // checks if game is in paint mode
+    public boolean isSet = false;           //checks if game is in set mode
     private Boolean isDone = false;
     UpdateThread thread = new UpdateThread(this);
     private boolean[][] fields;        //fields der Zellen, true ist lebende, false ist tote Zelle

@@ -54,9 +54,7 @@ public class GameView extends JInternalFrame implements Observer {
 
 
     public GameView(Sokoban sokoban) {
-        super("Game", true, true);
-        setIconifiable(true);
-        setMaximizable(true);
+        super("Game", true, true,true,true);
         registerKeyEvents();
         this.setSize((sokoban.getArrayLength()*30),sokoban.getArrayHeight()*50);
 
@@ -87,6 +85,9 @@ public class GameView extends JInternalFrame implements Observer {
         }
     }
 
+    /**
+     * Registers keys for possible actions
+     */
     public void registerKeyEvents() {
         registerKeyAction("W", "moveUp", actionEvent ->
                 sokoban.moveElement(Direction.UP));
@@ -109,6 +110,12 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.undo());
     }
 
+    /**
+     * set what pressing the key does
+     * @param key the pressed key
+     * @param actionName    name of the action
+     * @param callback  the performed action
+     */
     public void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
         getInputMap().put(KeyStroke.getKeyStroke(key), actionName);
         getActionMap().put(actionName, new AbstractAction() {

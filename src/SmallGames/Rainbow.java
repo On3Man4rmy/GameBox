@@ -12,14 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import App.App;
 
-public class Rainbow extends JInternalFrame implements ActionListener {
+public class Rainbow extends JInternalFrame{
     JButton changeColor = new JButton("Create Rainbow Window");
 
    public Rainbow() {
-        super("Rainbow", true, true);
+        super("Rainbow", true, true,true,true);
 
-        setIconifiable(true);
-        setMaximizable(true);
         this.setSize(360,100);
         setLayout(new FlowLayout());
         setVisible(true);
@@ -27,38 +25,44 @@ public class Rainbow extends JInternalFrame implements ActionListener {
         setLayout(new FlowLayout());
         changeColor.setFont(new Font("Arial", Font.PLAIN, 25));
 
-       changeColor.addActionListener(this);
+       changeColor.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               RainbowColors regen = new RainbowColors();
+               new Thread(regen).start();
+
+           }
+       });
         add(changeColor);
 
 
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        RainbowColors regen = new RainbowColors();
-        new Thread(regen).start();
     }
 
 
 
 }
 
+/**
+ * Class to view the windows which change colors
+ */
 class RainbowColors extends JInternalFrame implements Runnable {
     Color[] farben = {Color.red, Color.orange, Color.yellow,
             Color.green, Color.blue, Color.magenta};
 
-
+    /**
+     * Constructor
+     */
     public RainbowColors(){
-        super("Rainbows", true, true);
-
-        setIconifiable(true);
-        setMaximizable(true);
+        super("Rainbows", true, true,true,true);
         this.setSize(360,360);
         setLayout(new FlowLayout());
         setVisible(true);
 
     }
+
+    /**
+     * Run methode, adds child to Desktop and updates the colors in a 1 second interval
+     */
     public void run() {
         RainbowColors demo = new RainbowColors();
         App.app.addChild(demo,10,10);

@@ -31,31 +31,31 @@ public class ViewGame extends JInternalFrame {
                         game.isPaint = false;                 //disables paint and set when game runs, viable for change
                         game.isSet = false;
                     })
-                    .addItem("Set", e -> {
+                    .addItem("Set","Change the status of cells", e -> {
                         game.isRun = false;               //pauses the game while setting, viable for change
                         game.isSet = true;
                         game.isPaint = false;
                         isFigure = false;                        //disables setting figures
                     })
-                    .addItem("Paint", e -> {
+                    .addItem("Paint","<html>Revive multiple cells at once<br>by dragging the mouse over it while clicking the right mouse button</html>", e -> {
                 game.isRun = false;
                 game.isPaint = true;
                 isFigure = false;
             }),
-            new Menu("Speed")
+            new Menu("Speed","Change the speed of updates")
                     .addItem("Fast", e -> game.setSpeed(100))
                     .addItem("Medium", e -> game.setSpeed(1000))
                     .addItem("Slow", e -> game.setSpeed(2000)),
 
             new Menu("Window")
-                    .addItem("new View", e -> {
+                    .addItem("new View","new Window of the same game", e -> {
                         ViewGame viewGame1 = new ViewGame(App.app, game); //passes refernce to thread and the boolean values
                         App.app.addChild(viewGame1, xpos += 20, ypos += 20);
                     })
-                    .addItem("new Game", e -> {
+                    .addItem("new Game","Start new Game", e -> {
                         StartGameWindow sgw = new StartGameWindow(App.desk);      //Creates a Stargame Window
                     })
-                    .addItem("new Copy", e -> {
+                    .addItem("new Copy","Create identical independent copy of the current Game", e -> {
                         GameOfLife copyGame = new GameOfLife(game);
                         ViewGame copyViewGame = new ViewGame(this, copyGame);
                         App.app.addChild(copyViewGame, 10, 10);
@@ -66,13 +66,13 @@ public class ViewGame extends JInternalFrame {
                     .addItem("Change Color Dead", e -> {
                         dead = JColorChooser.showDialog(this, "Select dead color", Color.GREEN);
                     })
-                    .addItem("FlipX", e -> {
+                    .addItem("FlipX","Flips the game along the Y-Axis", e -> {
                         boardView.setFlipX(!boardView.isFlipX());
                     })
-                    .addItem("FlipY", e -> {
+                    .addItem("FlipY","Flips the game along the X-Axis", e -> {
                         boardView.setFlipY(!boardView.isFlipY());
                     })
-                    .addItem("Rotate", e -> {
+                    .addItem("Rotate","Rotates the game by 90°", e -> {
                 boardView.rotate();
                 if (boardView.rotate) {
                     this.setSize((game.getHeight() * myView.SCALEFACTOR), (game.getLength()) * myView.SCALEFACTOR);
@@ -83,11 +83,11 @@ public class ViewGame extends JInternalFrame {
             }),
             new Menu("Figure")
                     .addItem("Glider", e -> setFigure(Construction.GLIDER))
-                    .addItem("f-pentomino", e -> setFigure(Construction.F_PENTOMINO))
+                    .addItem("f-pentomino","A rapidly escalating figure", e -> setFigure(Construction.F_PENTOMINO))
                     .addItem("Blinker", e -> setFigure(Construction.BLINKER))
                     .addItem("Biploe", e -> setFigure(Construction.BIPLOE))
                     .addItem("Tumbler", e -> setFigure(Construction.TUMBLER))
-                    .addItem("Clear", e -> game.resetFeld())
+                    .addItem("Clear","Kills all cells", e -> game.resetFeld())
     };
 
     /**
@@ -98,13 +98,11 @@ public class ViewGame extends JInternalFrame {
      */
 
     public ViewGame(App myView, GameOfLife game) {
-        super("Game " + (++nr), true, true);
+        super("Game " + (++nr), true, true,true,true);
         JMenuBar menuBar = new JMenuBar();
         this.boardView = new BoardView(game, this);
         this.myView = myView;
         this.game = game;
-        setIconifiable(true);
-        setMaximizable(true);
 
         for (JMenu menu : menus) { // fuer alle Menues:
             menuBar.add(menu);
@@ -131,8 +129,8 @@ public class ViewGame extends JInternalFrame {
     /**
      * Copy Constructor
      *
-     * @param viewGame
-     * @param game
+     * @param viewGame View to be copied
+     * @param game Copy of the game connected to the view
      */
     public ViewGame(ViewGame viewGame, GameOfLife game) {
         this(viewGame.myView, game);
@@ -147,11 +145,15 @@ public class ViewGame extends JInternalFrame {
         }
     }
 
+
     public void setFigure(Construction figure) {
         game.isPaint = false;
         game.isSet = false;
         isFigure = true;
         this.figure = ConstructionField.getForm(figure);
+    }
+    public boolean[][] getFigure() {
+        return figure;
     }
 
     public Color getAlive() {
@@ -162,9 +164,6 @@ public class ViewGame extends JInternalFrame {
         return dead;
     }
 
-    public boolean[][] getFigure() {
-        return figure;
-    }
 
     public void setAlive(Color alive) {
         this.alive = alive;

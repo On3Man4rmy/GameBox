@@ -98,7 +98,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Updates the GAmeboard, sets Jpanels in Gridlayout to correct Color and name, based on sokoban
+     * Updates the Gameboard, sets JPanels in Gridlayout to correct Color and name, based on sokoban
      */
     public void updateBoard() {
         int cratesOnGoalCount = 0;

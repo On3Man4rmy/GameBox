@@ -42,6 +42,9 @@ public class BoardView extends JPanel implements Observer {
         updateLayout();
     }
 
+    /**
+     * Initialize the board, add listeners to buttons
+     */
     private void initializeBoard() {
         for (int y = 0; y < model.getHeight(); y++) {
             for (int x = 0; x < model.getLength(); x++) {
@@ -108,7 +111,9 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
-
+    /**
+     * Updates the button Layout when rotating
+     */
     public void updateLayout() {
         removeAll();
         if (rotate) {
@@ -130,9 +135,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Methode to rotate, sets the flips the roatation anf flipX varaible
-     * replaces the Layout with the rotated Layout
-     * removes buttons and adds the rotated ones
+     * Methode to rotate, update the Layout
      */
     public void rotate() {
         rotate = !rotate;
@@ -146,21 +149,48 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Changes the status of a cell
+     * @param x x location of cell
+     * @param y y location of cell
+     */
     private void toggleCell(int x, int y) {
         setCell(x, y, !getCell(x, y));
     }
 
+    /**
+     * Sets cell to a specific status
+     * @param x x location of cell
+     * @param y y location of cell
+     * @param cell the staus to which it is to be set (true=alive, false=dead)
+     */
     private void setCell(int x, int y, boolean cell) {
         model.setField(cell, getCellX(x), getCellY(y));
     }
 
+    /**
+     * returns the cell
+     * @param x x location of cell
+     * @param y y location of cell
+     * @return the cell
+     */
     private boolean getCell(int x, int y) {
         return model.getField(getCellX(x), (getCellY(y)));
     }
 
+    /**
+     * Returns actual X-position of cell due to Flipping
+     * @param x the x-Position of the clicked field
+     * @return the x Position of the cell behind the clicked field
+     */
     private int getCellX(int x) {
         return flipX ? model.getLength() - 1 - x : x;
     }
+    /**
+     * Returns actual Y-position of cell due to Flipping
+     * @param y the y-Position of the clicked field
+     * @return the y Position of the cell behind the clicked field
+     */
 
     private int getCellY(int y) {
         return flipY ? model.getHeight() - 1 - y : y;
@@ -176,9 +206,11 @@ public class BoardView extends JPanel implements Observer {
 
     public void setFlipX(boolean flipX) {
         this.flipX = flipX;
+        updateBoard();
     }
 
     public void setFlipY(boolean flipY) {
         this.flipY = flipY;
+        updateBoard();
     }
 }

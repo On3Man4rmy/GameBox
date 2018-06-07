@@ -26,11 +26,12 @@ public class Position implements Serializable {
         yPos=position.yPos;
     }
 
-    @Override
-    public String toString() {
-        return "{" + xPos + "; " + yPos + "}";
-    }
-
+    /**
+     * returns position after a move is performed
+     * @param direction direction of movement
+     * @param position  position which is moved
+     * @return new position
+     */
     public static Position movePosition(Direction direction, Position position) {
         Position returnPosition;
         switch (direction) {
