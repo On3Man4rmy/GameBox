@@ -23,7 +23,7 @@ public class BoardView extends JPanel implements Observer {
     private GridLayout grid;
     private GridLayout rotGrid;
     static int count = 0;
-    boolean mousePresses=false;     //controlls if mouse is currenntly being clicked down
+    boolean mousePresses = false;     //controlls if mouse is currenntly being clicked down
 
     /**
      * @param model    The gamemodel
@@ -53,22 +53,24 @@ public class BoardView extends JPanel implements Observer {
                 boardElements[x][y] = new JButton();
                 boardElements[x][y].addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseEntered(java.awt.event.MouseEvent evt) {       //Painting hy passing over buttons
-                        if (mousePresses&&model.isPaint) {                           //If isPaint is true and mouse is pressed
+                        if (mousePresses && model.isPaint) {                           //If isPaint is true and mouse is pressed
                             setCell(xPos, yPos, true);            //reanimate passed over cell
                         }
                     }
+
                     public void mousePressed(java.awt.event.MouseEvent evt) {       //mouse is pressed down
 
-                        mousePresses=true;
+                        mousePresses = true;
                         if (model.isPaint) {                           //If isPaint is true
                             setCell(xPos, yPos, true);            //reanimate pressed on cell
                         }
 
 
                     }
+
                     public void mouseReleased(java.awt.event.MouseEvent evt) {       //mouse is released
 
-                        mousePresses=false;
+                        mousePresses = false;
 
                     }
 
@@ -151,6 +153,7 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Changes the status of a cell
+     *
      * @param x x location of cell
      * @param y y location of cell
      */
@@ -160,8 +163,9 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Sets cell to a specific status
-     * @param x x location of cell
-     * @param y y location of cell
+     *
+     * @param x    x location of cell
+     * @param y    y location of cell
      * @param cell the staus to which it is to be set (true=alive, false=dead)
      */
     private void setCell(int x, int y, boolean cell) {
@@ -170,6 +174,7 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * returns the cell
+     *
      * @param x x location of cell
      * @param y y location of cell
      * @return the cell
@@ -180,14 +185,17 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Returns actual X-position of cell due to Flipping
+     *
      * @param x the x-Position of the clicked field
      * @return the x Position of the cell behind the clicked field
      */
     private int getCellX(int x) {
         return flipX ? model.getLength() - 1 - x : x;
     }
+
     /**
      * Returns actual Y-position of cell due to Flipping
+     *
      * @param y the y-Position of the clicked field
      * @return the y Position of the cell behind the clicked field
      */

@@ -56,14 +56,13 @@ public class LevelView extends JPanel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("enter");
                 setBorder(hoverBorder);
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 setBorder(clickedBorder);
-                if(actionLevelSelected.get() != null) {
+                if (actionLevelSelected.get() != null) {
                     actionLevelSelected.get().accept(sokoban);
                 }
             }

@@ -1,2 +1,0 @@
-package Sokoban.View.LevelSelect;
-

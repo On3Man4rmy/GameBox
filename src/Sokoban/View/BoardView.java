@@ -14,8 +14,8 @@ import java.util.Observer;
 import java.util.function.Consumer;
 
 /**
- *
  * Represents the Gameboard, which is shown as GridLayout
+ *
  * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
  * @Version: 1.0
  * @Date: 09/05/18
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 public class BoardView extends JPanel implements Observer {
     public Sokoban sokoban;
-    private boolean listenMouseEvents=false;
+    private boolean listenMouseEvents = false;
     private SquareView[][] squareViews;
 
 
@@ -32,7 +32,8 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Constructor
-     * @param sokoban   the game which is shown in the view
+     *
+     * @param sokoban the game which is shown in the view
      */
     public BoardView(Sokoban sokoban) {
 
@@ -46,12 +47,13 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void enableMouseListener() {
-        if(!listenMouseEvents) {
+        if (!listenMouseEvents) {
             listenMouseEvents = !listenMouseEvents;
         }
     }
+
     public void disableMouseListener() {
-        if(listenMouseEvents) {
+        if (listenMouseEvents) {
             listenMouseEvents = !listenMouseEvents;
         }
     }
@@ -72,12 +74,12 @@ public class BoardView extends JPanel implements Observer {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 SquareView newSquareView = new SquareView();
-                final int x=j;
-                final int y=i;
+                final int x = j;
+                final int y = i;
                 MouseListener mouseListener = new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
-                        if(listenMouseEvents) {
+                        if (listenMouseEvents) {
                             if (Position.movePosition(Direction.LEFT, sokoban.player.position).equals(new Position((int) x, (int) y))) {
                                 sokoban.moveElement(Direction.LEFT);
                             } else if (Position.movePosition(Direction.UP, sokoban.player.position).equals(new Position((int) x, (int) y))) {
@@ -164,12 +166,12 @@ public class BoardView extends JPanel implements Observer {
         getActionMap().put(actionName, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(actionName);
                 callback.accept(e);
             }
         });
 
     }
+
     @Override
     public void setBackground(Color bg) {
 

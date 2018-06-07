@@ -14,7 +14,7 @@ import static App.App.app;
  * @Version: 1.0
  * @Date: 27/04/18
  */
-public class StartGameWindow extends JInternalFrame  {
+public class StartGameWindow extends JInternalFrame {
     private JDesktopPane desk;
     private JTextField xSize = new JTextField("X"); //Textfield to enter the rotHeight and rotLength
     private JTextField ySize = new JTextField("Y");
@@ -28,7 +28,7 @@ public class StartGameWindow extends JInternalFrame  {
      * @param desk //refernce to JDesktopPane
      */
     public StartGameWindow(JDesktopPane desk) {
-        super("Set Size", true, true,true,true);
+        super("Set Size", true, true, true, true);
 
         app.addChild(this, 10, 10);
         this.desk = desk;
@@ -58,7 +58,7 @@ public class StartGameWindow extends JInternalFrame  {
     /**
      * start methode, called to create a new game
      */
-    public void start(){
+    public void start() {
         GameOfLife game = new GameOfLife(x, y, Construction.GLIDER);  //game created with Gleiter Figure
         ViewGame viewGame = new ViewGame(app, game);
         app.addChild(viewGame, 10, 10); // Ein Kindfenster einfuegen
@@ -67,11 +67,11 @@ public class StartGameWindow extends JInternalFrame  {
 
     /**
      * checks if a String is an Integer
+     *
      * @param str string to be checked
      * @return returns true if string is an integer
      */
-    public static boolean isInteger(String str)
-    {
+    public static boolean isInteger(String str) {
         if (str == null) return false;
         try {
             Integer i = Integer.parseInt(str);

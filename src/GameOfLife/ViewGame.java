@@ -1,11 +1,11 @@
 package GameOfLife;
 
+import App.App;
+import App.Menu;
+
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
-
-import App.*;
-import App.Menu;
 
 
 /**

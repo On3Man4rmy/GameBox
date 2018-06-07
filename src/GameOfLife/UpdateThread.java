@@ -13,6 +13,7 @@ public class UpdateThread extends Thread {
 
     /**
      * Constructor
+     *
      * @param game the game updated by the thread
      */
     public UpdateThread(GameOfLife game) {

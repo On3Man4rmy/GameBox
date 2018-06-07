@@ -18,9 +18,9 @@ public class LevelListView extends JInternalFrame {
         super("Level List", true, true);
 
         ArrayList<Sokoban> sokobanList = loadFile(levelList);
-        JPanel listPane  = new JPanel();
+        JPanel listPane = new JPanel();
         listPane.setLayout(new GridLayout(0, 3));
-        for(int i = 1; i <= sokobanList.size(); i++) {
+        for (int i = 1; i <= sokobanList.size(); i++) {
             Sokoban sokoban = sokobanList.get(i - 1);
             LevelView levelView = new LevelView("Level " + i, sokoban);
             levelView.setActionLevelSelected(getActionLevelSelected());
@@ -42,8 +42,9 @@ public class LevelListView extends JInternalFrame {
     }
 
     public Supplier<Consumer<Sokoban>> getActionLevelSelected() {
-        return  () -> actionLevelSelected;
+        return () -> actionLevelSelected;
     }
+
     public void setActionLevelSelected(Consumer<Sokoban> actionLevelSelected) {
         this.actionLevelSelected = actionLevelSelected;
     }
@@ -51,7 +52,7 @@ public class LevelListView extends JInternalFrame {
     public ArrayList<Sokoban> loadFile(File levelList) {
         ArrayList<Sokoban> sokobanList = new ArrayList<>();
         int levels = GameLoader.getLevelCount(levelList);
-        for(int i = 1; i <= levels; i++) {
+        for (int i = 1; i <= levels; i++) {
             sokobanList.add(new Sokoban(levelList, i));
         }
 

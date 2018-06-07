@@ -1,15 +1,12 @@
 package Sokoban.View;
 
-import App.App;
 import App.Menu;
-
-import GameOfLife.StartGameWindow;
-import Sokoban.Model.*;
+import Sokoban.Model.Direction;
+import Sokoban.Model.Sokoban;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -22,6 +19,7 @@ import java.util.function.Consumer;
 
 /**
  * The window, in which the game is shown
+ *
  * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
  * @Version: 1.0
  * @Date: 09/05/18
@@ -54,9 +52,9 @@ public class GameView extends JInternalFrame implements Observer {
 
 
     public GameView(Sokoban sokoban) {
-        super("Game", true, true,true,true);
+        super("Game", true, true, true, true);
         registerKeyEvents();
-        this.setSize((sokoban.getArrayLength()*30),sokoban.getArrayHeight()*50);
+        this.setSize((sokoban.getArrayLength() * 30), sokoban.getArrayHeight() * 50);
 
         LayoutManager overlay = new OverlayLayout(contentPane);
         contentPane.setLayout(overlay);
@@ -112,16 +110,16 @@ public class GameView extends JInternalFrame implements Observer {
 
     /**
      * set what pressing the key does
-     * @param key the pressed key
-     * @param actionName    name of the action
-     * @param callback  the performed action
+     *
+     * @param key        the pressed key
+     * @param actionName name of the action
+     * @param callback   the performed action
      */
     public void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
         getInputMap().put(KeyStroke.getKeyStroke(key), actionName);
         getActionMap().put(actionName, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(actionName);
                 callback.accept(e);
             }
         });
@@ -132,7 +130,6 @@ public class GameView extends JInternalFrame implements Observer {
         getActionMap().put(actionName, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(actionName);
                 callback.accept(e);
             }
         });

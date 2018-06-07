@@ -6,38 +6,38 @@ package SmallGames; /**
  * @version 1.0
  **/
 
+import App.App;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import App.App;
 
-public class Rainbow extends JInternalFrame{
+public class Rainbow extends JInternalFrame {
     JButton changeColor = new JButton("Create Rainbow Window");
 
-   public Rainbow() {
-        super("Rainbow", true, true,true,true);
+    public Rainbow() {
+        super("Rainbow", true, true, true, true);
 
-        this.setSize(360,100);
+        this.setSize(360, 100);
         setLayout(new FlowLayout());
         setVisible(true);
 
         setLayout(new FlowLayout());
         changeColor.setFont(new Font("Arial", Font.PLAIN, 25));
 
-       changeColor.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               RainbowColors regen = new RainbowColors();
-               new Thread(regen).start();
+        changeColor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RainbowColors regen = new RainbowColors();
+                new Thread(regen).start();
 
-           }
-       });
+            }
+        });
         add(changeColor);
 
 
     }
-
 
 
 }
@@ -52,9 +52,9 @@ class RainbowColors extends JInternalFrame implements Runnable {
     /**
      * Constructor
      */
-    public RainbowColors(){
-        super("Rainbows", true, true,true,true);
-        this.setSize(360,360);
+    public RainbowColors() {
+        super("Rainbows", true, true, true, true);
+        this.setSize(360, 360);
         setLayout(new FlowLayout());
         setVisible(true);
 
@@ -65,7 +65,7 @@ class RainbowColors extends JInternalFrame implements Runnable {
      */
     public void run() {
         RainbowColors demo = new RainbowColors();
-        App.app.addChild(demo,10,10);
+        App.app.addChild(demo, 10, 10);
 
         while (true) {
             for (Color i : farben) {
