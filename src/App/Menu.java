@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public class Menu extends JMenu {
 
     /**
-     * Construktor
+     * Constructor
      * @param title title of Menu
      */
     public Menu(String title) {
