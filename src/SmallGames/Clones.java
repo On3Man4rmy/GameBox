@@ -1,4 +1,5 @@
-package SmallGames; /**
+package SmallGames;
+/**
  * Durch drücken des "Change Color" Knopfes wird die Farbe geändert,
  * durch drücken des "Open New Window" Knopfes öffnet sch eine Kopie des Fesnters
  *
@@ -21,13 +22,13 @@ public class Clones extends JInternalFrame {
     Color[] colors = {Color.black, Color.blue, Color.cyan,
             Color.gray, Color.green, Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.yellow};
 
-
+    /**
+     * Constructor
+     * @param colorPosition The position of in the array, at which it starts (the initial color)
+     */
     public Clones(int colorPosition) {
         super("Rainbow", true, true, true, true);
-
         app.addChild(this, 0, 0);
-
-
         this.setSize(360, 360);
         setLayout(new FlowLayout());
         setVisible(true);
@@ -35,6 +36,9 @@ public class Clones extends JInternalFrame {
         setLayout(new FlowLayout());
         changeColor.setFont(new Font("Arial", Font.PLAIN, 20));
         newWind.setFont(new Font("Arial", Font.PLAIN, 20));
+        /**
+         * Action Listener, Pressing the button shifts the color in the array
+         */
         changeColor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,6 +51,9 @@ public class Clones extends JInternalFrame {
 
 
         });
+        /**
+         * Action Listener, Pressing the button opens new window with same color as initial color
+         */
         newWind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

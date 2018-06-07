@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 public class Rainbow extends JInternalFrame {
     JButton changeColor = new JButton("Create Rainbow Window");
 
+    /**
+     * Constructor
+     */
     public Rainbow() {
         super("Rainbow", true, true, true, true);
 

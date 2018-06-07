@@ -15,6 +15,12 @@ import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * Views a version of the game for the selection of Levels
+ * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @Version: 1.0
+ * @Date: 07/06/18
+ */
 public class LevelView extends JPanel {
     Border defaultBorder = new EmptyBorder(10, 10, 10, 10);
     Border hoverBorder = new CompoundBorder(
@@ -28,6 +34,11 @@ public class LevelView extends JPanel {
     Sokoban sokoban;
     Supplier<Consumer<Sokoban>> actionLevelSelected;
 
+    /**
+     * Constructor, creates a view for the Sokoban Level
+     * @param title Level of this game version
+     * @param sokoban   Model of this Level
+     */
     public LevelView(String title, Sokoban sokoban) {
         BoardView boardView = new BoardView(sokoban);
         JLabel lblTitle = new JLabel(title);
@@ -47,6 +58,9 @@ public class LevelView extends JPanel {
         add(boardView, BorderLayout.SOUTH);
     }
 
+    /**
+     * Adds MouseListener to the Selectable Level, clicking it selects it
+     */
     private void registerMouseEvents() {
         addMouseListener(new MouseAdapter() {
             @Override
@@ -69,6 +83,10 @@ public class LevelView extends JPanel {
         });
     }
 
+    /**
+     * Sets the selected Level
+     * @param actionLevelSelected   The selected Level
+     */
     public void setActionLevelSelected(Supplier<Consumer<Sokoban>> actionLevelSelected) {
         this.actionLevelSelected = actionLevelSelected;
     }
