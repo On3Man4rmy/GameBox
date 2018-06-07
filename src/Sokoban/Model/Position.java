@@ -53,6 +53,7 @@ public class Position implements Serializable {
         return returnPosition;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Position){

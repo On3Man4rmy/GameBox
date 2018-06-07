@@ -213,6 +213,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         return false;
     }
 
+
     public boolean isDone() {
         return isDone;
     }
