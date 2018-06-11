@@ -20,7 +20,9 @@ public class TenColors extends JInternalFrame {
             new JButton("green"), new JButton("magenta"), new JButton("orange"), new JButton("pink"),
             new JButton("red"), new JButton("white"), new JButton("yellow")};
 
-
+    /**
+     * Constructor, initializes the buttons
+     */
     public TenColors() {
         super("Ten Colors", true, true, true, true);
         this.setSize(360, 360);

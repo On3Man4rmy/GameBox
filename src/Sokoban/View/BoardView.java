@@ -32,7 +32,6 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Constructor
-     *
      * @param sokoban the game which is shown in the view
      */
     public BoardView(Sokoban sokoban) {

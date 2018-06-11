@@ -36,7 +36,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
      * Dann wird 4 mal ein Panel erzeugt, dem je 3 Knoepfe, bzw 2 Knoepfe und ein lehres Panel zugeordnet werden
      * Die Panels werden dann zum Fenster hinzugefügt.
      *
-     * @param speed
+     * @param speed   speed of rotation in miliseconds between update
      */
     public ToggleSafe(int speed, Stack<JInternalFrame> windows) {
         super("ToggleSafe", true, true, true, true);
@@ -45,6 +45,9 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         setLayout(new FlowLayout());
         setVisible(true);
         app.addChild(this, 0, 0);
+        /**
+         * Clicking on the close button (red X) closes all windows of this instance of the game
+         */
         addInternalFrameListener(new InternalFrameListener() {
             @Override
             public void internalFrameOpened(InternalFrameEvent e) {
@@ -83,7 +86,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         });
         this.windows = windows;
 
-        this.speed = speed / 2;             //geswindigkeit verdoppel, durch halbieren der sleep zeit
+        this.speed = speed / 2;             //geschwindigkeit verdoppeln, durch halbieren der sleep zeit
         for (int i = 0; i < 10; i++) { // 10 Knöpfe im Array
             knoepfe[i] = new JButton("" + i); // erzeugen
             knoepfe[i].setFont(new Font("Courier", Font.BOLD, 34));
@@ -175,6 +178,9 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         schritte++;             //Schritte erhöhen
     }
 
+    /**
+     * Methode to close all windows of this instance of the game
+     */
     public void exit() {
         for (JInternalFrame i : windows) {
             i.dispose();
@@ -183,7 +189,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
     }
 
     /**
-     * Methode um Window zu schliesn und WIndowcounter um eins zu verkleinern
+     * Methode um Window zu schliesn und Windowcounter um eins zu verkleinern. Wenn alle Fenster zu sind öffnet sich Schloss
      */
     public void closewindow() {
         windowcount.integer--;
@@ -207,13 +213,10 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
             schloss.setLayout(new FlowLayout());
             schloss.setSize(360, 150);
             app.addChild(schloss, 10, 10);
+            windows.clear();
         }
         this.dispose();
     }
-    /**
-     * main methode:
-     * erzeugt ertes window
-     */
 }
 
 /**
@@ -234,7 +237,9 @@ class Rotation extends Frame implements Runnable {
     public boolean richtung = true;   //Richtungsvariable
     public JButton[] knoepfe = new JButton[10]; //Buttons
 
-
+    /**
+     * Run methode, roates the buttons (or rather their lable)
+     */
     public void run() {
         while (true) {
             for (JButton i : knoepfe) {    //Schleife durch button Array
