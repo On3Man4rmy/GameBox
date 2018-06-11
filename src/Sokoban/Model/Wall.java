@@ -9,9 +9,10 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Date: 03/05/18
  */
-public class Wall extends Square implements Serializable {
-    @Override
-    public String toString() {
-        return "Wall";
+public class Wall extends InteractableElement implements Serializable {
+
+    public Wall(int xPos, int yPos,Sokoban sokoban) {
+        super(xPos,yPos,sokoban);
     }
+
 }

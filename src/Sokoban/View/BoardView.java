@@ -120,6 +120,16 @@ public class BoardView extends JPanel implements Observer {
                     if (content instanceof Player) {
                         squareViews[j][i].setBackground(Colors.CANARINHO.getColor());
                         squareViews[j][i].setText("@");
+                        /**
+                         * checks if Player is on Goal, if yes, changes icon to indicate this
+                         */
+                            Floor temp = (Floor) sokoban.gameBoard[j][i][0];
+                            if (temp.goal) {
+                                squareViews[j][i].setText("+");
+
+
+
+                        }
                     }
                     if (content instanceof Wall) {
                         squareViews[j][i].setBackground(Colors.SURRENDER_V2.getColor());
@@ -132,14 +142,14 @@ public class BoardView extends JPanel implements Observer {
                          * checks if Crate is on Goal, if yes, changes backgroundcolor and icon to indicate this
                          * also increases goal count
                          */
-                        if (sokoban.gameBoard[j][i][0] instanceof Floor) {
                             Floor temp = (Floor) sokoban.gameBoard[j][i][0];
                             if (temp.goal) {
                                 cratesOnGoalCount++;
                                 squareViews[j][i].setBackground(Color.RED);
                                 squareViews[j][i].setText("*");
 
-                            }
+
+
                         }
                     }
 

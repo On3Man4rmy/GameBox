@@ -99,12 +99,13 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
             for (int x = 0; x < temp.length; x++) {
                 switch (temp[x]) {
                     case '#': {
-                        gameBoard[x][y][0] = new Wall();
+                        gameBoard[x][y][0] = new Wall(x,y,this);
+                        gameBoard[x][y][1]= new Wall(x,y,this);
                         break;
                     }
                     case '$': {
                         gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        gameBoard[x][y][1] = new Crate(x, y);
+                        gameBoard[x][y][1] = new Crate(x, y,this);
 
                         break;
                     }
@@ -118,7 +119,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                      */
                     case '*': {
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        gameBoard[x][y][1] = new Crate(x, y);
+                        gameBoard[x][y][1] = new Crate(x, y,this);
                         goalCount++;
                         break;
                     }
@@ -128,11 +129,14 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                     case '+': {
 
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                        player = new Player(x, y,this);
+                        gameBoard[x][y][1] = player;
+                        goalCount++;
                         break;
                     }
                     case '@': {
                         gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        player = new Player(x, y);
+                        player = new Player(x, y,this);
                         gameBoard[x][y][1] = player;
                         break;
                     }
@@ -159,57 +163,17 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     }
 
     /**
-     * moves a Movable Element (player of square) in a given direction, creates a backup of the gamestate
-     *
-     * @param direction Direction in which the Element is to be moved
-     * @param element   The Element to be moved
-     * @return if the move was sucessful or not (not moving against wall or moving multiple crates/crates against wall)
-     */
-    public boolean moveElement(Direction direction, MovableElement element) {
-        /**
-         * Creates Backup of the positions of Players and crates before an update, for undo option
-         */
-        gameStateBackup = new GameStateBackup();
-        gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
-        gameStateBackup.positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
-        for (int x = 0; x < arrayLength; x++) {
-            for (int y = 0; y < arrayHeight; y++) {
-                gameStateBackup.movableObjectsBackup[x][y] = gameBoard[x][y][1];
-                if (gameBoard[x][y][1] != null) {
-                    MovableElement temp = (MovableElement) gameBoard[x][y][1];
-                    gameStateBackup.positionBackup[x][y] = new Position(temp.position);
-                }
-            }
-        }
-        if (element == null) return false;
-        Position position = Position.movePosition(direction, element.position);
-        if (!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
-            MovableElement move = (MovableElement) gameBoard[position.xPos][position.yPos][1];
-            if (!((gameBoard[position.xPos][position.yPos][1] instanceof Crate) && element instanceof Crate)) { //Player moving a crate
-                if (move == null || moveElement(direction, move)) {
-                    gameBoard[element.position.xPos][element.position.yPos][1] = null;
-                    element.position = position;
-                    gameBoard[element.position.xPos][element.position.yPos][1] = element;
-                    setChanged();
-                    notifyObservers();
-                    return true;
-                }
-
-            }
-
-        }
-        return false;
-    }
-
-    /**
      * move player
      *
      * @param direction direction of movement
      * @return true if movement was successful
      */
     public boolean moveElement(Direction direction) {
-        if (moveElement(direction, player)) {
+        backup();
+        if (player.move(direction)) {
             backlog.add(gameStateBackup);
+            setChanged();
+            notifyObservers();
             return true;
         }
         return false;
@@ -236,7 +200,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                 for (int y = 0; y < arrayHeight; y++) {
                     gameBoard[x][y][1] = backup.movableObjectsBackup[x][y];
                     if (backup.movableObjectsBackup[x][y] != null) {
-                        MovableElement temp = (MovableElement) gameBoard[x][y][1];
+                        InteractableElement temp = (InteractableElement) gameBoard[x][y][1];
                         temp.position = backup.positionBackup[x][y];
                     }
                 }
@@ -244,6 +208,24 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
             setChanged();
             notifyObservers();
 
+        }
+    }
+    /**
+     * Creates Backup of the positions of Players and crates before an update, for undo option
+     */
+    public void backup(){
+
+        gameStateBackup = new GameStateBackup();
+        gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
+        gameStateBackup.positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
+        for (int x = 0; x < arrayLength; x++) {
+            for (int y = 0; y < arrayHeight; y++) {
+                gameStateBackup.movableObjectsBackup[x][y] = gameBoard[x][y][1];
+                if (gameBoard[x][y][1] != null) {
+                    InteractableElement temp = (InteractableElement) gameBoard[x][y][1];
+                    gameStateBackup.positionBackup[x][y] = new Position(temp.position);
+                }
+            }
         }
     }
 
