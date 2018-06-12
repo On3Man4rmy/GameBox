@@ -3,8 +3,8 @@ package GameOfLife;
 /**
  * Saves the figure as boolean array and returns it
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 27/04/18
  */
 public class ConstructionField {
@@ -12,10 +12,10 @@ public class ConstructionField {
             {false, false, true},
             {true, true, true}};
     static private boolean[][] fPentomino =
-            {{false, true, true},    //f-Pentomino, chaotic deveopment
+            {{false, true, true},    //f-Pentomino, chaotic development
                     {true, true, false},
                     {false, true, false}};
-    static private boolean[][] blinker = {{true}, {true}, {true}}; //Blinker, changes oriantation
+    static private boolean[][] blinker = {{true}, {true}, {true}}; //Blinker, changes orientation
     static private boolean[][] bipole = {{true, true, false, false}, {true, true, false, false},
             {false, false, true, true}, {false, false, true, true}};
     static private boolean[][] tumbler = {{false, true, true, false, true, true, false}, {false, true, true, false, true, true, false},

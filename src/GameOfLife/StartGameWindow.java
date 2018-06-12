@@ -2,16 +2,14 @@ package GameOfLife;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static App.App.app;
 
 /**
  * Window that gives option to enter the size of a new game
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 27/04/18
  */
 public class StartGameWindow extends JInternalFrame {
@@ -23,7 +21,7 @@ public class StartGameWindow extends JInternalFrame {
     private static int y = 0;
 
     /**
-     * Construktor, adds Listeners to Button
+     * Constructor, adds Listeners to Button
      *
      * @param desk //reference to JDesktopPane
      */
@@ -39,38 +37,36 @@ public class StartGameWindow extends JInternalFrame {
         this.add(startGame);
         setVisible(true);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        startGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isInteger(xSize.getText())) {            //checks if Text was an integer
-                    x = Integer.parseInt(xSize.getText());  //saves the entered text as int
-                }
-                if (isInteger(ySize.getText())) {
-                    y = Integer.parseInt(ySize.getText());
-                }
-                if (y > 0 && x > 0) {                               //checks if positive numbers where entered
-                    start();
-                }
+        startGame.addActionListener(e -> {
+            if (isInteger(xSize.getText())) {            //checks if Text was an integer
+                x = Integer.parseInt(xSize.getText());  //saves the entered text as int
+            }
+            if (isInteger(ySize.getText())) {
+                y = Integer.parseInt(ySize.getText());
+            }
+            if (y > 0 && x > 0) {                               //checks if positive numbers where entered
+                start();
             }
         });
     }
 
     /**
-     * start methode, called to create a new game
+     * start method, called to create a new game
      */
-    public void start() {
+    private void start() {
         GameOfLife game = new GameOfLife(x, y, Construction.GLIDER);  //game created with Gleiter Figure
         ViewGame viewGame = new ViewGame(app, game);
-        app.addChild(viewGame, 10, 10); // Ein Kindfenster einfuegen
+        app.addChild(viewGame, 10, 10);
         dispose();
     }
 
     /**
      * checks if a String is an Integer
+     *
      * @param str string to be checked
      * @return returns true if string is an integer
      */
-    public static boolean isInteger(String str) {
+    private static boolean isInteger(String str) {
         if (str == null) return false;
         try {
             Integer i = Integer.parseInt(str);

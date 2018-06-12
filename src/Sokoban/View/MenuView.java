@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuView extends JPanel {
-    JLabel label = new JLabel("", SwingConstants.CENTER);
+    private JLabel label = new JLabel("", SwingConstants.CENTER);
 
     /**
      * Constructor, sets the Colors for end game message
@@ -20,6 +20,7 @@ public class MenuView extends JPanel {
 
     /**
      * Sets text for end game message
+     *
      * @param label text of the end game message, a string
      */
     public void setText(String label) {

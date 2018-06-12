@@ -5,33 +5,32 @@ import Sokoban.Resources.Colors;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.function.Consumer;
 
 /**
  * Represents the Gameboard, which is shown as GridLayout
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 09/05/18
  */
 
 public class BoardView extends JPanel implements Observer {
-    public Sokoban sokoban;
+    private Sokoban sokoban;
     private boolean listenMouseEvents = false;
     private SquareView[][] squareViews;
 
 
-    int rows;
-    int cols;
+    private int rows;
+    private int cols;
 
     /**
      * Constructor
+     *
      * @param sokoban the game which is shown in the view
      */
     public BoardView(Sokoban sokoban) {
@@ -53,6 +52,7 @@ public class BoardView extends JPanel implements Observer {
             listenMouseEvents = !listenMouseEvents;
         }
     }
+
     /**
      * turns the mouselistener off, when the game is just previewed
      */
@@ -66,7 +66,7 @@ public class BoardView extends JPanel implements Observer {
     /**
      * Creates board the first time, creates mouselistener
      */
-    public void loadBoard() {
+    private void loadBoard() {
         cols = sokoban.getArrayLength();
         rows = sokoban.getArrayHeight();
 
@@ -84,13 +84,13 @@ public class BoardView extends JPanel implements Observer {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if (listenMouseEvents) {
-                            if (Position.movePosition(Direction.LEFT, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                            if (Position.movePosition(Direction.LEFT, sokoban.player.position).equals(new Position(x, y))) {
                                 sokoban.moveElement(Direction.LEFT);
-                            } else if (Position.movePosition(Direction.UP, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                            } else if (Position.movePosition(Direction.UP, sokoban.player.position).equals(new Position(x, y))) {
                                 sokoban.moveElement(Direction.UP);
-                            } else if (Position.movePosition(Direction.DOWN, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                            } else if (Position.movePosition(Direction.DOWN, sokoban.player.position).equals(new Position(x, y))) {
                                 sokoban.moveElement(Direction.DOWN);
-                            } else if (Position.movePosition(Direction.RIGHT, sokoban.player.position).equals(new Position((int) x, (int) y))) {
+                            } else if (Position.movePosition(Direction.RIGHT, sokoban.player.position).equals(new Position(x, y))) {
                                 sokoban.moveElement(Direction.RIGHT);
                             }
                         }
@@ -106,7 +106,7 @@ public class BoardView extends JPanel implements Observer {
     /**
      * Updates the Gameboard, sets JPanels in Gridlayout to correct Color and name, based on sokoban
      */
-    public void updateBoard() {
+    private void updateBoard() {
         int cratesOnGoalCount = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -124,13 +124,12 @@ public class BoardView extends JPanel implements Observer {
                     if (content instanceof Player) {
                         squareViews[j][i].setBackground(Colors.CANARINHO.getColor());
                         squareViews[j][i].setText("@");
-                        /**
-                         * checks if Player is on Goal, if yes, changes icon to indicate this
+                        /*
+                          checks if Player is on Goal, if yes, changes icon to indicate this
                          */
-                            Floor temp = (Floor) sokoban.gameBoard[j][i][0];
-                            if (temp.goal) {
-                                squareViews[j][i].setText("+");
-
+                        Floor temp = (Floor) sokoban.gameBoard[j][i][0];
+                        if (temp.goal) {
+                            squareViews[j][i].setText("+");
 
 
                         }
@@ -142,16 +141,15 @@ public class BoardView extends JPanel implements Observer {
                     if (content instanceof Crate) {
                         squareViews[j][i].setBackground(Colors.A_SWING_TRUMPET_V2.getColor());
                         squareViews[j][i].setText("$");
-                        /**
-                         * checks if Crate is on Goal, if yes, changes backgroundcolor and icon to indicate this
-                         * also increases goal count
+                        /*
+                          checks if Crate is on Goal, if yes, changes backgroundcolor and icon to indicate this
+                          also increases goal count
                          */
-                            Floor temp = (Floor) sokoban.gameBoard[j][i][0];
-                            if (temp.goal) {
-                                cratesOnGoalCount++;
-                                squareViews[j][i].setBackground(Color.RED);
-                                squareViews[j][i].setText("*");
-
+                        Floor temp = (Floor) sokoban.gameBoard[j][i][0];
+                        if (temp.goal) {
+                            cratesOnGoalCount++;
+                            squareViews[j][i].setBackground(Color.RED);
+                            squareViews[j][i].setText("*");
 
 
                         }

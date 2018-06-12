@@ -17,27 +17,29 @@ import java.util.function.Supplier;
 
 /**
  * Views a version of the game for the selection of Levels
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ *
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 07/06/18
  */
 public class LevelView extends JPanel {
-    Border defaultBorder = new EmptyBorder(10, 10, 10, 10);
-    Border hoverBorder = new CompoundBorder(
+    private Border defaultBorder = new EmptyBorder(10, 10, 10, 10);
+    private Border hoverBorder = new CompoundBorder(
             new LineBorder(Colors.CANARINHO.getColor(), 5),
             new EmptyBorder(5, 5, 5, 5)
     );
-    Border clickedBorder = new CompoundBorder(
+    private Border clickedBorder = new CompoundBorder(
             new LineBorder(Colors.A_SWING_TRUMPET_V2.getColor(), 5),
             new EmptyBorder(5, 5, 5, 5)
     );
-    Sokoban sokoban;
-    Supplier<Consumer<Sokoban>> actionLevelSelected;
+    private Sokoban sokoban;
+    private Supplier<Consumer<Sokoban>> actionLevelSelected;
 
     /**
      * Constructor, creates a view for the Sokoban Level
-     * @param title Level of this game version
-     * @param sokoban   Model of this Level
+     *
+     * @param title   Level of this game version
+     * @param sokoban Model of this Level
      */
     public LevelView(String title, Sokoban sokoban) {
         BoardView boardView = new BoardView(sokoban);
@@ -85,7 +87,8 @@ public class LevelView extends JPanel {
 
     /**
      * Sets the selected Level
-     * @param actionLevelSelected   The selected Level
+     *
+     * @param actionLevelSelected The selected Level
      */
     public void setActionLevelSelected(Supplier<Consumer<Sokoban>> actionLevelSelected) {
         this.actionLevelSelected = actionLevelSelected;

@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * Saves the position of a movable Element
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 03/05/18
  */
 public class Position implements Serializable {
@@ -15,8 +15,9 @@ public class Position implements Serializable {
 
     /**
      * Constructor
-     * @param xPos  the x Value of the position
-     * @param yPos  the y Value of the position
+     *
+     * @param xPos the x Value of the position
+     * @param yPos the y Value of the position
      */
     public Position(int xPos, int yPos) {
         this.xPos = xPos;
@@ -66,8 +67,7 @@ public class Position implements Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof Position) {
             Position pos = (Position) obj;
-            if (pos.xPos == xPos && pos.yPos == yPos)
-                return true;
+            return pos.xPos == xPos && pos.yPos == yPos;
         }
         return false;
 

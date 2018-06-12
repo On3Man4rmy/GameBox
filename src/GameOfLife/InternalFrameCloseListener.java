@@ -6,8 +6,8 @@ import javax.swing.event.InternalFrameListener;
 /**
  * Used to end thread when all view are close
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 01/05/18
  */
 

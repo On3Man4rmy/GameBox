@@ -2,6 +2,7 @@ package GameOfLife;
 
 import App.App;
 import App.Menu;
+
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
@@ -10,51 +11,53 @@ import java.awt.*;
 /**
  * Class represents Window in which a version of the game runs
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 27/04/18
  */
 public class ViewGame extends JInternalFrame {
-    static int nr = 0, xpos = 30, ypos = 30;
-    App myView;
-    private Color dead = Color.GREEN;                 //saves the colors
+    private static int nr = 0;
+    private static int xpos = 30;
+    private static int ypos = 30;
+    private App myView;
+    private Color dead = Color.GREEN;                                                       //saves the colors
     private Color alive = Color.RED;
-    boolean isFigure = false;                         //is a figure being set
-    boolean[][] figure = {{false}};                  //saves figure
+    boolean isFigure = false;                                                               //is a figure being set
+    private boolean[][] figure = {{false}};                                                 //saves figure
     private BoardView boardView;
     private GameOfLife game;
-    Menu[] menus = {
+    private Menu[] menus = {
             new Menu("Mode")
                     .addItem("Run/Pause", e -> {
                         game.isRun = !game.isRun;
-                        game.isPaint = false;                 //disables paint and set when game runs, viable for change
+                        game.isPaint = false;                                               //disables paint and set when game runs, viable for change
                         game.isSet = false;
                     })
-                    .addItem("Set","Change the status of cells", e -> {
-                        game.isRun = false;               //pauses the game while setting, viable for change
+                    .addItem("Set", "Change the status of cells", e -> {
+                        game.isRun = false;                                                 //pauses the game while setting, viable for change
                         game.isSet = true;
                         game.isPaint = false;
-                        isFigure = false;                        //disables setting figures
+                        isFigure = false;                                                   //disables setting figures
                     })
-                    .addItem("Paint","<html>Revive multiple cells at once<br>by dragging the mouse over it while clicking the right mouse button</html>", e -> {
+                    .addItem("Paint", "<html>Revive multiple cells at once<br>by dragging the mouse over it while clicking the right mouse button</html>", e -> {
                 game.isRun = false;
                 game.isPaint = true;
                 isFigure = false;
             }),
-            new Menu("Speed","Change the speed of updates")
+            new Menu("Speed", "Change the speed of updates")
                     .addItem("Fast", e -> game.setSpeed(100))
                     .addItem("Medium", e -> game.setSpeed(1000))
                     .addItem("Slow", e -> game.setSpeed(2000)),
 
             new Menu("Window")
-                    .addItem("new View","new Window of the same game", e -> {
-                        ViewGame viewGame1 = new ViewGame(App.app, game); //passes refernce to thread and the boolean values
+                    .addItem("new View", "new Window of the same game", e -> {
+                        ViewGame viewGame1 = new ViewGame(App.app, game);                   //passes reference to thread and the boolean values
                         App.app.addChild(viewGame1, xpos += 20, ypos += 20);
                     })
-                    .addItem("new Game","Start new Game", e -> {
-                        StartGameWindow sgw = new StartGameWindow(App.desk);      //Creates a Stargame Window
+                    .addItem("new Game", "Start new Game", e -> {
+                        StartGameWindow sgw = new StartGameWindow(App.desk);                //Creates a Stargame Window
                     })
-                    .addItem("new Copy","Create identical independent copy of the current Game", e -> {
+                    .addItem("new Copy", "Create identical independent copy of the current Game", e -> {
                         GameOfLife copyGame = new GameOfLife(game);
                         ViewGame copyViewGame = new ViewGame(this, copyGame);
                         App.app.addChild(copyViewGame, 10, 10);
@@ -65,13 +68,13 @@ public class ViewGame extends JInternalFrame {
                     .addItem("Change Color Dead", e -> {
                         dead = JColorChooser.showDialog(this, "Select dead color", Color.GREEN);
                     })
-                    .addItem("FlipX","Flips the game along the Y-Axis", e -> {
+                    .addItem("FlipX", "Flips the game along the Y-Axis", e -> {
                         boardView.setFlipX(!boardView.isFlipX());
                     })
-                    .addItem("FlipY","Flips the game along the X-Axis", e -> {
+                    .addItem("FlipY", "Flips the game along the X-Axis", e -> {
                         boardView.setFlipY(!boardView.isFlipY());
                     })
-                    .addItem("Rotate","Rotates the game by 90°", e -> {
+                    .addItem("Rotate", "Rotates the game by 90°", e -> {
                 boardView.rotate();
                 if (boardView.rotate) {
                     this.setSize((game.getHeight() * myView.SCALEFACTOR), (game.getLength()) * myView.SCALEFACTOR);
@@ -82,33 +85,33 @@ public class ViewGame extends JInternalFrame {
             }),
             new Menu("Figure")
                     .addItem("Glider", e -> setFigure(Construction.GLIDER))
-                    .addItem("f-pentomino","A rapidly escalating figure", e -> setFigure(Construction.F_PENTOMINO))
+                    .addItem("f-pentomino", "A rapidly escalating figure", e -> setFigure(Construction.F_PENTOMINO))
                     .addItem("Blinker", e -> setFigure(Construction.BLINKER))
                     .addItem("Biploe", e -> setFigure(Construction.BIPLOE))
                     .addItem("Tumbler", e -> setFigure(Construction.TUMBLER))
-                    .addItem("Clear","Kills all cells", e -> game.resetFeld())
+                    .addItem("Clear", "Kills all cells", e -> game.resetField())
     };
 
     /**
      * Construktor
      *
-     * @param myView refrence to ViewGame
+     * @param myView reference to ViewGame
      * @param game   reference to GameOfLife
      */
 
     public ViewGame(App myView, GameOfLife game) {
-        super("Game " + (++nr), true, true,true,true);
+        super("Game " + (++nr), true, true, true, true);
         JMenuBar menuBar = new JMenuBar();
         this.boardView = new BoardView(game, this);
         this.myView = myView;
         this.game = game;
 
-        for (JMenu menu : menus) { // fuer alle Menues:
+        for (JMenu menu : menus) {
             menuBar.add(menu);
         }
 
-        /**
-         * checks if Frame is closed, removes observer, if there are no observers end thread
+        /*
+          checks if Frame is closed, removes observer, if there are no observers end thread
          */
         addInternalFrameListener(new InternalFrameCloseListener() {
             @Override
@@ -129,7 +132,7 @@ public class ViewGame extends JInternalFrame {
      * Copy Constructor
      *
      * @param viewGame View to be copied
-     * @param game Copy of the game connected to the view
+     * @param game     Copy of the game connected to the view
      */
     public ViewGame(ViewGame viewGame, GameOfLife game) {
         this(viewGame.myView, game);
@@ -146,10 +149,11 @@ public class ViewGame extends JInternalFrame {
 
 
     /**
-     * Sets the figure to the selected figure, also activates setting figure on click and deactives setting/painting
-     * @param figure    the figure to be set, one of the constructions
+     * Sets the figure to the selected figure, also activates setting figure on click and deactivates setting/painting
+     *
+     * @param figure the figure to be set, one of the constructions
      */
-    public void setFigure(Construction figure) {
+    private void setFigure(Construction figure) {
         game.isPaint = false;
         game.isSet = false;
         isFigure = true;
@@ -158,7 +162,8 @@ public class ViewGame extends JInternalFrame {
 
     /**
      * Returns the selected figure
-     * @return  the currently selected figure, one of the constructions
+     *
+     * @return the currently selected figure, one of the constructions
      */
     public boolean[][] getFigure() {
         return figure;
@@ -166,14 +171,17 @@ public class ViewGame extends JInternalFrame {
 
     /**
      * Returns the Color of living Cells
-     * @return  the color of living cells, an awt Color
+     *
+     * @return the color of living cells, an awt Color
      */
     public Color getAlive() {
         return alive;
     }
+
     /**
      * Returns the Color of dead Cells
-     * @return  the color of dead cells, an awt Color
+     *
+     * @return the color of dead cells, an awt Color
      */
     public Color getDead() {
         return dead;
@@ -181,16 +189,19 @@ public class ViewGame extends JInternalFrame {
 
     /**
      * Sets the Color of Living Cells
+     *
      * @param alive The Color to be set
      */
-    public void setAlive(Color alive) {
+    private void setAlive(Color alive) {
         this.alive = alive;
     }
+
     /**
      * Sets the Color of dead Cells
+     *
      * @param dead The Color to be set
      */
-    public void setDead(Color dead) {
+    private void setDead(Color dead) {
         this.dead = dead;
     }
 }

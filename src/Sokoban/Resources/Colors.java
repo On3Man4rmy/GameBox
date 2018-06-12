@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * Enum, lists Colors that are used in the game
- *  Code from https://stackoverflow.com/a/19858051
+ * Code from https://stackoverflow.com/a/19858051
  */
 
 public enum Colors {
@@ -35,7 +35,8 @@ public enum Colors {
 
     /**
      * returns a color with the rpg value
-     * @return  the color
+     *
+     * @return the color
      */
     public Color getColor() {
         return new Color(r, g, b);

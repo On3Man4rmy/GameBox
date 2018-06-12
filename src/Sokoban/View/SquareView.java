@@ -9,7 +9,7 @@ import java.awt.*;
  * Represents a square in the view, for example a wall
  */
 public class SquareView extends JPanel {
-    JLabel label = new JLabel("", SwingConstants.CENTER);
+    private JLabel label = new JLabel("", SwingConstants.CENTER);
 
     /**
      * Constructor, sets default Background colors of the squares
@@ -22,7 +22,8 @@ public class SquareView extends JPanel {
 
     /**
      * Sets text displayed on a square
-     * @param label the text displayed on the square, indicates what it is(for exaple @ for players)
+     *
+     * @param label the text displayed on the square, indicates what it is(for example @ for players)
      */
     public void setText(String label) {
         this.label.setText(label);

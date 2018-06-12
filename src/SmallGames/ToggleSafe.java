@@ -11,32 +11,31 @@ import java.util.Stack;
 import static App.App.app;
 
 /**
- * Programm ist Erweiterung von Drehsafe, jetzt werden neue Windows geöffnet bei Falscher eingabe
+ * Program is an extension of Drehsafe, now a new window is opened upon wrong entry
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 27/04/18
  **/
 
 public class ToggleSafe extends JInternalFrame implements ActionListener {
 
-    JButton[] knoepfe = new JButton[10];     //Feld für Knöpfe
-    int pos = 0;                             //Speichert die derzeitig Position, wo man im Passwort ist
-    static char[] password = "82".toCharArray();  //Passwort, gespeichert als Char[] Array, weil Substring nervig ist
-    boolean richtung = true;   //Steuert Richtung. True ist Uhrzeigersinn, false ist Gegen Uhrzeigersinn
-    int speed = 0;    //Pause zwischen drehung in milisecs
-    int schritte = 0; //Zählt die Schritte, die man schon eingegeben hat. Nach drei eingaben ändert sich richtung
-    Rotation rot = new Rotation();  //Objekt der Rotation klasse, hier erzeugt damit zugriff im Actionlistener möglich (anstatt im Konstruktor)
-    Stack<JInternalFrame> windows;      //refrence to all windows, to close them all at once
-    public WrapInteger windowcount = new WrapInteger();       //counts windows so it closes when all are closes
+    private JButton[] buttons = new JButton[10];            //Field of buttons
+    private int pos = 0;                                    //Saves current position, where in password one is
+    private static char[] password = "8245".toCharArray();  //Password, saved as Char[] Array, cause Substring are annoying
+    private int speed = 0;                                  //Break between rotation in milliseconds
+    private int steps = 0;                                  //Counts number of entered steps. After 3 entries change direction
+    private Rotation rot = new Rotation();                  //Object of rotation class, created here for access in the Actionlistener as opposed to the constructor)
+    private Stack<JInternalFrame> windows;                  //reference to all windows, to close them all at once
+    private WrapInteger windowcount = new WrapInteger();    //counts windows so it closes when all are closes
 
     /**
-     * Konstrukotr:
-     * zuerst wird das knoepfe Array gefüllt (mit Knöepfen von 0 bis 9)
-     * Dann wird 4 mal ein Panel erzeugt, dem je 3 Knoepfe, bzw 2 Knoepfe und ein lehres Panel zugeordnet werden
-     * Die Panels werden dann zum Fenster hinzugefügt.
+     * Constructor:
+     * First fills array with Buttons from 0 to 9
+     * then creates 4 Panels, with 3 buttons (or 2 buttons + one empty panel)
+     * Adds panels to the window
      *
-     * @param speed   speed of rotation in miliseconds between update
+     * @param speed speed of rotation in milliseconds between update
      */
     public ToggleSafe(int speed, Stack<JInternalFrame> windows) {
         super("ToggleSafe", true, true, true, true);
@@ -45,8 +44,8 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         setLayout(new FlowLayout());
         setVisible(true);
         app.addChild(this, 0, 0);
-        /**
-         * Clicking on the close button (red X) closes all windows of this instance of the game
+        /*
+          Clicking on the close button (red X) closes all windows of this instance of the game
          */
         addInternalFrameListener(new InternalFrameListener() {
             @Override
@@ -86,102 +85,100 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         });
         this.windows = windows;
 
-        this.speed = speed / 2;             //geschwindigkeit verdoppeln, durch halbieren der sleep zeit
-        for (int i = 0; i < 10; i++) { // 10 Knöpfe im Array
-            knoepfe[i] = new JButton("" + i); // erzeugen
-            knoepfe[i].setFont(new Font("Courier", Font.BOLD, 34));
-            knoepfe[i].addActionListener(this); // ... und registrieren
+        this.speed = speed / 2;             //doubles speed by halving rotation delay
+        for (int i = 0; i < 10; i++) {
+            buttons[i] = new JButton("" + i);
+            buttons[i].setFont(new Font("Courier", Font.BOLD, 34));
+            buttons[i].addActionListener(this);
         }
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 3));
-        panel.add(knoepfe[3]);
-        panel.add(knoepfe[2]);
-        panel.add(knoepfe[1]);
+        panel.add(buttons[3]);
+        panel.add(buttons[2]);
+        panel.add(buttons[1]);
 
 
         JPanel pane2 = new JPanel();
         pane2.setLayout(new GridLayout(1, 3));
         setLayout(new GridLayout(4, 1));
-        pane2.add(knoepfe[4]);
+        pane2.add(buttons[4]);
         pane2.add(new JPanel());
-        pane2.add(knoepfe[0]);
+        pane2.add(buttons[0]);
 
         JPanel pane3 = new JPanel();
         pane3.setLayout(new GridLayout(1, 3));
-        pane3.add(knoepfe[5]);
+        pane3.add(buttons[5]);
         pane3.add(new JPanel());
-        pane3.add(knoepfe[9]);
+        pane3.add(buttons[9]);
 
         JPanel pane4 = new JPanel();
         pane4.setLayout(new GridLayout(1, 3));
-        pane4.add(knoepfe[6]);
-        pane4.add(knoepfe[7]);
-        pane4.add(knoepfe[8]);
+        pane4.add(buttons[6]);
+        pane4.add(buttons[7]);
+        pane4.add(buttons[8]);
 
         add(panel);
         add(pane2);
         add(pane3);
         add(pane4);
 
-        for (JButton i : knoepfe) {
+        for (JButton i : buttons) {
             i.setFont(new Font("Courier", Font.BOLD, 34));
 
         }
-        rot.speed = speed;    //speed in der Totationsklasse auch halbieren
-        rot.knoepfe = knoepfe;    //Knöpfe im Thread setzen
-        new Thread(rot).start();    //neuen Thread starten
+        rot.speed = speed;          //speed in the  rotation class is also doubled
+        rot.Buttons = buttons;      //sets buttons in thread
+        new Thread(rot).start();    //starts thread
         windows.add(this);
 
     }
 
     /**
-     * ActionPerformed: Wenn ein Knopf gedrückt wird.
-     * Wenn der gedrückte Knopf mit der an dieser Position stehenden Zahl übereinstimmt, werden die Knöpfe grün
-     * Zudem wird pos erhöht.
-     * Bei Falscher eingabe wird die Farbe zu Rot geändert, die Position resetted und ein neues Fenster geöffent,
-     * mit doppelt dreh gescwhindigkeit
-     * Wenn die position mit der länge des Passwortes übereinstimmt, schliest sich das Fenster
-     * Wenn alle Fenster geschlossen sind (Windowcount==0), wird ein neues Fenster "Sesam öffen dich" geöffnet, welches gratuliert
-     * Nach 3 eingaben wird die Drehrichtung des WIndows invertiert
+     * If the clicked button is the expected number, background is green
+     * By wrong entry the color changed to red, password needs to be entered again, speed is doubled and new window is opened
+     * If the complete password is entered the window is closed
+     * If all windows are closed a "Open sesame" window opens
+     * After 3 entries the direction changes
      */
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (schritte == 2) {    //Wenn 3tte Eingabe
-            schritte = 0;
-            rot.richtung = !rot.richtung;
+        if (steps == 2) {    //If 3rd entry
+            steps = 0;
+            rot.direction = !rot.direction;
         }
 
-        if (e.getActionCommand().equals("" + password[pos])) {  //Richtige Eingabe
+        if (e.getActionCommand().equals("" + password[pos])) {          //correct entry
 
 
-            for (JButton i : knoepfe) {
+            for (JButton i : buttons) {
                 i.setBackground(Color.green);
             }
             pos++;
 
-        } else {                                              //Falsche Eingabe
-            for (JButton i : knoepfe) {
+        } else {                                                        //wrong entry
+            for (JButton i : buttons) {
                 i.setBackground(Color.red);
                 pos = 0;
 
             }
-            ToggleSafe demo = new ToggleSafe(speed, this.windows);        //neues Window
+            ToggleSafe demo = new ToggleSafe(speed, this.windows);      //new window
             demo.windowcount = windowcount;
             windowcount.integer++;
 
 
         }
 
-        if (pos == password.length) {                  //Richtiges Passwort
+        if (pos == password.length) {                                   //correct password
             closewindow();
         }
-        schritte++;             //Schritte erhöhen
+        steps++;                                                        //increase steps
     }
 
     /**
-     * Methode to close all windows of this instance of the game
+     * Method to close all windows of this instance of the game
      */
-    public void exit() {
+    private void exit() {
         for (JInternalFrame i : windows) {
             i.dispose();
         }
@@ -189,15 +186,15 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
     }
 
     /**
-     * Methode um Window zu schliesn und Windowcounter um eins zu verkleinern. Wenn alle Fenster zu sind öffnet sich Schloss
+     * Method to close a window and decrease Windowcounter by one. if all windows are closed open lock
      */
-    public void closewindow() {
+    private void closewindow() {
         windowcount.integer--;
-        if (windowcount.integer == 0) {       //Alle anderen Fenster schon geschlossen
+        if (windowcount.integer == 0) {       //All other windows are closed
 
-            JInternalFrame schloss = new JInternalFrame("Open Sesame");
-            schloss.setClosable(true);
-            schloss.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            JInternalFrame lock = new JInternalFrame("Open Sesame");
+            lock.setClosable(true);
+            lock.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setIconifiable(true);
             setMaximizable(true);
 
@@ -208,16 +205,17 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
 
             panel.add(label);
 
-            schloss.add(panel);
-            schloss.setVisible(true);
-            schloss.setLayout(new FlowLayout());
-            schloss.setSize(360, 150);
-            app.addChild(schloss, 10, 10);
+            lock.add(panel);
+            lock.setVisible(true);
+            lock.setLayout(new FlowLayout());
+            lock.setSize(360, 150);
+            app.addChild(lock, 10, 10);
             windows.clear();
         }
         this.dispose();
     }
 }
+
 
 /**
  * Integer Class, can be passed by reference
@@ -229,29 +227,29 @@ class WrapInteger {
 
 
 /**
- * Rotation klasse
+ * Rotation class
  */
 class Rotation extends Frame implements Runnable {
 
-    public int speed = 0;     //Gescwhindigkeit der Rotation, in milisekunden zwischen drehung
-    public boolean richtung = true;   //Richtungsvariable
-    public JButton[] knoepfe = new JButton[10]; //Buttons
+    public int speed = 0;     //Speed of rotation, in milliseconds between rotation by one
+    public boolean direction = true;   //Controls direction, true is clockwise
+    public JButton[] Buttons = new JButton[10]; //Buttons
 
     /**
-     * Run methode, roates the buttons (or rather their lable)
+     * Run method, rotates the buttons (or rather their label)
      */
     public void run() {
         while (true) {
-            for (JButton i : knoepfe) {    //Schleife durch button Array
+            for (JButton i : Buttons) {    //Loops through buttons array
 
-                if (richtung) {    //Wenn Richtung true ist, wird der Wert des Textes der Knöpfe erhöht
+                if (direction) {    //If direction is true, increases the value of the buttons
                     i.setText(Integer.parseInt(i.getText()) >= 9 ? 0 + "" : Integer.parseInt(i.getText()) + 1 + "");
-                } else {                    // Und Wenn es false ist veringert
+                } else {                    // and if it's false decrease it
                     i.setText(Integer.parseInt(i.getText()) == 0 ? 9 + "" : Integer.parseInt(i.getText()) - 1 + "");
                 }
             }
             try {
-                Thread.sleep(speed); //1 sec pause beim drehen
+                Thread.sleep(speed); //1 sec break while rotating
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

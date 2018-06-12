@@ -8,12 +8,12 @@ import java.util.Observer;
 /**
  * Class to show the Gamefield
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 01/05/18
  */
 public class BoardView extends JPanel implements Observer {
-    private GameOfLife model;       //Refernces to the game and view
+    private GameOfLife model;       //References to the game and view
     private ViewGame viewGame;
     private JButton boardElements[][];  //Array of buttons, represents the gamefields
 
@@ -22,8 +22,7 @@ public class BoardView extends JPanel implements Observer {
     boolean rotate = false;
     private GridLayout grid;
     private GridLayout rotGrid;
-    static int count = 0;
-    boolean mousePresses = false;     //controlls if mouse is currenntly being clicked down
+    private boolean mousePresses = false;     //controls if mouse is currently being clicked down
 
     /**
      * @param model    The gamemodel
@@ -92,15 +91,15 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Update board methode, checks the array of cells and recolors the buttons accordingly
+     * Update board method, checks the array of cells and recolors the buttons accordingly
      */
     private void updateBoard() {
         for (int y = 0; y < model.getHeight(); y++) {
             for (int x = 0; x < model.getLength(); x++) {
                 boolean modelElement = getCell(x, y);
 
-                /**
-                 * Update of thread can sometimes be called while new view is still being build, thus causing a crash
+                /*
+                  Update of thread can sometimes be called while new view is still being build, thus causing a crash
                  */
                 if (boardElements[x][y] != null) {
                     if (modelElement) {
@@ -116,7 +115,7 @@ public class BoardView extends JPanel implements Observer {
     /**
      * Updates the button Layout when rotating
      */
-    public void updateLayout() {
+    private void updateLayout() {
         removeAll();
         if (rotate) {
             this.setLayout(rotGrid);
@@ -137,7 +136,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Methode to rotate, update the Layout
+     * method to rotate, update the Layout
      */
     public void rotate() {
         rotate = !rotate;
@@ -166,7 +165,7 @@ public class BoardView extends JPanel implements Observer {
      *
      * @param x    x location of cell
      * @param y    y location of cell
-     * @param cell the staus to which it is to be set (true=alive, false=dead)
+     * @param cell the status to which it is to be set (true=alive, false=dead)
      */
     private void setCell(int x, int y, boolean cell) {
         model.setField(cell, getCellX(x), getCellY(y));
@@ -205,14 +204,17 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Returns the flipX boolean
-     * @return  flipX, the boolean that checks if the view should be flipped along the y axis (x values are flipped)
+     *
+     * @return flipX, the boolean that checks if the view should be flipped along the y axis (x values are flipped)
      */
     public boolean isFlipX() {
         return flipX;
     }
+
     /**
      * Returns the flipY boolean
-     * @return  flipY, the boolean that checks if the view should be flipped along the x axis (y values are flipped)
+     *
+     * @return flipY, the boolean that checks if the view should be flipped along the x axis (y values are flipped)
      */
     public boolean isFlipY() {
         return flipY;
@@ -220,14 +222,17 @@ public class BoardView extends JPanel implements Observer {
 
     /**
      * Sets FlipX, when the player want to flip the view
+     *
      * @param flipX the boolean that checks if the view should be flipped along the y axis (x values are flipped)
      */
     public void setFlipX(boolean flipX) {
         this.flipX = flipX;
         updateBoard();
     }
+
     /**
      * Sets FlipY, when the player want to flip the view
+     *
      * @param flipY the boolean that checks if the view should be flipped along the x axis (y values are flipped)
      */
     public void setFlipY(boolean flipY) {

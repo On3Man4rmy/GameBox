@@ -7,14 +7,16 @@ import java.util.function.Consumer;
 
 /**
  * Makes adding items to Menubar easier
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ *
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 09/05/18
  */
 public class Menu extends JMenu {
 
     /**
      * Constructor
+     *
      * @param title title of Menu
      */
     public Menu(String title) {
@@ -23,18 +25,20 @@ public class Menu extends JMenu {
 
     /**
      * Alt Constructor to add Tool Tips
-     * @param title title of Menu
+     *
+     * @param title   title of Menu
      * @param toolTip text of tooltip
      */
-    public Menu(String title,String toolTip) {
+    public Menu(String title, String toolTip) {
         super(title);
         this.setToolTipText(toolTip);
     }
 
     /**
      * Adds an item to the Menu
-     * @param title Name of MenuItem
-     * @param callback  action of the
+     *
+     * @param title    Name of MenuItem
+     * @param callback action of the
      * @return returns the menu to enable chaining
      */
     public Menu addItem(String title, Consumer<ActionEvent> callback) {
@@ -47,6 +51,7 @@ public class Menu extends JMenu {
 
     /**
      * A sub Menu
+     *
      * @param menu name of the menu
      * @return the main menu for chaining
      */
@@ -56,11 +61,12 @@ public class Menu extends JMenu {
     }
 
     /**
-     * Alternate additem methode
+     * Alternate additem method
+     *
      * @param toolTip text of the tool Tip
-     * @return
+     * @return the main menu for chaining
      */
-    public Menu addItem(String title,String toolTip, Consumer<ActionEvent> callback ) {
+    public Menu addItem(String title, String toolTip, Consumer<ActionEvent> callback) {
         JMenuItem item = new JMenuItem(title);
         item.setToolTipText(toolTip);
         ActionListener listener = callback::accept;

@@ -13,8 +13,9 @@ import java.util.function.Supplier;
 
 /**
  * Frame in which the selectable Levels are shown
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ *
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 07/06/18
  */
 public class LevelListView extends JInternalFrame {
@@ -22,6 +23,7 @@ public class LevelListView extends JInternalFrame {
 
     /**
      * Constructor, creates window, adds LevelViews to it
+     *
      * @param levelList Game File, which version is to be loaded
      */
     public LevelListView(File levelList) {
@@ -53,14 +55,16 @@ public class LevelListView extends JInternalFrame {
 
     /**
      * Returns the selected Level
+     *
      * @return the selected level
      */
-    public Supplier<Consumer<Sokoban>> getActionLevelSelected() {
+    private Supplier<Consumer<Sokoban>> getActionLevelSelected() {
         return () -> actionLevelSelected;
     }
 
     /**
      * Sets the selected level
+     *
      * @param actionLevelSelected the level to be set
      */
     public void setActionLevelSelected(Consumer<Sokoban> actionLevelSelected) {
@@ -68,11 +72,12 @@ public class LevelListView extends JInternalFrame {
     }
 
     /**
-     * Creates every possible version of teh game in the selected File
+     * Creates every possible version of the game in the selected File
+     *
      * @param levelList The selected version of the game
-     * @return  The Arraylist of Sokoban games
+     * @return The ArrayList of Sokoban games
      */
-    public ArrayList<Sokoban> loadFile(File levelList) {
+    private ArrayList<Sokoban> loadFile(File levelList) {
         ArrayList<Sokoban> sokobanList = new ArrayList<>();
         int levels = GameLoader.getLevelCount(levelList);
         for (int i = 1; i <= levels; i++) {

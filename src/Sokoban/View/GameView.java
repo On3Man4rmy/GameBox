@@ -20,15 +20,15 @@ import java.util.function.Consumer;
 /**
  * The window, in which the game is shown
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 09/05/18
  */
 
 public class GameView extends JInternalFrame implements Observer {
-    Sokoban sokoban;
-    BoardView boardView;
-    MenuView menuView;
+    private Sokoban sokoban;
+    private BoardView boardView;
+    private MenuView menuView;
     private Menu[] menus = {new Menu("Options")
             .addItem("Restart", e -> {
                 if (sokoban.isDone()) {     //in Case game is finished, restart is also possible
@@ -48,11 +48,12 @@ public class GameView extends JInternalFrame implements Observer {
     })
 
     };
-    Container contentPane = getContentPane();
+    private Container contentPane = getContentPane();
 
     /**
      * Constructor, sets menubar and End game message, prepares the window for the game
-     * @param sokoban
+     *
+     * @param sokoban The sokoban version connected to the view
      */
     public GameView(Sokoban sokoban) {
         super("Game", true, true, true, true);
@@ -89,7 +90,7 @@ public class GameView extends JInternalFrame implements Observer {
     /**
      * Registers keys for possible actions
      */
-    public void registerKeyEvents() {
+    private void registerKeyEvents() {
         registerKeyAction("W", "moveUp", actionEvent ->
                 sokoban.moveElement(Direction.UP));
         registerKeyAction("A", "moveLeft", actionEvent ->
@@ -115,7 +116,7 @@ public class GameView extends JInternalFrame implements Observer {
      * @param actionName name of the action
      * @param callback   the performed action
      */
-    public void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
+    private void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
         getInputMap().put(KeyStroke.getKeyStroke(key), actionName);
         getActionMap().put(actionName, new AbstractAction() {
             @Override
@@ -125,7 +126,7 @@ public class GameView extends JInternalFrame implements Observer {
         });
     }
 
-    public void registerKeyAction(int keyCode, int modifiers, String actionName, Consumer<ActionEvent> callback) {
+    private void registerKeyAction(int keyCode, int modifiers, String actionName, Consumer<ActionEvent> callback) {
         getInputMap().put(KeyStroke.getKeyStroke(keyCode, modifiers), actionName);
         getActionMap().put(actionName, new AbstractAction() {
             @Override
@@ -139,13 +140,13 @@ public class GameView extends JInternalFrame implements Observer {
     /**
      * Saves the game
      */
-    public void saveGame() {
+    private void saveGame() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         Date date = new Date();
         String filename = "Sokoban" + dateFormat.format(date) + ".ser";
 
         try {
-            FileOutputStream fs = new FileOutputStream(filename); // FOS oeffnen
+            FileOutputStream fs = new FileOutputStream(filename);
             ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(sokoban);
             os.close();
@@ -157,7 +158,7 @@ public class GameView extends JInternalFrame implements Observer {
     /**
      * Loads the game from Save
      */
-    public void loadGame() {
+    private void loadGame() {
         JFileChooser c = new JFileChooser(new File("./"));
         File selectedFile = null;
         int returnValue = c.showOpenDialog(null);
@@ -166,8 +167,8 @@ public class GameView extends JInternalFrame implements Observer {
         }
         if (selectedFile != null) {
             try {
-                FileInputStream fs = new FileInputStream(selectedFile); // FIS oeffnen
-                ObjectInputStream is = new ObjectInputStream(fs); // OIS erzeugen
+                FileInputStream fs = new FileInputStream(selectedFile);
+                ObjectInputStream is = new ObjectInputStream(fs);
                 Sokoban newSokoban = (Sokoban) is.readObject();
                 newSokoban.addObserver(this);
                 sokoban.deleteObserver(this);
@@ -180,9 +181,9 @@ public class GameView extends JInternalFrame implements Observer {
 
 
                 is.close();
-            } catch (ClassNotFoundException e) { // wenn Klasse nicht gefunden
+            } catch (ClassNotFoundException e) {
                 System.err.println(e);
-            } catch (IOException e) { // wenn IO-Fehler aufgetreten
+            } catch (IOException e) {
                 System.err.println(e);
             }
         }

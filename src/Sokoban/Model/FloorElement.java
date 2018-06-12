@@ -6,6 +6,7 @@ public enum FloorElement {
 
     /**
      * Constructor
+     *
      * @param i, index
      */
     FloorElement(int i) {
@@ -14,8 +15,9 @@ public enum FloorElement {
 
     /**
      * returns the FloorElement at a given index
+     *
      * @param index index of the wanted element
-     * @return  the desired element
+     * @return the desired element
      */
     public static FloorElement getFloorElement(int index) {
         for (FloorElement f : FloorElement.values()) {

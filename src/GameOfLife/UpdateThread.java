@@ -3,16 +3,17 @@ package GameOfLife;
 /**
  * Thread class, used to update the game
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 27/04/18
  */
 public class UpdateThread extends Thread {
-    public int speed = 100;      //wait between update in miliseconds
-    public GameOfLife game;     //refernce to the game it's connected to
+    private int speed = 100;        //wait between update in milliseconds
+    private GameOfLife game;        //reference to the game it's connected to
 
     /**
      * Constructor
+     *
      * @param game the game updated by the thread
      */
     public UpdateThread(GameOfLife game) {
@@ -20,13 +21,13 @@ public class UpdateThread extends Thread {
     }
 
     /**
-     * Run methode, if game isn'T done and is running, updates the game with in interval set by variable  "speed"
+     * Run method, if game isn'T done and is running, updates the game with in interval set by variable  "speed"
      */
     @Override
     public void run() {
         while (!game.isDone()) {
             if (game.isRun) {
-                game.updateFeld();
+                game.updateField();
             }
             try {
                 Thread.sleep(speed);
@@ -38,6 +39,7 @@ public class UpdateThread extends Thread {
 
     /**
      * Sets the speed in which the thread updates the game
+     *
      * @param speed the speed (integer), in milliseconds between updates
      */
     public void setSpeed(int speed) {
@@ -46,7 +48,8 @@ public class UpdateThread extends Thread {
 
     /**
      * returns the speed
-     * @return  the speed, an integer, in milliseconds between updates
+     *
+     * @return the speed, an integer, in milliseconds between updates
      */
     public int getSpeed() {
         return speed;

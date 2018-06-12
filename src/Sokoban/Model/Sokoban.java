@@ -8,8 +8,8 @@ import java.util.Stack;
 /**
  * Main logic class
  *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
  * @Date: 21/05/18
  */
 public class Sokoban extends Observable implements Serializable, Cloneable {
@@ -17,11 +17,11 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
     private boolean isDone = false; //checks if the game is finished
-    int arrayHeight = 0;
-    int arrayLength = 0;
-    String[] inputFromFileArray;
-    int goalCount = 0;
-    GameStateBackup gameStateBackup = new GameStateBackup();
+    private int arrayHeight = 0;
+    private int arrayLength = 0;
+    private String[] inputFromFileArray;
+    private int goalCount = 0;
+    private GameStateBackup gameStateBackup = new GameStateBackup();
     private File file;
     private int level;
     private Stack<GameStateBackup> backlog = new Stack<>();
@@ -66,16 +66,16 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         }
 
 
-        /**
-         * removes the first two lines (Level, name)
+        /*
+          removes the first two lines (Level, name)
          */
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);
 
         arrayHeight = inputFromFileArray.size();
 
-        /**
-         * finds the longest string, to get max lenght
+        /*
+          finds the longest string, to get max lenght
          */
         for (String s : inputFromFileArray) {
             if (s.length() >= arrayLength) {
@@ -99,13 +99,13 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
             for (int x = 0; x < temp.length; x++) {
                 switch (temp[x]) {
                     case '#': {
-                        gameBoard[x][y][0] = new Wall(x,y,this);
-                        gameBoard[x][y][1]= new Wall(x,y,this);
+                        gameBoard[x][y][0] = new Wall(x, y, this);
+                        gameBoard[x][y][1] = new Wall(x, y, this);
                         break;
                     }
                     case '$': {
                         gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        gameBoard[x][y][1] = new Crate(x, y,this);
+                        gameBoard[x][y][1] = new Crate(x, y, this);
 
                         break;
                     }
@@ -114,29 +114,29 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                         goalCount++;
                         break;
                     }
-                    /**
-                     * Crate on Goal
+                    /*
+                      Crate on Goal
                      */
                     case '*': {
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        gameBoard[x][y][1] = new Crate(x, y,this);
+                        gameBoard[x][y][1] = new Crate(x, y, this);
                         goalCount++;
                         break;
                     }
-                    /**
-                     * Player on Goal
+                    /*
+                      Player on Goal
                      */
                     case '+': {
 
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        player = new Player(x, y,this);
+                        player = new Player(x, y, this);
                         gameBoard[x][y][1] = player;
                         goalCount++;
                         break;
                     }
                     case '@': {
                         gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        player = new Player(x, y,this);
+                        player = new Player(x, y, this);
                         gameBoard[x][y][1] = player;
                         break;
                     }
@@ -148,18 +148,6 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                 }
             }
         }
-    }
-
-    /**
-     * Returns Both Layers of a Game Square
-     *
-     * @param x x Position
-     * @param y y Position
-     * @return Array of two Sqaures, the Field square and a potential Crate/Player
-     */
-    public Square[] getSquare(int x, int y) {
-        Square[] sqr = {gameBoard[x][y][0], gameBoard[x][y][1]};
-        return sqr;
     }
 
     /**
@@ -181,7 +169,8 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
     /**
      * Returns isDone
-     * @return  a boolean that checks if the game is finished
+     *
+     * @return a boolean that checks if the game is finished
      */
     public boolean isDone() {
         return isDone;
@@ -189,7 +178,8 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
     /**
      * sets isDone
-     * @param done  a boolean that checks if the game is finished
+     *
+     * @param done a boolean that checks if the game is finished
      */
     public void setDone(boolean done) {
         isDone = done;
@@ -217,10 +207,11 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
         }
     }
+
     /**
      * Creates Backup of the positions of Players and crates before an update, for undo option
      */
-    public void backup(){
+    private void backup() {
 
         gameStateBackup = new GameStateBackup();
         gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
@@ -248,6 +239,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
     /**
      * Returns the goalcount
+     *
      * @return the number of goals in the Level, an integer
      */
     public int getGoalCount() {
@@ -256,14 +248,17 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
     /**
      * Returns the height of the gameboard
-     * @return  the number of rows in the sokoban version
+     *
+     * @return the number of rows in the sokoban version
      */
     public int getArrayHeight() {
         return arrayHeight;
     }
+
     /**
      * Returns the length of the gameboard
-     * @return  the number of lines in the sokoban version
+     *
+     * @return the number of lines in the sokoban version
      */
     public int getArrayLength() {
         return arrayLength;

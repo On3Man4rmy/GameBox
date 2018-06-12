@@ -1,22 +1,21 @@
-package SmallGames; /**
- * Durch drücken der Knöpfe lässt sich die Hintergundfarbe ändern
- *
- * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
- * @Version: 1.0
- * @Date: 27/04/18
- **/
+package SmallGames;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static App.App.app;
 
-
+/**
+ * Changes Background color by clicking the button
+ *
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
+ * @Date: 27/04/18
+ **/
 public class TenColors extends JInternalFrame {
 
-    JButton[] knoepfe = {new JButton("black"), new JButton("blue"), new JButton("cyan"),
+    private JButton[] buttons = {new JButton("black"), new JButton("blue"), new JButton("cyan"),
             new JButton("green"), new JButton("magenta"), new JButton("orange"), new JButton("pink"),
             new JButton("red"), new JButton("white"), new JButton("yellow")};
 
@@ -30,30 +29,25 @@ public class TenColors extends JInternalFrame {
         setLayout(new FlowLayout());
         setVisible(true);
 
-        for (int i = 0; i < knoepfe.length; i++) {
-            knoepfe[i].setFont(new Font("Arial", Font.PLAIN, 30));
-            knoepfe[i].setForeground(getCorrectColor(i));
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setFont(new Font("Arial", Font.PLAIN, 30));
+            buttons[i].setForeground(getCorrectColor(i));
             final int col = i;
-            knoepfe[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setBackground(getCorrectColor(col));
-                }
-            });
+            buttons[i].addActionListener(e -> setBackground(getCorrectColor(col)));
 
-            add(knoepfe[i]);
+            add(buttons[i]);
         }
 
     }
 
 
     /**
-     * returns color based of its position in the knoepfe array
+     * returns color based of its position in the Buttons array
      *
-     * @param i integer, position of the button in the knoepfe array
+     * @param i integer, position of the button in the Buttons array
      * @return the returned color
      */
-    public Color getCorrectColor(int i) {
+    private Color getCorrectColor(int i) {
 
         switch (i) {
 
