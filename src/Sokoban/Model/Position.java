@@ -13,6 +13,11 @@ public class Position implements Serializable {
     int xPos;
     int yPos;
 
+    /**
+     * Constructor
+     * @param xPos  the x Value of the position
+     * @param yPos  the y Value of the position
+     */
     public Position(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;

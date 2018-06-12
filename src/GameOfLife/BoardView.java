@@ -199,24 +199,37 @@ public class BoardView extends JPanel implements Observer {
      * @param y the y-Position of the clicked field
      * @return the y Position of the cell behind the clicked field
      */
-
     private int getCellY(int y) {
         return flipY ? model.getHeight() - 1 - y : y;
     }
 
+    /**
+     * Returns the flipX boolean
+     * @return  flipX, the boolean that checks if the view should be flipped along the y axis (x values are flipped)
+     */
     public boolean isFlipX() {
         return flipX;
     }
-
+    /**
+     * Returns the flipY boolean
+     * @return  flipY, the boolean that checks if the view should be flipped along the x axis (y values are flipped)
+     */
     public boolean isFlipY() {
         return flipY;
     }
 
+    /**
+     * Sets FlipX, when the player want to flip the view
+     * @param flipX the boolean that checks if the view should be flipped along the y axis (x values are flipped)
+     */
     public void setFlipX(boolean flipX) {
         this.flipX = flipX;
         updateBoard();
     }
-
+    /**
+     * Sets FlipY, when the player want to flip the view
+     * @param flipY the boolean that checks if the view should be flipped along the x axis (y values are flipped)
+     */
     public void setFlipY(boolean flipY) {
         this.flipY = flipY;
         updateBoard();

@@ -28,7 +28,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
 
     /**
-     * Construktor, Creates the gameBoard based on a text file
+     * Constructor, Creates the gameBoard based on a text file
      *
      * @param file  text File that contains the Game field
      * @param level The level of the version, which should be loaded from the file
@@ -179,11 +179,18 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         return false;
     }
 
-
+    /**
+     * Returns isDone
+     * @return  a boolean that checks if the game is finished
+     */
     public boolean isDone() {
         return isDone;
     }
 
+    /**
+     * sets isDone
+     * @param done  a boolean that checks if the game is finished
+     */
     public void setDone(boolean done) {
         isDone = done;
         setChanged();
@@ -239,14 +246,25 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
 
     }
 
+    /**
+     * Returns the goalcount
+     * @return the number of goals in the Level, an integer
+     */
     public int getGoalCount() {
         return goalCount;
     }
 
+    /**
+     * Returns the height of the gameboard
+     * @return  the number of rows in the sokoban version
+     */
     public int getArrayHeight() {
         return arrayHeight;
     }
-
+    /**
+     * Returns the length of the gameboard
+     * @return  the number of lines in the sokoban version
+     */
     public int getArrayLength() {
         return arrayLength;
     }

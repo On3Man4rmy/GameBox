@@ -50,7 +50,10 @@ public class GameView extends JInternalFrame implements Observer {
     };
     Container contentPane = getContentPane();
 
-
+    /**
+     * Constructor, sets menubar and End game message, prepares the window for the game
+     * @param sokoban
+     */
     public GameView(Sokoban sokoban) {
         super("Game", true, true, true, true);
         registerKeyEvents();

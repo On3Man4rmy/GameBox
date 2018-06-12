@@ -20,7 +20,6 @@ public class GameOfLife extends Observable {
 
     /**
      * Construktor, sets size of game field
-     *
      * @param x Cells to the right
      * @param y Cells down
      */
@@ -68,7 +67,7 @@ public class GameOfLife extends Observable {
     }
 
     /**
-     * Sets the velue of a field to that of teh paramater value
+     * Sets the value of a field to that of teh paramater value
      *
      * @param value the new value
      * @param x     the x Position
@@ -222,6 +221,10 @@ public class GameOfLife extends Observable {
         thread.setSpeed(speed);
     }
 
+    /**
+     * returns isDone, an boolean
+     * @return  a boolean to check if the thread should be ended, used when all views are closed
+     */
     public boolean isDone() {
         return isDone;
     }
@@ -230,7 +233,7 @@ public class GameOfLife extends Observable {
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);
         if (countObservers() == 0) {
-            thread.stop();
+            isDone=false;
         }
     }
 }

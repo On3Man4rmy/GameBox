@@ -50,7 +50,7 @@ public class TenColors extends JInternalFrame {
     /**
      * returns color based of its position in the knoepfe array
      *
-     * @param i position of the button in the knoepfe array
+     * @param i integer, position of the button in the knoepfe array
      * @return the returned color
      */
     public Color getCorrectColor(int i) {

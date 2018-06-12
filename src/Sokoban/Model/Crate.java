@@ -10,7 +10,12 @@ import java.io.Serializable;
  * @Date: 03/05/18
  */
 public class Crate extends InteractableElement implements Serializable {
-
+    /**
+     * Contstucor, calls constructor of InteractableElement
+     * @param xPos  X Position of Crate
+     * @param yPos  Y Position of Crate
+     * @param sokoban   Reference to the game
+     */
     public Crate(int xPos, int yPos,Sokoban sokoban) {
         super(xPos,yPos,sokoban);
     }

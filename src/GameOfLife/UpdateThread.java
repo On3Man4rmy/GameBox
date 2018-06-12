@@ -13,7 +13,6 @@ public class UpdateThread extends Thread {
 
     /**
      * Constructor
-     *
      * @param game the game updated by the thread
      */
     public UpdateThread(GameOfLife game) {
@@ -37,10 +36,18 @@ public class UpdateThread extends Thread {
         }
     }
 
+    /**
+     * Sets the speed in which the thread updates the game
+     * @param speed the speed (integer), in milliseconds between updates
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     * returns the speed
+     * @return  the speed, an integer, in milliseconds between updates
+     */
     public int getSpeed() {
         return speed;
     }

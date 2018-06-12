@@ -2,7 +2,11 @@ package Sokoban.Resources;
 
 import java.awt.*;
 
-// https://stackoverflow.com/a/19858051
+/**
+ * Enum, lists Colors that are used in the game
+ *  Code from https://stackoverflow.com/a/19858051
+ */
+
 public enum Colors {
     PIED_PIPER_BUTTERLAND(253, 242, 212),
     CANARINHO(251, 220, 95),
@@ -19,6 +23,9 @@ public enum Colors {
     private final int b;
     private final String rgb;
 
+    /**
+     * COnstructor, creates Colors out of r g b values
+     */
     private Colors(final int r, final int g, final int b) {
         this.r = r;
         this.g = g;
@@ -26,29 +33,12 @@ public enum Colors {
         this.rgb = r + ", " + g + ", " + b;
     }
 
-    public String getRGB() {
-        return rgb;
-    }
-
-    //You can add methods like this too
-    public int getRed() {
-        return r;
-    }
-
-    public int getGreen() {
-        return g;
-    }
-
-    public int getBlue() {
-        return r;
-    }
-
-    //Or even these
+    /**
+     * returns a color with the rpg value
+     * @return  the color
+     */
     public Color getColor() {
         return new Color(r, g, b);
     }
 
-    public int getARGB() {
-        return 0xFF000000 | ((r << 16) & 0x00FF0000) | ((g << 8) & 0x0000FF00) | b;
-    }
 }

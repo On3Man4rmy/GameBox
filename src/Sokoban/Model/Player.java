@@ -11,7 +11,12 @@ import java.io.Serializable;
  */
 public class Player extends InteractableElement implements Serializable {
 
-
+    /**
+     * Contstucor, calls constructor of InteractableElement
+     * @param xPos  X Position of Player
+     * @param yPos  Y Position of Player
+     * @param sokoban   Reference to the game
+     */
     public Player(int xPos, int yPos,Sokoban sokoban) {
         super(xPos,yPos,sokoban);
     }

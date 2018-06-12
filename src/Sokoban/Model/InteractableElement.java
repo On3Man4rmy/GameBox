@@ -12,6 +12,13 @@ import java.io.Serializable;
 public abstract class InteractableElement extends Square implements Serializable {
     public Position position;
     protected Sokoban sokoban;
+
+    /**
+     * Constructor, uses x and y to create Position object
+     * @param x X Position of Element
+     * @param y Y Position of Element
+     * @param sokoban   Reference to game
+     */
     public InteractableElement(int x, int y, Sokoban sokoban){
         this.position = new Position(x, y);
         this.sokoban=sokoban;

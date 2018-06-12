@@ -2,14 +2,13 @@ package GameOfLife;
 
 import App.App;
 import App.Menu;
-
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
 
 
 /**
- * Class represts Window in which a version of the game runs
+ * Class represents Window in which a version of the game runs
  *
  * @Author Tobias Fetzer 198318, Simon Stratemeier 199067
  * @Version: 1.0
@@ -146,29 +145,51 @@ public class ViewGame extends JInternalFrame {
     }
 
 
+    /**
+     * Sets the figure to the selected figure, also activates setting figure on click and deactives setting/painting
+     * @param figure    the figure to be set, one of the constructions
+     */
     public void setFigure(Construction figure) {
         game.isPaint = false;
         game.isSet = false;
         isFigure = true;
         this.figure = ConstructionField.getForm(figure);
     }
+
+    /**
+     * Returns the selected figure
+     * @return  the currently selected figure, one of the constructions
+     */
     public boolean[][] getFigure() {
         return figure;
     }
 
+    /**
+     * Returns the Color of living Cells
+     * @return  the color of living cells, an awt Color
+     */
     public Color getAlive() {
         return alive;
     }
-
+    /**
+     * Returns the Color of dead Cells
+     * @return  the color of dead cells, an awt Color
+     */
     public Color getDead() {
         return dead;
     }
 
-
+    /**
+     * Sets the Color of Living Cells
+     * @param alive The Color to be set
+     */
     public void setAlive(Color alive) {
         this.alive = alive;
     }
-
+    /**
+     * Sets the Color of dead Cells
+     * @param dead The Color to be set
+     */
     public void setDead(Color dead) {
         this.dead = dead;
     }

@@ -45,12 +45,17 @@ public class BoardView extends JPanel implements Observer {
         setVisible(true);
     }
 
+    /**
+     * turns the mouselistener on, when the game is properly loaded and ot just previewed
+     */
     public void enableMouseListener() {
         if (!listenMouseEvents) {
             listenMouseEvents = !listenMouseEvents;
         }
     }
-
+    /**
+     * turns the mouselistener off, when the game is just previewed
+     */
     public void disableMouseListener() {
         if (listenMouseEvents) {
             listenMouseEvents = !listenMouseEvents;
@@ -168,23 +173,4 @@ public class BoardView extends JPanel implements Observer {
             updateBoard();
         }
     }
-
-
-    public void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
-        getInputMap().put(KeyStroke.getKeyStroke(key), actionName);
-        getActionMap().put(actionName, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callback.accept(e);
-            }
-        });
-
-    }
-
-    @Override
-    public void setBackground(Color bg) {
-
-    }
-
-
 }

@@ -10,7 +10,12 @@ import java.io.Serializable;
  * @Date: 03/05/18
  */
 public class Wall extends InteractableElement implements Serializable {
-
+    /**
+     * Contstucor, calls constructor of InteractableElement
+     * @param xPos  X Position of Wall
+     * @param yPos  Y Position of Wall
+     * @param sokoban   Reference to the game
+     */
     public Wall(int xPos, int yPos,Sokoban sokoban) {
         super(xPos,yPos,sokoban);
     }

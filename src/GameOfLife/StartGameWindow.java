@@ -25,7 +25,7 @@ public class StartGameWindow extends JInternalFrame {
     /**
      * Construktor, adds Listeners to Button
      *
-     * @param desk //refernce to JDesktopPane
+     * @param desk //reference to JDesktopPane
      */
     public StartGameWindow(JDesktopPane desk) {
         super("Set Size", true, true, true, true);
@@ -67,7 +67,6 @@ public class StartGameWindow extends JInternalFrame {
 
     /**
      * checks if a String is an Integer
-     *
      * @param str string to be checked
      * @return returns true if string is an integer
      */
