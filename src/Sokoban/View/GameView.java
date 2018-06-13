@@ -17,6 +17,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
 
+import static App.App.app;
+
 /**
  * The window, in which the game is shown
  *
@@ -47,6 +49,22 @@ public class GameView extends JInternalFrame implements Observer {
         loadGame();
     })
 
+            ,new Menu("Choose Level")
+            .addItem("minicosmos", e -> {
+                app.loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
+
+            })
+            .addItem("nabokosmos", e -> {
+                app.loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
+
+            })
+            .addItem("yoshiomurase", e -> {
+        app.loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
+
+    })
+
+
+
     };
     private Container contentPane = getContentPane();
 
@@ -64,6 +82,7 @@ public class GameView extends JInternalFrame implements Observer {
         contentPane.setLayout(overlay);
         JMenuBar mb = new JMenuBar();
         mb.add(menus[0]);
+        mb.add(menus[1]);
         setJMenuBar(mb);
         this.sokoban = sokoban;
         this.sokoban.addObserver(this);

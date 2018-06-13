@@ -118,7 +118,7 @@ public class App extends JFrame {
      *
      * @param selectedFile the selected version of the game (the .txt file)
      */
-    private void loadLevelListView(File selectedFile) {
+    public void loadLevelListView(File selectedFile) {
         if (selectedFile != null) {
             levelListView = new LevelListView(selectedFile);
             addChild(levelListView, 10, 10);
