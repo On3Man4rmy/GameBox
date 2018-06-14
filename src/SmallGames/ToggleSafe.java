@@ -6,6 +6,7 @@ import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.Stack;
 
 import static App.App.app;
@@ -26,7 +27,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
     private int speed = 0;                                  //Break between rotation in milliseconds
     private int steps = 0;                                  //Counts number of entered steps. After 3 entries change direction
     private Rotation rot = new Rotation();                  //Object of rotation class, created here for access in the Actionlistener as opposed to the constructor)
-    private Stack<JInternalFrame> windows;                  //reference to all windows, to close them all at once
+    private LinkedList<JInternalFrame> windows;                  //reference to all windows, to close them all at once
     private WrapInteger windowcount = new WrapInteger();    //counts windows so it closes when all are closes
 
     /**
@@ -37,7 +38,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
      *
      * @param speed speed of rotation in milliseconds between update
      */
-    public ToggleSafe(int speed, Stack<JInternalFrame> windows) {
+    public ToggleSafe(int speed, LinkedList<JInternalFrame> windows) {
         super("ToggleSafe", true, true, true, true);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setSize(500, 500);

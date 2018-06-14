@@ -14,7 +14,7 @@ import Sokoban.View.LevelSelect.LevelListView;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.Stack;
+import java.util.LinkedList;
 
 /**
  * Desktop pane, Open new games from here
@@ -61,7 +61,7 @@ public class App extends JFrame {
                         Clones clones = new Clones(0);
                     })
                     .addItem("ToggleSafe", "<html> Solve the rotating save,<br>but everytime you are wrong a new safe opens that rotates faster</html>", e -> {
-                ToggleSafe toggleSafe = new ToggleSafe(5000, new Stack<>());
+                ToggleSafe toggleSafe = new ToggleSafe(5000, new LinkedList<>());
             })
     };
 

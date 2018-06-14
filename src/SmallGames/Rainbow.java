@@ -18,7 +18,7 @@ import java.util.LinkedList;
  **/
 public class Rainbow extends JInternalFrame {
     private JButton changeColor = new JButton("Create Rainbow Window");
-    private LinkedList<JInternalFrame> windows=new LinkedList<>();
+    private LinkedList<JInternalFrame> windows = new LinkedList<>();
 
     /**
      * Constructor
@@ -87,9 +87,9 @@ public class Rainbow extends JInternalFrame {
     /**
      * closes all RainbowColor windows and cloes the main window
      */
-    public void exit(){
-        for(JInternalFrame i:windows){
-            ((RainbowColors)i).exit();
+    public void exit() {
+        for (JInternalFrame i : windows) {
+            ((RainbowColors) i).exit();
 
         }
         this.dispose();
@@ -106,7 +106,7 @@ public class Rainbow extends JInternalFrame {
 class RainbowColors extends JInternalFrame implements Runnable {
     private Color[] colors = {Color.red, Color.orange, Color.yellow,
             Color.green, Color.blue, Color.magenta};
-    private boolean isDone=false;
+    private boolean isDone = false;
 
     /**
      * Constructor
@@ -180,9 +180,11 @@ class RainbowColors extends JInternalFrame implements Runnable {
 
         }
     }
+
     /**
      * Returns isDone that is used to end the thread
-     * @return  isDone, a boolean
+     *
+     * @return isDone, a boolean
      */
     public boolean isDone() {
         return isDone;
@@ -190,7 +192,8 @@ class RainbowColors extends JInternalFrame implements Runnable {
 
     /**
      * Sets isDone
-     * @param done  a boolean used to end the thread
+     *
+     * @param done a boolean used to end the thread
      */
     public void setDone(boolean done) {
         isDone = done;
@@ -200,7 +203,7 @@ class RainbowColors extends JInternalFrame implements Runnable {
      * closes the window and ends teh thread
      * TODO: fix it, dispose doesn't work for some reason
      */
-    public void exit(){
+    public void exit() {
         setDone(true);
         this.dispose();
         System.out.println("test");
