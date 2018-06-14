@@ -4,7 +4,10 @@ package SmallGames;
 import App.App;
 
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
+import java.util.LinkedList;
 
 /**
  * Clicking the Button opens a new window in which flashes the colors of the rainbow.
@@ -15,12 +18,15 @@ import java.awt.*;
  **/
 public class Rainbow extends JInternalFrame {
     private JButton changeColor = new JButton("Create Rainbow Window");
+    private LinkedList<JInternalFrame> windows=new LinkedList<>();
 
     /**
      * Constructor
      */
     public Rainbow() {
         super("Rainbow", true, true, true, true);
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         this.setSize(360, 100);
         setLayout(new FlowLayout());
@@ -32,10 +38,62 @@ public class Rainbow extends JInternalFrame {
         changeColor.addActionListener(e -> {
             RainbowColors regen = new RainbowColors();
             new Thread(regen).start();
+            windows.add(regen);
 
         });
         add(changeColor);
+        /*
+          Clicking on the close button (red X) closes all windows of this instance of the game
+         */
+        addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
 
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                exit();
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+
+            }
+        });
+
+    }
+
+    /**
+     * closes all RainbowColor windows and cloes the main window
+     */
+    public void exit(){
+        for(JInternalFrame i:windows){
+            ((RainbowColors)i).exit();
+
+        }
+        this.dispose();
+        windows.clear();
 
     }
 
@@ -48,6 +106,7 @@ public class Rainbow extends JInternalFrame {
 class RainbowColors extends JInternalFrame implements Runnable {
     private Color[] colors = {Color.red, Color.orange, Color.yellow,
             Color.green, Color.blue, Color.magenta};
+    private boolean isDone=false;
 
     /**
      * Constructor
@@ -57,6 +116,48 @@ class RainbowColors extends JInternalFrame implements Runnable {
         this.setSize(360, 360);
         setLayout(new FlowLayout());
         setVisible(true);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        /*
+          Clicking on the close button (red X) closes all windows of this instance of the game
+         */
+        addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                dispose();
+                setDone(true);
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+
+            }
+        });
+
 
     }
 
@@ -67,17 +168,43 @@ class RainbowColors extends JInternalFrame implements Runnable {
         RainbowColors demo = new RainbowColors();
         App.app.addChild(demo, 10, 10);
 
-        while (true) {
+        while (!isDone()) {
             for (Color i : colors) {
                 demo.setBackground(i);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
         }
+    }
+    /**
+     * Returns isDone that is used to end the thread
+     * @return  isDone, a boolean
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Sets isDone
+     * @param done  a boolean used to end the thread
+     */
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    /**
+     * closes the window and ends teh thread
+     * TODO: fix it, dispose doesn't work for some reason
+     */
+    public void exit(){
+        setDone(true);
+        this.dispose();
+        System.out.println("test");
+
     }
 
 

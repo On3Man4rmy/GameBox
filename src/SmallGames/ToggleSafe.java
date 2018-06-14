@@ -176,11 +176,12 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
     }
 
     /**
-     * Method to close all windows of this instance of the game
+     * Method to close all windows of this instance of the game and stop their threads
      */
     private void exit() {
         for (JInternalFrame i : windows) {
             i.dispose();
+            ((ToggleSafe)i).rot.setDone(true);
         }
         windows.clear();
     }
@@ -213,7 +214,10 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
             windows.clear();
         }
         this.dispose();
+        rot.setDone(true);
     }
+
+
 }
 
 
@@ -231,15 +235,16 @@ class WrapInteger {
  */
 class Rotation extends Frame implements Runnable {
 
-    public int speed = 0;     //Speed of rotation, in milliseconds between rotation by one
-    public boolean direction = true;   //Controls direction, true is clockwise
-    public JButton[] Buttons = new JButton[10]; //Buttons
+    public int speed = 0;                                   //Speed of rotation, in milliseconds between rotation by one
+    public boolean direction = true;                        //Controls direction, true is clockwise
+    public JButton[] Buttons = new JButton[10];             //Buttons
+    private boolean isDone=false;                           //used to end thread
 
     /**
      * Run method, rotates the buttons (or rather their label)
      */
     public void run() {
-        while (true) {
+        while (!isDone()) {
             for (JButton i : Buttons) {    //Loops through buttons array
 
                 if (direction) {    //If direction is true, increases the value of the buttons
@@ -256,5 +261,20 @@ class Rotation extends Frame implements Runnable {
         }
 
 
+    }
+    /**
+     * Returns isDone that is used to end the thread
+     * @return  isDone, a boolean
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Sets isDone
+     * @param done  a boolean used to end the thread
+     */
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }
