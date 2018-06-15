@@ -26,7 +26,7 @@ public class Rainbow extends JInternalFrame {
     public Rainbow() {
         super("Rainbow", true, true, true, true);
 
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setSize(360, 100);
         setLayout(new FlowLayout());
@@ -42,62 +42,7 @@ public class Rainbow extends JInternalFrame {
 
         });
         add(changeColor);
-        /*
-          Clicking on the close button (red X) closes all windows of this instance of the game
-         */
-        addInternalFrameListener(new InternalFrameListener() {
-            @Override
-            public void internalFrameOpened(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e) {
-                exit();
-            }
-
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameIconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeiconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameActivated(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeactivated(InternalFrameEvent e) {
-
-            }
-        });
-
     }
-
-    /**
-     * closes all RainbowColor windows and cloes the main window
-     */
-    public void exit() {
-        for (JInternalFrame i : windows) {
-            ((RainbowColors) i).exit();
-
-        }
-        this.dispose();
-        windows.clear();
-
-    }
-
-
 }
 
 /**
@@ -118,7 +63,7 @@ class RainbowColors extends JInternalFrame implements Runnable {
         setVisible(true);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         /*
-          Clicking on the close button (red X) closes all windows of this instance of the game
+          Clicking on the close button (red X) closes the window and ends the thread
          */
         addInternalFrameListener(new InternalFrameListener() {
             @Override
@@ -186,7 +131,7 @@ class RainbowColors extends JInternalFrame implements Runnable {
      *
      * @return isDone, a boolean
      */
-    public boolean isDone() {
+    private boolean isDone() {
         return isDone;
     }
 
@@ -195,21 +140,8 @@ class RainbowColors extends JInternalFrame implements Runnable {
      *
      * @param done a boolean used to end the thread
      */
-    public void setDone(boolean done) {
+    private void setDone(boolean done) {
         isDone = done;
     }
-
-    /**
-     * closes the window and ends teh thread
-     * TODO: fix it, dispose doesn't work for some reason
-     */
-    public void exit() {
-        setDone(true);
-        this.dispose();
-        System.out.println("test");
-
-    }
-
-
 }
 
