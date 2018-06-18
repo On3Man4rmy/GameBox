@@ -31,20 +31,31 @@ public class GameView extends JInternalFrame implements Observer {
     public Sokoban sokoban;
     BoardView boardView;
     private MenuView menuView;
+    public DescriptionView descriptionView;
     private Menu[] menus = {new Menu("Options")
             .addItem("Restart", e -> {
-                    sokoban.rebuildBoard();
-                    sokoban.setDone(false);
+                sokoban.rebuildBoard();
+                sokoban.setDone(false);
 
             })
-            .addItem("Save", e -> {
-                saveGame();
-            })
-            .addItem("Load", e -> {
-                loadGame();
+            .addItem("Save", e -> saveGame())
+            .addItem("Load", e -> loadGame())
+            .addItem("Show Controls", e -> {
+        if (descriptionView.isVisible()) {
+            descriptionView.setVisible(false);
+            menuView.setVisible(sokoban.isDone());
+            boardView.setVisible(!sokoban.isDone());
+        } else {
+            descriptionView.setVisible(true);
+            menuView.setVisible(false);
+            boardView.setVisible(false);
+
+        }
+
+
     })
 
-            ,new Menu("Choose Level")
+            , new Menu("Choose Level")
             .addItem("minicosmos", e -> {
                 app.loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
 
@@ -57,7 +68,6 @@ public class GameView extends JInternalFrame implements Observer {
         app.loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
 
     })
-
 
 
     };
@@ -84,11 +94,13 @@ public class GameView extends JInternalFrame implements Observer {
 
         boardView = new BoardView(sokoban);
         menuView = new MenuView(this);
+        descriptionView = new DescriptionView();
         menuView.setText("Game Won!");
         menuView.setVisible(false);
-
+        descriptionView.setVisible(false);
         contentPane.add(menuView);
         contentPane.add(boardView);
+        contentPane.add(descriptionView);
 
         setVisible(true);
     }
@@ -98,6 +110,7 @@ public class GameView extends JInternalFrame implements Observer {
         if (o == sokoban) {
             menuView.setVisible(sokoban.isDone());
             boardView.setVisible(!sokoban.isDone());
+            descriptionView.setVisible(false);
         }
     }
 
@@ -113,9 +126,6 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.moveElement(Direction.DOWN));
         registerKeyAction("D", "moveRight", actionEvent ->
                 sokoban.moveElement(Direction.RIGHT));
-        //TODO debug remove
-        registerKeyAction(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK, "done", actionEvent ->
-                sokoban.setDone(!sokoban.isDone()));
         registerKeyAction(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK, "save", actionEvent ->
                 saveGame());
         registerKeyAction(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK, "load", actionEvent ->
@@ -124,6 +134,19 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.rebuildBoard());
         registerKeyAction(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK, "undo", actionEvent ->
                 sokoban.undo());
+        registerKeyAction(KeyEvent.VK_ESCAPE, 0, "Show Controls", actionEvent -> {
+            if (descriptionView.isVisible()) {
+                descriptionView.setVisible(false);
+                menuView.setVisible(sokoban.isDone());
+                boardView.setVisible(!sokoban.isDone());
+            } else {
+                descriptionView.setVisible(true);
+                menuView.setVisible(false);
+                boardView.setVisible(false);
+
+            }
+
+        });
     }
 
     /**
@@ -143,6 +166,14 @@ public class GameView extends JInternalFrame implements Observer {
         });
     }
 
+    /**
+     * set what pressing the key does
+     *
+     * @param keyCode    the pressed key as KeyCode
+     * @param modifiers  modifiers, like Ctrl
+     * @param actionName name of the action
+     * @param callback   the performed action
+     */
     private void registerKeyAction(int keyCode, int modifiers, String actionName, Consumer<ActionEvent> callback) {
         getInputMap().put(KeyStroke.getKeyStroke(keyCode, modifiers), actionName);
         getActionMap().put(actionName, new AbstractAction() {
@@ -209,7 +240,6 @@ public class GameView extends JInternalFrame implements Observer {
             }
         }
     }
-
 
 
 }
