@@ -10,9 +10,11 @@ public class MenuView extends JPanel {
     private JLabel label = new JLabel("", SwingConstants.CENTER);
     private GameView gameView;
     private Sokoban sokoban;
+    private JButton next =new JButton("Next Level");
+
 
     /**
-     * Constructor, sets the Colors for end game message
+     * Constructor, creates the Layout for endgame Message and Next game button, as well as their colors
      */
     public MenuView(GameView gameView ) {
         this.gameView=gameView;
@@ -27,17 +29,12 @@ public class MenuView extends JPanel {
         add(panel).setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
         JPanel nextButtonPanel=new JPanel();
         nextButtonPanel.setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
-        JButton next =new JButton("Next Level");
-        next.addActionListener(evt->{
-
-
-                }
-        );
+        next.addActionListener(evt-> loadNextGame());
         next.setBackground(Colors.CANARINHO.getColor());
         nextButtonPanel.add(next);
         add(nextButtonPanel);
         add(new JPanel()).setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
-
+        next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));  //Button only visible when it'S not the last Level
     }
 
     /**
@@ -49,20 +46,22 @@ public class MenuView extends JPanel {
         this.label.setText(label);
     }
 
+    /**
+     * Loads the next Level in the file
+     */
     private void loadNextGame(){
-        Sokoban newSokoban = new Sokoban(sokoban.);
-        newSokoban.addObserver(this);
-        sokoban.deleteObserver(this);
+        Sokoban newSokoban = new Sokoban(sokoban.getFile(),sokoban.getLevel()+1);
+        newSokoban.addObserver(gameView);
+        sokoban.deleteObserver(gameView);
         sokoban = newSokoban;
-        contentPane.removeAll();
-        boardView = new BoardView(sokoban);
-        contentPane.add(boardView);
-        menuView = new MenuView();
-        menuView.setText("Game Won!");
-        contentPane.add(menuView);
-        setVisible(false);
-        setVisible(true);
-        menuView.setVisible(sokoban.isDone());
-        boardView.setVisible(!sokoban.isDone());
+        gameView.sokoban=sokoban;
+        gameView.getContentPane().removeAll();
+        gameView.boardView = new BoardView(sokoban);
+        gameView.getContentPane().add(gameView.boardView);
+        gameView.getContentPane().add(this);
+        next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));
+        gameView.setVisible(false);
+        gameView.setVisible(true);
+
     }
 }

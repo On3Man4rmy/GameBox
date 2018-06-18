@@ -29,7 +29,7 @@ import static App.App.app;
 
 public class GameView extends JInternalFrame implements Observer {
     public Sokoban sokoban;
-    private BoardView boardView;
+    BoardView boardView;
     private MenuView menuView;
     private Menu[] menus = {new Menu("Options")
             .addItem("Restart", e -> {
@@ -115,7 +115,7 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.moveElement(Direction.RIGHT));
         //TODO debug remove
         registerKeyAction(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK, "done", actionEvent ->
-                sokoban.setDone(true));
+                sokoban.setDone(!sokoban.isDone()));
         registerKeyAction(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK, "save", actionEvent ->
                 saveGame());
         registerKeyAction(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK, "load", actionEvent ->
@@ -209,5 +209,7 @@ public class GameView extends JInternalFrame implements Observer {
             }
         }
     }
+
+
 
 }
