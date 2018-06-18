@@ -21,7 +21,6 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     private int arrayLength = 0;
     private String[] inputFromFileArray;
     private int goalCount = 0;
-    private GameStateBackup gameStateBackup = new GameStateBackup();
     private File file;
     private int level;
     private Stack<GameStateBackup> backlog = new Stack<>();
@@ -157,9 +156,8 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      * @return true if movement was successful
      */
     public boolean moveElement(Direction direction) {
-        backup();
+        backlog.add(backup());
         if (!isDone()&& player.move(direction)) {
-            backlog.add(gameStateBackup);
             setChanged();
             notifyObservers();
             return true;
@@ -191,6 +189,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      * loads last gamestate from backup
      */
     public void undo() {
+
         if(isDone()){ isDone=false;}
         if (!backlog.isEmpty()) {
             GameStateBackup backup = backlog.pop();
@@ -200,6 +199,13 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                     if (backup.movableObjectsBackup[x][y] != null) {
                         InteractableElement temp = (InteractableElement) gameBoard[x][y][1];
                         temp.position = backup.positionBackup[x][y];
+                        /*
+                        For the specific case of restarting the game, then undoing that
+                        */
+                        if(temp instanceof Player){
+                            player=(Player) temp;
+                        }
+
                     }
                 }
             }
@@ -212,9 +218,8 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     /**
      * Creates Backup of the positions of Players and crates before an update, for undo option
      */
-    private void backup() {
-
-        gameStateBackup = new GameStateBackup();
+    private GameStateBackup backup() {
+        GameStateBackup gameStateBackup = new GameStateBackup();
         gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
         gameStateBackup.positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
         for (int x = 0; x < arrayLength; x++) {
@@ -226,6 +231,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                 }
             }
         }
+        return gameStateBackup;
     }
 
     /**

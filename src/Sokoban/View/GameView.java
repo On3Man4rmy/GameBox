@@ -33,13 +33,8 @@ public class GameView extends JInternalFrame implements Observer {
     private MenuView menuView;
     private Menu[] menus = {new Menu("Options")
             .addItem("Restart", e -> {
-                if (sokoban.isDone()) {     //in Case game is finished, restart is also possible
                     sokoban.rebuildBoard();
                     sokoban.setDone(false);
-
-                } else {
-                    sokoban.rebuildBoard();
-                }
 
             })
             .addItem("Save", e -> {
