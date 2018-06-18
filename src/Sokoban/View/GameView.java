@@ -28,7 +28,7 @@ import static App.App.app;
  */
 
 public class GameView extends JInternalFrame implements Observer {
-    private Sokoban sokoban;
+    public Sokoban sokoban;
     private BoardView boardView;
     private MenuView menuView;
     private Menu[] menus = {new Menu("Options")
@@ -83,7 +83,7 @@ public class GameView extends JInternalFrame implements Observer {
         this.sokoban.addObserver(this);
 
         boardView = new BoardView(sokoban);
-        menuView = new MenuView();
+        menuView = new MenuView(this);
         menuView.setText("Game Won!");
         menuView.setVisible(false);
 
@@ -113,6 +113,9 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.moveElement(Direction.DOWN));
         registerKeyAction("D", "moveRight", actionEvent ->
                 sokoban.moveElement(Direction.RIGHT));
+        //TODO debug remove
+        registerKeyAction(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK, "done", actionEvent ->
+                sokoban.setDone(true));
         registerKeyAction(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK, "save", actionEvent ->
                 saveGame());
         registerKeyAction(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK, "load", actionEvent ->
@@ -190,7 +193,7 @@ public class GameView extends JInternalFrame implements Observer {
                 contentPane.removeAll();
                 boardView = new BoardView(sokoban);
                 contentPane.add(boardView);
-                menuView = new MenuView();
+                menuView = new MenuView(this);
                 menuView.setText("Game Won!");
                 contentPane.add(menuView);
                 setVisible(false);

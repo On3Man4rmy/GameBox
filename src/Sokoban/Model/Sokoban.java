@@ -23,6 +23,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     private int goalCount = 0;
     private File file;
     private int level;
+    private int maxLevel;
     private Stack<GameStateBackup> backlog = new Stack<>();
 
 
@@ -36,7 +37,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         ArrayList<String> inputFromFileArray = new ArrayList<>();
         this.file = file;
         this.level = level;
-
+        this.maxLevel=GameLoader.getLevelCount(file);
         BufferedReader br;
         String line;
 
@@ -269,6 +270,30 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      */
     public int getArrayLength() {
         return arrayLength;
+    }
+
+    /**
+     * Returns the file the game is based om
+     * @return  the txt file the game is created out of
+     */
+    public File getFile(){
+        return file;
+    }
+
+    /**
+     * Returns the Game Level of the Sokoban version
+     * @return  an int, the Level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * Returns the Numbers of Levels in the game version
+     * @return  an int, the number of Levels in the file
+     */
+    public int getMaxLevel(){
+        return maxLevel;
     }
 
     @Override
