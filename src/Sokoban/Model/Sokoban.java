@@ -158,7 +158,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      */
     public boolean moveElement(Direction direction) {
         backup();
-        if (player.move(direction)) {
+        if (!isDone()&& player.move(direction)) {
             backlog.add(gameStateBackup);
             setChanged();
             notifyObservers();
@@ -191,6 +191,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      * loads last gamestate from backup
      */
     public void undo() {
+        if(isDone()){ isDone=false;}
         if (!backlog.isEmpty()) {
             GameStateBackup backup = backlog.pop();
             for (int x = 0; x < arrayLength; x++) {

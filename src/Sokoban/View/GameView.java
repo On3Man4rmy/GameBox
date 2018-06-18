@@ -46,7 +46,7 @@ public class GameView extends JInternalFrame implements Observer {
                 saveGame();
             })
             .addItem("Load", e -> {
-        loadGame();
+                loadGame();
     })
 
             ,new Menu("Choose Level")
@@ -195,9 +195,13 @@ public class GameView extends JInternalFrame implements Observer {
                 contentPane.removeAll();
                 boardView = new BoardView(sokoban);
                 contentPane.add(boardView);
+                menuView = new MenuView();
+                menuView.setText("Game Won!");
+                contentPane.add(menuView);
                 setVisible(false);
                 setVisible(true);
-
+                menuView.setVisible(sokoban.isDone());
+                boardView.setVisible(!sokoban.isDone());
 
                 is.close();
             } catch (ClassNotFoundException e) {
