@@ -21,7 +21,7 @@ public class UpdateThread extends Thread {
     }
 
     /**
-     * Run method, if game isn'T done and is running, updates the game with in interval set by variable  "speed"
+     * Run method, if game isn't done and is running, updates the game with in interval set by variable  "speed"
      */
     @Override
     public void run() {

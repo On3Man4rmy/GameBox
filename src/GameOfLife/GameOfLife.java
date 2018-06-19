@@ -231,6 +231,10 @@ public class GameOfLife extends Observable {
         return isDone;
     }
 
+    /**
+     * removes an observer. If all observers are removed, ends the thread
+     * @param o the observer that should be removed
+     */
     @Override
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);

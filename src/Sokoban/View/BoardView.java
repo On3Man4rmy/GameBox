@@ -165,6 +165,11 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Update method, updates the board
+     * @param o     The Observable that is connected to the view
+     * @param arg   optional objects, not used
+     */
     @Override
     public void update(Observable o, Object arg) {
         if (o == sokoban) {

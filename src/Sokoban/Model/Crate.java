@@ -25,7 +25,7 @@ public class Crate extends InteractableElement implements Serializable {
      * Moves a crate in a given direction. The crate cannot move other elements
      *
      * @param direction the direction, in which the Crate moves.
-     * @return if the move was sucessfull
+     * @return if the move was successful
      */
     @Override
     public boolean move(Direction direction) {

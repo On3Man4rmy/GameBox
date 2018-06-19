@@ -24,6 +24,7 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     private File file;
     private int level;
     private int maxLevel;
+    private GameStateBackup gameStateBackup;
     private Stack<GameStateBackup> backlog = new Stack<>();
 
 
@@ -157,8 +158,9 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
      * @return true if movement was successful
      */
     public boolean moveElement(Direction direction) {
-        backlog.add(backup());
+        backup();
         if (!isDone()&& player.move(direction)) {
+            backlog.add(gameStateBackup);
             setChanged();
             notifyObservers();
             return true;
@@ -219,8 +221,8 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     /**
      * Creates Backup of the positions of Players and crates before an update, for undo option
      */
-    private GameStateBackup backup() {
-        GameStateBackup gameStateBackup = new GameStateBackup();
+    private void backup() {
+        gameStateBackup = new GameStateBackup();
         gameStateBackup.movableObjectsBackup = new Square[arrayLength][arrayHeight];
         gameStateBackup.positionBackup = new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
         for (int x = 0; x < arrayLength; x++) {
@@ -232,7 +234,6 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                 }
             }
         }
-        return gameStateBackup;
     }
 
     /**
@@ -296,9 +297,12 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
         return maxLevel;
     }
 
+    /**
+     * Clones a Sokoban game, but not it'S current state (a new game of the same Level is returned)
+     * @return  the clone
+     */
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        super.clone();
+    public Object clone() {
         return new Sokoban(file, level);
     }
 }

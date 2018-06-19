@@ -143,6 +143,11 @@ public class BoardView extends JPanel implements Observer {
         updateLayout();
     }
 
+    /**
+     * Update methode, updates the board when GameOfLife changes
+     * @param o     the connected Observable
+     * @param arg   optional objects, not used here
+     */
     @Override
     public void update(Observable o, Object arg) {
         if (o == model) {

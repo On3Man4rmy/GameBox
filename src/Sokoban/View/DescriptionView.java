@@ -5,9 +5,19 @@ import Sokoban.Resources.Colors;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
+ * @date: 19/06/18
+ *
+ * Shows the controls
+ */
 public class DescriptionView extends JPanel {
 
 
+    /**
+     * Constructor, sets the text showing the controls
+     */
     public DescriptionView() {
         setLayout(new GridLayout(8, 1));
         setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());

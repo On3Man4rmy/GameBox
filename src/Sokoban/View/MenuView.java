@@ -6,6 +6,13 @@ import Sokoban.Resources.Colors;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
+ * @date: 19/06/18
+ *
+ * Shows the end game state, after a puzzle is solved, offers button to start next Level(if available)
+ */
 public class MenuView extends JPanel {
     private JLabel label = new JLabel("", SwingConstants.CENTER);
     private GameView gameView;

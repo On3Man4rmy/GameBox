@@ -63,6 +63,11 @@ public class Position implements Serializable {
     }
 
 
+    /**
+     * checks if two positions are equal (they have the same xPos and yPos
+     * @param obj   the object to be checked, returns false if it's not a position
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Position) {

@@ -7,7 +7,13 @@ import java.awt.*;
 
 /**
  * Represents a square in the view, for example a wall
+ *
+ * @author Tobias Fetzer 198318, Simon Stratemeier 199067
+ * @version 1.0
+ * @date: 19/06/18
+ *
  */
+
 public class SquareView extends JPanel {
     private JLabel label = new JLabel("", SwingConstants.CENTER);
 
