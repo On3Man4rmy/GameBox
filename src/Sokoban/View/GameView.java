@@ -237,6 +237,7 @@ public class GameView extends JInternalFrame implements Observer {
                 menuView = new MenuView(this);
                 menuView.setText("Game Won!");
                 contentPane.add(menuView);
+                contentPane.add(descriptionView);
                 setVisible(false);
                 setVisible(true);
                 menuView.setVisible(sokoban.isDone());

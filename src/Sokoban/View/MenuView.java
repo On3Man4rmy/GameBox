@@ -59,6 +59,7 @@ public class MenuView extends JPanel {
         gameView.boardView = new BoardView(sokoban);
         gameView.getContentPane().add(gameView.boardView);
         gameView.getContentPane().add(this);
+        gameView.getContentPane().add(gameView.descriptionView);
         next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));
         gameView.setVisible(false);
         gameView.setVisible(true);
