@@ -27,7 +27,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
     private int steps = 0;                                  //Counts number of entered steps. After 3 entries change direction
     private Rotation rot = new Rotation();                  //Object of rotation class, created here for access in the Actionlistener as opposed to the constructor)
     private LinkedList<JInternalFrame> windows;                  //reference to all windows, to close them all at once
-    private WrapInteger windowcount = new WrapInteger();    //counts windows so it closes when all are closes
+    private int windowcount = 1;    //counts windows so it closes when all are closes
 
     /**
      * Constructor:
@@ -164,7 +164,7 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
             }
             ToggleSafe demo = new ToggleSafe(speed, this.windows);      //new window
             demo.windowcount = windowcount;
-            windowcount.integer++;
+            windowcount++;
 
 
         }
@@ -190,8 +190,8 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
      * Method to close a window and decrease Windowcounter by one. if all windows are closed open lock
      */
     private void closewindow() {
-        windowcount.integer--;
-        if (windowcount.integer == 0) {       //All other windows are closed
+        windowcount--;
+        if (windowcount == 0) {       //All other windows are closed
 
             JInternalFrame lock = new JInternalFrame("Open Sesame");
             lock.setClosable(true);
@@ -219,16 +219,6 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
 
 
 }
-
-
-/**
- * Integer Class, can be passed by reference
- * Used to count number of windows
- */
-class WrapInteger {
-    public int integer = 1;
-}
-
 
 /**
  * Rotation class
