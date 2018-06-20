@@ -14,7 +14,6 @@ public class GameOfLife extends Observable {
     public boolean isRun = false;           // checks if game is supposed to be paused
     public boolean isPaint = false;         // checks if game is in paint mode
     public boolean isSet = false;           //checks if game is in set mode
-    private Boolean isDone = false;
     private UpdateThread thread = new UpdateThread(this);
     private boolean[][] fields;        //Field of cells, true if alive, false if dead
 
@@ -60,7 +59,6 @@ public class GameOfLife extends Observable {
         isRun = game.isRun;         // checks if game is supposed to be paused
         isPaint = game.isPaint;
         isSet = game.isSet;
-        isDone = game.isDone;
         setFields(game.fields);
         thread.start();
         thread.setSpeed(game.thread.getSpeed());
@@ -222,14 +220,6 @@ public class GameOfLife extends Observable {
         thread.setSpeed(speed);
     }
 
-    /**
-     * returns isDone, an boolean
-     *
-     * @return a boolean to check if the thread should be ended, used when all views are closed
-     */
-    public boolean isDone() {
-        return isDone;
-    }
 
     /**
      * removes an observer. If all observers are removed, ends the thread
@@ -239,7 +229,7 @@ public class GameOfLife extends Observable {
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);
         if (countObservers() == 0) {
-            isDone = false;
+            thread.setDone(true);
         }
     }
 }

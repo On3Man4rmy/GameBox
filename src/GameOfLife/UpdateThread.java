@@ -10,6 +10,7 @@ package GameOfLife;
 public class UpdateThread extends Thread {
     private int speed = 100;        //wait between update in milliseconds
     private GameOfLife game;        //reference to the game it's connected to
+    private boolean isDone=false;
 
     /**
      * Constructor
@@ -25,7 +26,7 @@ public class UpdateThread extends Thread {
      */
     @Override
     public void run() {
-        while (!game.isDone()) {
+        while (!isDone) {
             if (game.isRun) {
                 game.updateField();
             }
@@ -53,5 +54,14 @@ public class UpdateThread extends Thread {
      */
     public int getSpeed() {
         return speed;
+    }
+
+
+    /**
+     * Sets the boolean isDone
+     * @param done  done, a boolean that controls if the thread is supposed to be running
+     */
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }
