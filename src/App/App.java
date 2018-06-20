@@ -88,10 +88,6 @@ public class App extends JFrame {
         ViewGame viewGame = new ViewGame(this, game);
         addChild(viewGame, 50, 50);
         game.isRun = true;
-
-        setTitle("Game Of Life");
-        setVisible(true);
-
     }
 
     /**
