@@ -12,7 +12,7 @@ import java.util.Stack;
  * @version 1.0
  * @Date: 21/05/18
  */
-public class Sokoban extends Observable implements Serializable, Cloneable {
+public class Sokoban extends Observable implements Serializable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
@@ -298,11 +298,10 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
     }
 
     /**
-     * Clones a Sokoban game, but not it'S current state (a new game of the same Level is returned)
-     * @return  the clone
+     * Creates a new Sokoban object of the same Level and file
+     * @return  the new game, a sokoban object of the same Level
      */
-    @Override
-    public Object clone() {
+    public Sokoban makeBaseCopy() {
         return new Sokoban(file, level);
     }
 }

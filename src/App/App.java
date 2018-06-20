@@ -8,7 +8,6 @@ import SmallGames.Clones;
 import SmallGames.Rainbow;
 import SmallGames.TenColors;
 import SmallGames.ToggleSafe;
-import Sokoban.Model.Sokoban;
 import Sokoban.View.GameView;
 import Sokoban.View.LevelSelect.LevelListView;
 
@@ -124,7 +123,7 @@ public class App extends JFrame {
             addChild(levelListView, 10, 10);
             levelListView.setActionLevelSelected(sokoban1 ->
             {
-                    addChild(new GameView((Sokoban) sokoban1.clone()), 0, 0);
+                    addChild(new GameView(sokoban1.makeBaseCopy()), 0, 0);
                     levelListView.setVisible(false);
             });
             levelListView.setVisible(true);
