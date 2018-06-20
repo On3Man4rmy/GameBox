@@ -57,7 +57,7 @@ public class Sokoban extends Observable implements Serializable {
                     }
 
                 }
-                if (correctLevel && !line.isEmpty()) {
+                if (correctLevel && line.contains("#")) {
                     inputFromFileArray.add(line);
                 }
 
@@ -65,13 +65,6 @@ public class Sokoban extends Observable implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        /*
-          removes the first two lines (Level, name)
-         */
-        inputFromFileArray.remove(0);
-        inputFromFileArray.remove(0);
 
         arrayHeight = inputFromFileArray.size();
 
