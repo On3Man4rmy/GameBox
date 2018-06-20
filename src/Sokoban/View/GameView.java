@@ -93,9 +93,8 @@ public class GameView extends JInternalFrame implements Observer {
         this.sokoban.addObserver(this);
 
         boardView = new BoardView(sokoban);
-        menuView = new MenuView(this);
+        menuView = new MenuView(this,"Game Won!");
         descriptionView = new DescriptionView();
-        menuView.setText("Game Won!");
         menuView.setVisible(false);
         descriptionView.setVisible(false);
         contentPane.add(menuView);
@@ -234,8 +233,7 @@ public class GameView extends JInternalFrame implements Observer {
                 contentPane.removeAll();
                 boardView = new BoardView(sokoban);
                 contentPane.add(boardView);
-                menuView = new MenuView(this);
-                menuView.setText("Game Won!");
+                menuView = new MenuView(this,"Game Won!");
                 contentPane.add(menuView);
                 contentPane.add(descriptionView);
                 setVisible(false);

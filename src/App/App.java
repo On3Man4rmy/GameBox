@@ -124,12 +124,8 @@ public class App extends JFrame {
             addChild(levelListView, 10, 10);
             levelListView.setActionLevelSelected(sokoban1 ->
             {
-                try {
                     addChild(new GameView((Sokoban) sokoban1.clone()), 0, 0);
                     levelListView.setVisible(false);
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
             });
             levelListView.setVisible(true);
         }

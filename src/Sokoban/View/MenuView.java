@@ -23,9 +23,10 @@ public class MenuView extends JPanel {
     /**
      * Constructor, creates the Layout for endgame Message and Next game button, as well as their colors
      */
-    public MenuView(GameView gameView ) {
+    public MenuView(GameView gameView, String stringLabel ) {
         this.gameView=gameView;
         sokoban=gameView.sokoban;
+        setText(stringLabel);
         setLayout(new GridLayout(5,1));
         setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
         add(new JPanel()).setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
