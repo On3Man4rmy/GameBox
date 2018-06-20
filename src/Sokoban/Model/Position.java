@@ -75,6 +75,13 @@ public class Position implements Serializable {
             return pos.xPos == xPos && pos.yPos == yPos;
         }
         return false;
+    }
 
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
     }
 }

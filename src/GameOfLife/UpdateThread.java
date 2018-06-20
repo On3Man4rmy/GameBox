@@ -36,6 +36,7 @@ public class UpdateThread extends Thread {
                 e.printStackTrace();
             }
         }
+        System.out.println("done");
     }
 
     /**

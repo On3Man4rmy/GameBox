@@ -23,6 +23,41 @@ public class BoardView extends JPanel implements Observer {
     private Sokoban sokoban;
     private boolean listenMouseEvents = false;
     private SquareView[][] squareViews;
+    // Move Player according mouseposition relative to playerposition
+    // E.g. if mouse is pressed above player then the player moves up
+    private MouseListener mouseListener = new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            double x = e.getX();
+            double y = e.getY();
+            double width = getWidth();
+            double height = getHeight();
+            Player player = sokoban.player;
+            int boardHeight = sokoban.getArrayHeight();
+            int boardWidth = sokoban.getArrayLength();
+            double boardTileWidth = width / boardWidth;
+            double boardTileHeight = height / boardHeight;
+            int playerX = player.position.getxPos();
+            int playerY = player.position.getyPos();
+            double tileX = playerX * boardTileWidth + boardTileWidth * 0.5;
+            double tileY = playerY * boardTileHeight + boardTileHeight * 0.5;
+
+            // Is mouseclick in top left half
+            boolean topLeftHalf = -(y - tileY) > (x - tileX);
+            boolean bottomLeftHalf = -(y - tileY) < -(x - tileX);
+
+            if(topLeftHalf && bottomLeftHalf) {
+                sokoban.moveElement(Direction.LEFT);
+            } else if(topLeftHalf) {
+                sokoban.moveElement(Direction.UP);
+            } else if(bottomLeftHalf) {
+                sokoban.moveElement(Direction.DOWN);
+            } else {
+                sokoban.moveElement(Direction.RIGHT);
+            }
+        }
+    };
+
 
 
     private int rows;
@@ -49,6 +84,7 @@ public class BoardView extends JPanel implements Observer {
      */
     public void enableMouseListener() {
         if (!listenMouseEvents) {
+            addMouseListener(mouseListener);
             listenMouseEvents = !listenMouseEvents;
         }
     }
@@ -58,6 +94,7 @@ public class BoardView extends JPanel implements Observer {
      */
     public void disableMouseListener() {
         if (listenMouseEvents) {
+            removeMouseListener(mouseListener);
             listenMouseEvents = !listenMouseEvents;
         }
     }
@@ -78,25 +115,6 @@ public class BoardView extends JPanel implements Observer {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 SquareView newSquareView = new SquareView();
-                final int x = j;
-                final int y = i;
-                MouseListener mouseListener = new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        if (listenMouseEvents) {
-                            if (Position.movePosition(Direction.LEFT, sokoban.player.position).equals(new Position(x, y))) {
-                                sokoban.moveElement(Direction.LEFT);
-                            } else if (Position.movePosition(Direction.UP, sokoban.player.position).equals(new Position(x, y))) {
-                                sokoban.moveElement(Direction.UP);
-                            } else if (Position.movePosition(Direction.DOWN, sokoban.player.position).equals(new Position(x, y))) {
-                                sokoban.moveElement(Direction.DOWN);
-                            } else if (Position.movePosition(Direction.RIGHT, sokoban.player.position).equals(new Position(x, y))) {
-                                sokoban.moveElement(Direction.RIGHT);
-                            }
-                        }
-                    }
-                };
-                newSquareView.addMouseListener(mouseListener);
                 squareViews[j][i] = newSquareView;
                 add(newSquareView);
             }

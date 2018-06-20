@@ -84,14 +84,11 @@ public class App extends JFrame {
         setLocation(0, 0);
         setTitle("GameBox");
         setVisible(true);
+        loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
         GameOfLife game = new GameOfLife(64, 32, Construction.GLIDER);  //game created with Gleiter Figure
         ViewGame viewGame = new ViewGame(this, game);
         addChild(viewGame, 50, 50);
         game.isRun = true;
-
-        setTitle("Game Of Life");
-        setVisible(true);
-
     }
 
     /**
@@ -121,9 +118,9 @@ public class App extends JFrame {
         if (selectedFile != null) {
             levelListView = new LevelListView(selectedFile);
             addChild(levelListView, 10, 10);
-            levelListView.setActionLevelSelected(sokoban1 ->
+            levelListView.setActionLevelSelected(sokoban ->
             {
-                    addChild(new GameView(sokoban1.makeBaseCopy()), 0, 0);
+                    addChild(new GameView(sokoban.makeBaseCopy()), 0, 0);
                     levelListView.setVisible(false);
             });
             levelListView.setVisible(true);

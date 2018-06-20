@@ -11,9 +11,9 @@ import java.util.Observer;
  * @Date: 27/04/18
  */
 public class GameOfLife extends Observable {
-    public boolean isRun = false;           // checks if game is supposed to be paused
-    public boolean isPaint = false;         // checks if game is in paint mode
-    public boolean isSet = false;           //checks if game is in set mode
+    public boolean isRun;           // checks if game is supposed to be paused
+    boolean isPaint = false;         // checks if game is in paint mode
+    boolean isSet = false;           //checks if game is in set mode
     private UpdateThread thread = new UpdateThread(this);
     private boolean[][] fields;        //Field of cells, true if alive, false if dead
 
@@ -25,6 +25,7 @@ public class GameOfLife extends Observable {
      */
     public GameOfLife(int x, int y) {
         fields = new boolean[x][y];
+        isRun = false;
     }
 
     /**
@@ -47,6 +48,7 @@ public class GameOfLife extends Observable {
         }
 
         thread.start();
+        isRun = false;
     }
 
     /**
@@ -56,6 +58,7 @@ public class GameOfLife extends Observable {
      */
     public GameOfLife(GameOfLife game) {
         fields = new boolean[game.getLength()][game.getHeight()];
+        isRun = false;
         isRun = game.isRun;         // checks if game is supposed to be paused
         isPaint = game.isPaint;
         isSet = game.isSet;
