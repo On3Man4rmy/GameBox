@@ -84,7 +84,6 @@ public class App extends JFrame {
         setLocation(0, 0);
         setTitle("GameBox");
         setVisible(true);
-        loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
         GameOfLife game = new GameOfLife(64, 32, Construction.GLIDER);  //game created with Gleiter Figure
         ViewGame viewGame = new ViewGame(this, game);
         addChild(viewGame, 50, 50);
