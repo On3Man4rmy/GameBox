@@ -1,6 +1,7 @@
 package SmallGames;
 
 import javax.swing.*;
+import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import java.awt.*;
@@ -47,40 +48,10 @@ public class ToggleSafe extends JInternalFrame implements ActionListener {
         /*
           Clicking on the close button (red X) closes all windows of this instance of the game
          */
-        addInternalFrameListener(new InternalFrameListener() {
-            @Override
-            public void internalFrameOpened(InternalFrameEvent e) {
-
-            }
-
+        addInternalFrameListener(new InternalFrameAdapter() {
             @Override
             public void internalFrameClosing(InternalFrameEvent e) {
                 exit();
-            }
-
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameIconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeiconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameActivated(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeactivated(InternalFrameEvent e) {
-
             }
         });
         this.windows = windows;
