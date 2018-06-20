@@ -105,13 +105,13 @@ public class Sokoban extends Observable implements Serializable {
                         break;
                     }
                     case '$': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                        gameBoard[x][y][0] = new Floor(BoardElement.EMPTY);
                         gameBoard[x][y][1] = new Crate(x, y, this);
 
                         break;
                     }
                     case '.': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                        gameBoard[x][y][0] = new Floor(BoardElement.GOAL);
                         goalCount++;
                         break;
                     }
@@ -119,7 +119,7 @@ public class Sokoban extends Observable implements Serializable {
                       Crate on Goal
                      */
                     case '*': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                        gameBoard[x][y][0] = new Floor(BoardElement.GOAL);
                         gameBoard[x][y][1] = new Crate(x, y, this);
                         goalCount++;
                         break;
@@ -129,20 +129,20 @@ public class Sokoban extends Observable implements Serializable {
                      */
                     case '+': {
 
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                        gameBoard[x][y][0] = new Floor(BoardElement.GOAL);
                         player = new Player(x, y, this);
                         gameBoard[x][y][1] = player;
                         goalCount++;
                         break;
                     }
                     case '@': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                        gameBoard[x][y][0] = new Floor(BoardElement.EMPTY);
                         player = new Player(x, y, this);
                         gameBoard[x][y][1] = player;
                         break;
                     }
                     case ' ': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                        gameBoard[x][y][0] = new Floor(BoardElement.EMPTY);
                         break;
                     }
 

@@ -15,10 +15,10 @@ public class Floor extends Square implements Serializable {
     /**
      * Constructor, sets goal to true if element is  a goal
      *
-     * @param floorElement which kind of floorElement it is supposed to be
+     * @param boardElement which kind of boardElement it is supposed to be
      */
-    public Floor(FloorElement floorElement) {
-        switch (floorElement) {
+    public Floor(BoardElement boardElement) {
+        switch (boardElement) {
             case GOAL:
                 goal = true;
                 break;
