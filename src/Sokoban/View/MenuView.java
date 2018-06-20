@@ -42,7 +42,7 @@ public class MenuView extends JPanel {
         nextButtonPanel.add(next);
         add(nextButtonPanel);
         add(new JPanel()).setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
-        next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));  //Button only visible when it'S not the last Level
+        next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));  //Button only visible when it's not the last Level
     }
 
     /**
@@ -58,19 +58,7 @@ public class MenuView extends JPanel {
      * Loads the next Level in the file
      */
     private void loadNextGame(){
-        Sokoban newSokoban = new Sokoban(sokoban.getFile(),sokoban.getLevel()+1);
-        newSokoban.addObserver(gameView);
-        sokoban.deleteObserver(gameView);
-        sokoban = newSokoban;
-        gameView.sokoban=sokoban;
-        gameView.getContentPane().removeAll();
-        gameView.boardView = new BoardView(sokoban);
-        gameView.getContentPane().add(gameView.boardView);
-        gameView.getContentPane().add(this);
-        gameView.getContentPane().add(gameView.descriptionView);
+        gameView.loadNewSokoban( new Sokoban(sokoban.getFile(),sokoban.getLevel()+1));
         next.setVisible(!(sokoban.getLevel()==sokoban.getMaxLevel()));
-        gameView.setVisible(false);
-        gameView.setVisible(true);
-
     }
 }
