@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * Views a version of the game for the selection of Levels
+ * Shows a version of the game for the selection of Levels
  *
  * @author Tobias Fetzer 198318, Simon Stratemeier 199067
  * @version 1.0
@@ -86,9 +86,9 @@ public class LevelView extends JPanel {
     }
 
     /**
-     * Sets the selected Level
+     * Action to be executed on level selection
      *
-     * @param actionLevelSelected The selected Level
+     * @param actionLevelSelected action to be executed
      */
     public void setActionLevelSelected(Supplier<Consumer<Sokoban>> actionLevelSelected) {
         this.actionLevelSelected = actionLevelSelected;
