@@ -69,7 +69,7 @@ public class Sokoban extends Observable implements Serializable {
         arrayHeight = inputFromFileArray.size();
 
         /*
-          finds the longest string, to get max lenght
+          finds the longest string, to get max length
          */
         for (String s : inputFromFileArray) {
             if (s.length() >= arrayLength) {

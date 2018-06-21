@@ -116,13 +116,13 @@ public class GameOfLife extends Observable {
      */
     public void updateField() {
 
-        boolean[][] tempFeld = new boolean[getLength()][getHeight()];
+        boolean[][] tempField = new boolean[getLength()][getHeight()];
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getLength(); x++) {
-                tempFeld[x][y] = checkSurrounding(x, y);
+                tempField[x][y] = checkSurrounding(x, y);
             }
         }
-        setFields(tempFeld);
+        setFields(tempField);
     }
 
     /**
@@ -131,7 +131,7 @@ public class GameOfLife extends Observable {
      * @return Is cell alive?(true =yes, false =no)
      */
     private boolean checkSurrounding(int initial_x, int initial_y) {
-        boolean cellsLives = false;     //return value
+        boolean cellLives = false;     //return value
         int countOfLivingCells = 0;     // number of surrounding living cells
         for (int y = initial_y - 1; y <= initial_y + 1; y++) {      //iterates through the directly surrounding cells
             for (int x = initial_x - 1; x <= initial_x + 1; x++) {
@@ -164,18 +164,18 @@ public class GameOfLife extends Observable {
           Implements game rules
          */
         if (!fields[initial_x][initial_y] && countOfLivingCells == 3) {   //exactly 3 living cells revive a dead cell
-            cellsLives = true;
+            cellLives = true;
         }
         if (countOfLivingCells < 2) {       //at less than 2 living cells the cell dies
-            cellsLives = false;
+            cellLives = false;
         }
         if (fields[initial_x][initial_y] && countOfLivingCells >= 2) {        //at 2 or 3 cells the cell survives
-            cellsLives = true;
+            cellLives = true;
         }
         if (countOfLivingCells > 3) {                       //dies at over 3 living cells
-            cellsLives = false;
+            cellLives = false;
         }
-        return cellsLives;
+        return cellLives;
     }
 
     /**

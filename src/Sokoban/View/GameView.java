@@ -226,21 +226,9 @@ public class GameView extends JInternalFrame implements Observer {
             try {
                 FileInputStream fs = new FileInputStream(selectedFile);
                 ObjectInputStream is = new ObjectInputStream(fs);
-                Sokoban newSokoban = (Sokoban) is.readObject();
-                newSokoban.addObserver(this);
-                sokoban.deleteObserver(this);
-                sokoban = newSokoban;
-                contentPane.removeAll();
-                boardView = new BoardView(sokoban);
-                contentPane.add(boardView);
-                menuView = new MenuView(this,"Game Won!");
-                contentPane.add(menuView);
-                contentPane.add(descriptionView);
-                setVisible(false);
-                setVisible(true);
+                loadNewSokoban((Sokoban) is.readObject());
                 menuView.setVisible(sokoban.isDone());
                 boardView.setVisible(!sokoban.isDone());
-
                 is.close();
             } catch (ClassNotFoundException e) {
                 System.err.println(e);
@@ -248,6 +236,25 @@ public class GameView extends JInternalFrame implements Observer {
                 System.err.println(e);
             }
         }
+    }
+
+    /**
+     * Loads a new version of Sokoban into the view, and connects it to observers
+     * @param newSokoban    the sokoban version, that is loaded into the view
+     */
+
+    public void loadNewSokoban(Sokoban newSokoban){
+        newSokoban.addObserver(this);
+        sokoban.deleteObserver(this);
+        sokoban = newSokoban;
+        contentPane.removeAll();
+        boardView = new BoardView(sokoban);
+        contentPane.add(boardView);
+        menuView = new MenuView(this,"Game Won!");
+        contentPane.add(menuView);
+        contentPane.add(descriptionView);
+        setVisible(false);      //Force Frame refresh
+        setVisible(true);
     }
 
 
