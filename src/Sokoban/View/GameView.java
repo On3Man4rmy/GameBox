@@ -253,7 +253,7 @@ public class GameView extends JInternalFrame implements Observer {
         menuView = new MenuView(this,"Game Won!");
         contentPane.add(menuView);
         contentPane.add(descriptionView);
-        setVisible(false);
+        setVisible(false);      //Force Frame refresh
         setVisible(true);
     }
 
