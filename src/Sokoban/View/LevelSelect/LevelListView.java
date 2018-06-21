@@ -19,6 +19,7 @@ import java.util.function.Supplier;
  * @Date: 07/06/18
  */
 public class LevelListView extends JInternalFrame {
+    // Action to be executed on level selection
     private Consumer<Sokoban> actionLevelSelected;
 
     /**
@@ -54,28 +55,28 @@ public class LevelListView extends JInternalFrame {
     }
 
     /**
-     * Returns the selected Level
+     * Get action to be executed on level selection
      *
-     * @return the selected level
+     * @return the action to be executed
      */
     private Supplier<Consumer<Sokoban>> getActionLevelSelected() {
         return () -> actionLevelSelected;
     }
 
     /**
-     * Sets the selected level
+     * Set action to be executed on level selection
      *
-     * @param actionLevelSelected the level to be set
+     * @param actionLevelSelected action to be executed on level selection
      */
     public void setActionLevelSelected(Consumer<Sokoban> actionLevelSelected) {
         this.actionLevelSelected = actionLevelSelected;
     }
 
     /**
-     * Creates every possible version of the game in the selected File
+     * Creates every possible level of the game in the selected File
      *
      * @param levelList The selected version of the game
-     * @return The ArrayList of Sokoban games
+     * @return A ArrayList of Sokoban games
      */
     private ArrayList<Sokoban> loadFile(File levelList) {
         ArrayList<Sokoban> sokobanList = new ArrayList<>();

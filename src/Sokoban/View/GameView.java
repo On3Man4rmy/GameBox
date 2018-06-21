@@ -32,46 +32,18 @@ public class GameView extends JInternalFrame implements Observer {
     BoardView boardView;
     private MenuView menuView;
     public DescriptionView descriptionView;
-    private Menu[] menus = {new Menu("Options")
-            .addItem("Restart", e -> {
-                sokoban.rebuildBoard();
-                sokoban.setDone(false);
-
-            })
-            .addItem("Save", e -> saveGame())
-            .addItem("Load", e -> loadGame())
-            .addItem("Show Controls", e -> {
-        if (descriptionView.isVisible()) {
-            descriptionView.setVisible(false);
-            menuView.setVisible(sokoban.isDone());
-            boardView.setVisible(!sokoban.isDone());
-        } else {
-            descriptionView.setVisible(true);
-            menuView.setVisible(false);
-            boardView.setVisible(false);
-
-        }
-
-
-    })
-
-            , new Menu("Choose Level")
-            .addItem("minicosmos", e -> {
-                app.showLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
-
-            })
-            .addItem("nabokosmos", e -> {
-                app.showLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
-
-            })
-            .addItem("yoshiomurase", e -> {
-        app.showLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
-
-    })
-
-
-    };
     private Container contentPane = getContentPane();
+    private Menu[] menus = {
+            new Menu("Options")
+                .addItem("Restart", e -> restart())
+                .addItem("Save", e -> saveGame())
+                .addItem("Load", e -> loadGame())
+                .addItem("Show Controls", e -> toggleControlVisibility()),
+            new Menu("Choose Level")
+                .addItem("minicosmos", e -> app.showLevelListView(new File("src/Sokoban/Resources/minicosmos.txt")))
+                .addItem("nabokosmos", e -> app.showLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt")))
+                .addItem("yoshiomurase", e -> app.showLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt")))
+    };
 
     /**
      * Constructor, sets menubar and End game message, prepares the window for the game
@@ -93,7 +65,7 @@ public class GameView extends JInternalFrame implements Observer {
         this.sokoban.addObserver(this);
 
         boardView = new BoardView(sokoban);
-        menuView = new MenuView(this,"Game Won!");
+        menuView = new MenuView(this, "Game Won!");
         descriptionView = new DescriptionView();
         menuView.setVisible(false);
         descriptionView.setVisible(false);
@@ -126,13 +98,13 @@ public class GameView extends JInternalFrame implements Observer {
         registerKeyAction("D", "moveRight", actionEvent ->
                 sokoban.moveElement(Direction.RIGHT));
 
-        registerKeyAction(KeyEvent.VK_UP,0, "moveUp", actionEvent ->
+        registerKeyAction(KeyEvent.VK_UP, 0, "moveUp", actionEvent ->
                 sokoban.moveElement(Direction.UP));
-        registerKeyAction(KeyEvent.VK_LEFT,0, "moveLeft", actionEvent ->
+        registerKeyAction(KeyEvent.VK_LEFT, 0, "moveLeft", actionEvent ->
                 sokoban.moveElement(Direction.LEFT));
-        registerKeyAction(KeyEvent.VK_DOWN,0, "moveDown", actionEvent ->
+        registerKeyAction(KeyEvent.VK_DOWN, 0, "moveDown", actionEvent ->
                 sokoban.moveElement(Direction.DOWN));
-        registerKeyAction(KeyEvent.VK_RIGHT,0, "moveRight", actionEvent ->
+        registerKeyAction(KeyEvent.VK_RIGHT, 0, "moveRight", actionEvent ->
                 sokoban.moveElement(Direction.RIGHT));
 
         registerKeyAction(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK, "save", actionEvent ->
@@ -143,19 +115,8 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.rebuildBoard());
         registerKeyAction(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK, "undo", actionEvent ->
                 sokoban.undo());
-        registerKeyAction(KeyEvent.VK_ESCAPE, 0, "Show Controls", actionEvent -> {
-            if (descriptionView.isVisible()) {
-                descriptionView.setVisible(false);
-                menuView.setVisible(sokoban.isDone());
-                boardView.setVisible(!sokoban.isDone());
-            } else {
-                descriptionView.setVisible(true);
-                menuView.setVisible(false);
-                boardView.setVisible(false);
-
-            }
-
-        });
+        registerKeyAction(KeyEvent.VK_ESCAPE, 0, "toggle ControlVisibility", actionEvent ->
+                toggleControlVisibility());
     }
 
     /**
@@ -240,22 +201,43 @@ public class GameView extends JInternalFrame implements Observer {
 
     /**
      * Loads a new version of Sokoban into the view, and connects it to observers
-     * @param newSokoban    the sokoban version, that is loaded into the view
+     *
+     * @param newSokoban the sokoban version, that is loaded into the view
      */
-
-    public void loadNewSokoban(Sokoban newSokoban){
+    public void loadNewSokoban(Sokoban newSokoban) {
         newSokoban.addObserver(this);
         sokoban.deleteObserver(this);
         sokoban = newSokoban;
         contentPane.removeAll();
         boardView = new BoardView(sokoban);
         contentPane.add(boardView);
-        menuView = new MenuView(this,"Game Won!");
+        menuView = new MenuView(this, "Game Won!");
         contentPane.add(menuView);
         contentPane.add(descriptionView);
         setVisible(false);      //Force Frame refresh
         setVisible(true);
     }
 
+    /**
+     * show/hide descriptionView with control description
+     */
+    private void toggleControlVisibility() {
+        if (descriptionView.isVisible()) {
+            descriptionView.setVisible(false);
+            menuView.setVisible(sokoban.isDone());
+            boardView.setVisible(!sokoban.isDone());
+        } else {
+            descriptionView.setVisible(true);
+            menuView.setVisible(false);
+            boardView.setVisible(false);
+        }
+    }
 
+    /**
+     * Restart game
+     */
+    private void restart() {
+        sokoban.rebuildBoard();
+        sokoban.setDone(false);
+    }
 }
