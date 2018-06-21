@@ -31,11 +31,11 @@ public class Player extends InteractableElement implements Serializable {
     @Override
     public boolean move(Direction direction) {
         Position movePosition = Position.movePosition(direction, this.position);
-        InteractableElement element = (InteractableElement) sokoban.gameBoard[movePosition.xPos][movePosition.yPos][1];
+        InteractableElement element = (InteractableElement) sokoban.gameBoard[movePosition.getxPos()][movePosition.getyPos()][1];
         if (element == null || element.move(direction)) {
-            sokoban.gameBoard[position.xPos][position.yPos][1] = null;
+            sokoban.gameBoard[position.getxPos()][position.getyPos()][1] = null;
             position = movePosition;
-            sokoban.gameBoard[position.xPos][position.yPos][1] = this;
+            sokoban.gameBoard[position.getxPos()][position.getyPos()][1] = this;
             return true;
 
         }

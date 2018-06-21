@@ -36,15 +36,15 @@ public class App extends JFrame {
 
                     .addItem(new Menu("Sokoban")
                             .addItem("minicosmos", e -> {
-                                loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
+                                showLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
 
                             })
                             .addItem("nabokosmos", e -> {
-                                loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
+                                showLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
 
                             })
                             .addItem("yoshiomurase", e -> {
-                                loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
+                                showLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
 
                             })
                     )
@@ -109,11 +109,11 @@ public class App extends JFrame {
     }
 
     /**
-     * Opens Level List view for Sokoban
+     * Opens LevelListView for Sokoban
      *
-     * @param selectedFile the selected version of the game (the .txt file)
+     * @param selectedFile sokoban level list (the .txt file)
      */
-    public void loadLevelListView(File selectedFile) {
+    public void showLevelListView(File selectedFile) {
         if (selectedFile != null) {
             levelListView = new LevelListView(selectedFile);
             addChild(levelListView, 10, 10);

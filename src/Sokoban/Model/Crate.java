@@ -30,10 +30,10 @@ public class Crate extends InteractableElement implements Serializable {
     @Override
     public boolean move(Direction direction) {
         Position movePosition = Position.movePosition(direction, this.position);
-        if (sokoban.gameBoard[movePosition.xPos][movePosition.yPos][1] == null) {
-            sokoban.gameBoard[position.xPos][position.yPos][1] = null;
+        if (sokoban.gameBoard[movePosition.getxPos()][movePosition.getyPos()][1] == null) {
+            sokoban.gameBoard[position.getxPos()][position.getyPos()][1] = null;
             position = movePosition;
-            sokoban.gameBoard[position.xPos][position.yPos][1] = this;
+            sokoban.gameBoard[position.getxPos()][position.getyPos()][1] = this;
             return true;
 
         }

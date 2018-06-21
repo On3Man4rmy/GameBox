@@ -10,8 +10,8 @@ import java.io.Serializable;
  * @Date: 03/05/18
  */
 public class Position implements Serializable {
-    int xPos;
-    int yPos;
+    private int xPos;
+    private int yPos;
 
     /**
      * Constructor

@@ -57,15 +57,15 @@ public class GameView extends JInternalFrame implements Observer {
 
             , new Menu("Choose Level")
             .addItem("minicosmos", e -> {
-                app.loadLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
+                app.showLevelListView(new File("src/Sokoban/Resources/minicosmos.txt"));
 
             })
             .addItem("nabokosmos", e -> {
-                app.loadLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
+                app.showLevelListView(new File("src/Sokoban/Resources/nabokosmos.txt"));
 
             })
             .addItem("yoshiomurase", e -> {
-        app.loadLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
+        app.showLevelListView(new File("src/Sokoban/Resources/yoshiomurase.txt"));
 
     })
 
