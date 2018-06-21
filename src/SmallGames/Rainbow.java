@@ -18,7 +18,6 @@ import java.util.LinkedList;
  **/
 public class Rainbow extends JInternalFrame {
     private JButton changeColor = new JButton("Create Rainbow Window");
-    private LinkedList<JInternalFrame> windows = new LinkedList<>();
 
     /**
      * Constructor
@@ -38,7 +37,6 @@ public class Rainbow extends JInternalFrame {
         changeColor.addActionListener(e -> {
             RainbowColors regen = new RainbowColors();
             new Thread(regen).start();
-            windows.add(regen);
 
         });
         add(changeColor);

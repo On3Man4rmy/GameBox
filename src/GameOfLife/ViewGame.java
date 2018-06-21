@@ -55,7 +55,7 @@ public class ViewGame extends JInternalFrame {
                         App.app.addChild(viewGame1, xpos += 20, ypos += 20);
                     })
                     .addItem("new Game", "Start new Game", e -> {
-                        StartGameWindow sgw = new StartGameWindow(App.desk);                //Creates a Stargame Window
+                        StartGameWindow sgw = new StartGameWindow(App.desk);                //Creates a Startgame Window
                     })
                     .addItem("new Copy", "Create identical independent copy of the current Game", e -> {
                         GameOfLife copyGame = new GameOfLife(game);
@@ -93,7 +93,7 @@ public class ViewGame extends JInternalFrame {
     };
 
     /**
-     * Construktor
+     * Constructor
      *
      * @param myView reference to ViewGame
      * @param game   reference to GameOfLife

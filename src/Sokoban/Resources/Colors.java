@@ -26,7 +26,7 @@ public enum Colors {
     /**
      * COnstructor, creates Colors out of r g b values
      */
-    private Colors(final int r, final int g, final int b) {
+    Colors(final int r, final int g, final int b) {
         this.r = r;
         this.g = g;
         this.b = b;

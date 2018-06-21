@@ -144,7 +144,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     /**
-     * Update methode, updates the board when GameOfLife changes
+     * Update method, updates the board when GameOfLife changes
      * @param o     the connected Observable
      * @param arg   optional objects, not used here
      */
